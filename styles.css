@@ -505,8 +505,17 @@ header h1 {
 
 .action-buttons {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
     margin-top: 25px;
+    align-items: center;
+}
+
+.navigation-bottom {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    flex-wrap: wrap;
 }
 
 .answer-section {
@@ -1216,11 +1225,25 @@ header h1 {
         flex-direction: column;
         gap: 12px;
         margin-top: 20px;
+        align-items: stretch;
     }
     
     .btn-primary, .btn-secondary {
         width: 100%;
         padding: 12px 20px;
+    }
+    
+    .navigation-bottom {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+    }
+    
+    .navigation-bottom .btn-nav {
+        flex: 1;
+        min-width: 120px;
     }
     
     .answer-section {
@@ -1486,6 +1509,22 @@ header h1 {
     
     .option-text {
         font-size: 0.95em;
+    }
+    
+    .action-buttons {
+        gap: 10px;
+        margin-top: 15px;
+    }
+    
+    .navigation-bottom {
+        margin-top: 8px;
+        gap: 8px;
+    }
+    
+    .navigation-bottom .btn-nav {
+        padding: 10px 15px;
+        font-size: 0.85em;
+        min-width: 100px;
     }
     
     .answer-section {
