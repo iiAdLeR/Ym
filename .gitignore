@@ -1,0 +1,22 @@
+# ملفات النظام
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ملفات المحرر
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ملفات مؤقتة
+*.tmp
+*.log
+*.cache
+
+# ملفات كبيرة (اختياري - إذا كانت الصور كبيرة جداً)
+# *.jpg
+# *.png
+# *.pdf
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapay Zekâ Sınav Soruları - Üniversite Hocası</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="chapters.html" class="back-btn">← Geri</a>
+                <h1>🧠 Yapay Zekâ Dersi - Sınav Soruları</h1>
+            </div>
+            <p class="subtitle">Vize/Final Seviyesi Çoktan Seçmeli Sorular</p>
+        </header>
+
+        <div class="controls">
+            <div class="question-info">
+                <span id="question-counter">Soru 1 / 30</span>
+                <button id="random-question" class="btn-secondary">Rastgele Soru</button>
+            </div>
+            <div class="navigation">
+                <button id="prev-btn" class="btn-nav">← Önceki</button>
+                <button id="next-btn" class="btn-nav">Sonraki →</button>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <div class="question-card">
+                <div class="question-header">
+                    <h2 id="question-number">Soru 1</h2>
+                    <span class="difficulty-badge" id="difficulty">Vize/Final Seviyesi</span>
+                </div>
+                <div class="question-text" id="question-text">
+                    Soru yükleniyor...
+                </div>
+                <div class="options" id="options-container">
+                    <!-- Şıklar buraya yüklenecek -->
+                </div>
+                <div class="answer-section" id="answer-section" style="display: none;">
+                    <div class="answer-header">
+                        <h3>Doğru Cevap: <span id="correct-answer-label"></span></h3>
+                    </div>
+                    <div class="explanation">
+                        <h4>📚 Açıklama:</h4>
+                        <p id="explanation-text"></p>
+                    </div>
+                    <div class="wrong-explanations" id="wrong-explanations">
+                        <!-- Yanlış şıkların açıklamaları buraya gelecek -->
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button id="show-answer" class="btn-primary">Cevabı Göster</button>
+                    <button id="reset-question" class="btn-secondary" style="display: none;">Sıfırla</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">Toplam Soru:</span>
+                <span class="stat-value" id="total-questions">30</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Doğru:</span>
+                <span class="stat-value correct" id="correct-count">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Yanlış:</span>
+                <span class="stat-value wrong" id="wrong-count">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="courses-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
