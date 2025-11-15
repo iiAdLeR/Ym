@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapay Zekâ - Bölüm 6: Genetik Algoritmalar (GA)</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Starry Background -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <div class="container learn-container">
+        <header>
+            <div class="header-top">
+                <a href="chapters.html" class="back-btn">← Bölümlere Dön</a>
+                <h1 id="chapter-title">📖 Yapay Zekâ - Bölüm 6: Genetik Algoritmalar (GA)</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">Genetik algoritmaların tanımları, kodlama türleri, seçim, çaprazlama, mutasyon, biyolojik prensipler, SGA, klasik optimizasyon yöntemlerinden farkları</p>
+        </header>
+
+        <div class="table-of-contents">
+            <h3>📑 İçindekiler</h3>
+            <ul>
+                <li><a href="#biological-principles">1. Biyolojik Prensipler</a></li>
+                <li><a href="#sga">2. SGA (Simple Genetic Algorithm)</a></li>
+                <li><a href="#ga-vs-classical">3. GA vs Klasik Optimizasyon</a></li>
+                <li><a href="#ga-steps">4. GA Algoritması Adımları</a></li>
+                <li><a href="#detailed-example">4.5. Detaylı Örnek: Fonksiyon Maksimizasyonu</a></li>
+                <li><a href="#terminology">5. GA Terminolojisi</a></li>
+                <li><a href="#encoding">6. Kodlama Türleri</a></li>
+                <li><a href="#selection">7. Seçim Yöntemleri</a></li>
+                <li><a href="#crossover">8. Çaprazlama (Crossover)</a></li>
+                <li><a href="#mutation">9. Mutasyon (Mutation)</a></li>
+                <li><a href="#quick-summary">10. Hızlı Özet (Ezber İçin)</a></li>
+            </ul>
+        </div>
+
+        <div id="learn-content">
+            <!-- 1. Biyolojik Prensipler -->
+            <section id="biological-principles" class="learn-section">
+                <h2>1. Biyolojik Prensipler</h2>
+                
+                <div class="concept-card">
+                    <h3>🧬 Genetik Algoritmaların Temeli</h3>
+                    <p>Genetik algoritmalar, canlıların evrim sürecinden esinlenerek geliştirilmiş optimizasyon yöntemleridir. Temel biyolojik prensipler:</p>
+                    
+                    <div class="formula-box">
+                        <strong>Dört Temel Prensip:</strong>
+                        <ol style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Çiftleşme (Mating):</strong> İki bireyin birleşerek yeni bireyler oluşturması</li>
+                            <li><strong>Özellik Aktarma (Inheritance):</strong> Ebeveynlerin özelliklerinin yavrulara aktarılması</li>
+                            <li><strong>Güçlü Olanın Yaşama Şansı (Natural Selection):</strong> En uygun bireylerin hayatta kalması</li>
+                            <li><strong>Önceden Bilinmeyen Değişimler (Mutation):</strong> Rastgele genetik değişimler</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Önemli:</strong> Bu dört prensip birlikte çalışarak, genetik algoritmaların karmaşık optimizasyon problemlerini çözmesini sağlar.
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. SGA -->
+            <section id="sga" class="learn-section">
+                <h2>2. SGA (Simple Genetic Algorithm)</h2>
+                
+                <div class="concept-card">
+                    <h3>📚 Tarihçe</h3>
+                    <div class="formula-box">
+                        <strong>John Holland ve Arkadaşları (1970'ler):</strong><br>
+                        • GA yöntemi ilk olarak 1970'li yıllarda ortaya çıkmıştır<br>
+                        • <strong>SGA (Simple Genetic Algorithm)</strong> olarak adlandırılmıştır<br>
+                        • Goldberg'ın 1989 yılındaki eseri ile popülerlik kazanmıştır
+                    </div>
+                    
+                    <div class="formula-box" style="margin-top: 15px;">
+                        <strong>Temel Amaç:</strong><br>
+                        Fazla sayıda sınırlama içeren ve karmaşık optimizasyon sorunlarının çözümlerini, yazılımlar yardımıyla araştırmaktır.
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. GA vs Klasik Optimizasyon -->
+            <section id="ga-vs-classical" class="learn-section">
+                <h2>3. GA vs Klasik Optimizasyon Yöntemleri</h2>
+                
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Özellik</th>
+                                <th>Klasik Optimizasyon</th>
+                                <th>Genetik Algoritma (GA)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Parametre İşleme</strong></td>
+                                <td>Parametrelerin kendileriyle uğraşır</td>
+                                <td>Parametre takımının <strong>kodlanmış haliyle</strong> uğraşır</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fonksiyon Kullanımı</strong></td>
+                                <td>Amaç fonksiyonunun <strong>türevlerini</strong> kullanır</td>
+                                <td>Amaç fonksiyonunun <strong>kendisini</strong> kullanır</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Başlangıç Noktası</strong></td>
+                                <td><strong>Tek bir noktadan</strong> aramaya başlar</td>
+                                <td><strong>Noktalar kümesinden</strong> başlar (popülasyon)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Yerel Optimum</strong></td>
+                                <td>Yerel en iyi çözümde <strong>sıkışır</strong></td>
+                                <td>Çoğunlukla yerel optimumda <strong>sıkışmaz</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Geçiş Kuralları</strong></td>
+                                <td><strong>Deterministik</strong> kurallar kullanır</td>
+                                <td><strong>Rastlantısal</strong> geçiş kuralları kullanır</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fonksiyon Gereksinimi</strong></td>
+                                <td>Türevlenebilir fonksiyonlar gerekir</td>
+                                <td>Türevlenebilir olmayan fonksiyonlar için de çalışır</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="note-box" style="margin-top: 20px;">
+                    <strong>🎯 Sonuç:</strong> GA, klasik optimizasyon yöntemlerinin zorlandığı karmaşık, çok boyutlu ve türevlenemeyen problemler için idealdir.
+                </div>
+            </section>
+
+            <!-- 4. GA Adımları -->
+            <section id="ga-steps" class="learn-section">
+                <h2>4. GA Algoritması Adımları</h2>
+                
+                <div class="concept-card">
+                    <h3>🔄 GA Akış Diyagramı</h3>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/akişdiagram.jpg" alt="GA Akış Diyagramı" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Adım Adım Süreç:</strong>
+                        <ol style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Başlangıç Popülasyonu Üret:</strong> Rastlantısal olarak başlangıç popülasyonunu oluştur</li>
+                            <li><strong>Uygunluk Değerlendirme:</strong> Popülasyon içindeki tüm kromozomların amaç fonksiyonu değerlerini hesapla</li>
+                            <li><strong>Elitizm:</strong> En iyi kromozomları doğrudan yeni nesle aktar (isteğe bağlı)</li>
+                            <li><strong>Seçim:</strong> Uygunluk değerlerine göre ebeveynleri seç</li>
+                            <li><strong>Çaprazlama (Crossover):</strong> Seçilen ebeveynlerden yeni çocuklar oluştur</li>
+                            <li><strong>Mutasyon (Mutation):</strong> Yeni çocuklarda rastgele değişiklikler yap</li>
+                            <li><strong>Yeni Popülasyon:</strong> Yeni nesli oluştur</li>
+                            <li><strong>Kötü Kromozomları Çıkar:</strong> Amaç fonksiyonu değerleri kötü olan kromozomları popülasyondan çıkar</li>
+                            <li><strong>Tekrarla:</strong> Durma kriteri sağlanana kadar 3-8 arasındaki adımları tekrarla</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Başlangıç:</strong> Süreç "Başlangıç popülasyonu" ile başlar</li>
+                            <li><strong>Ana Döngü:</strong> Uygunluk değerlendirme → Seçim → Çaprazlama → Mutasyon → Yeni Popülasyon</li>
+                            <li><strong>Elitizm Yolu:</strong> "Elitizm" oku, uygunluk değerlendirme'den doğrudan Yeni Popülasyon'a gider (seçim-çaprazlama-mutasyon sürecini atlar)</li>
+                            <li><strong>Karar Noktası:</strong> "Nesil sayısına ulaşıldı mı?" sorusu sorulur</li>
+                            <li><strong>Döngü:</strong> Eğer "Hayır (H)" ise, süreç tekrar Uygunluk değerlendirme'ye döner</li>
+                            <li><strong>Son:</strong> Eğer "Evet (E)" ise, süreç "Dur" ile sonlanır</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px; background: linear-gradient(135deg, rgba(0, 191, 255, 0.1) 0%, rgba(0, 100, 200, 0.1) 100%);">
+                        <strong>💡 Elitizm Mekanizması:</strong> Elitizm, uygunluk değerlendirme aşamasından doğrudan Yeni Popülasyon'a geçiş yapar. Bu sayede en iyi uygunluğa sahip bireyler, seçim-çaprazlama-mutasyon sürecini atlayarak doğrudan yeni nesle aktarılır. Bu, en iyi çözümlerin kaybolmasını önler.
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4.5. Detaylı Örnek -->
+            <section id="detailed-example" class="learn-section">
+                <h2>4.5. Detaylı Örnek: Fonksiyon Maksimizasyonu</h2>
+                
+                <div class="concept-card">
+                    <h3>📊 Problem Tanımı</h3>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/85f9d971-9ea6-4528-b343-573125e37c9f.jpg" alt="Fonksiyon Maksimizasyonu Örneği" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Problem:</strong> f(x) = x², x ∈ [0, 31] şeklinde verilen bir fonksiyonun maksimizasyonu<br>
+                        <strong>Amaç:</strong> Verilen aralıkta fonksiyonun maksimizasyonu
+                    </div>
+                </div>
+
+                <!-- Adım 1 -->
+                <div class="agent-type-card detailed">
+                    <h3>📝 Adım 1: İkili Kodlama (Binary Encoding)</h3>
+                    <div class="formula-box">
+                        <strong>İşlem:</strong> x'in 0 ve 1'lerden oluşan 2 tabanındaki gösterimi yapılmaktadır<br>
+                        <strong>Kodlama:</strong> 5 bit kullanılır (çünkü 0-31 arası değerler için 2⁵ = 32 yeterlidir)
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnekler:</strong><br>
+                        • 0 → <code>00000</code><br>
+                        • 31 → <code>11111</code><br>
+                        • 13 → <code>01101</code><br>
+                        • 24 → <code>11000</code>
+                    </div>
+                </div>
+
+                <!-- Adım 2 -->
+                <div class="agent-type-card detailed">
+                    <h3>📝 Adım 2: Başlangıç Popülasyonu</h3>
+                    <div class="formula-box">
+                        <strong>Popülasyon Boyutu:</strong> n = 4<br>
+                        <strong>Kromozom Uzunluğu:</strong> 5 bit<br>
+                        <strong>Oluşturma Yöntemi:</strong> Toplam 20 kere yazı tura atılarak belirlenmiştir (4 birey × 5 bit = 20 bit)
+                    </div>
+                    
+                    <div class="comparison-table" style="margin-top: 20px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Birey</th>
+                                    <th>İkili Kod</th>
+                                    <th>x (Ondalık)</th>
+                                    <th>f(x) = x²</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Birey 1</strong></td>
+                                    <td><code>01101</code></td>
+                                    <td>13</td>
+                                    <td>169</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 2</strong></td>
+                                    <td><code>11000</code></td>
+                                    <td>24</td>
+                                    <td>576</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 3</strong></td>
+                                    <td><code>01000</code></td>
+                                    <td>8</td>
+                                    <td>64</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 4</strong></td>
+                                    <td><code>10011</code></td>
+                                    <td>19</td>
+                                    <td>361</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Adım 3 -->
+                <div class="agent-type-card detailed">
+                    <h3>📝 Adım 3: Uygunluk Değerlendirme ve Rulet Tekerleği</h3>
+                    <div class="formula-box">
+                        <strong>Uygunluk Fonksiyonu:</strong> f(x) = x²<br>
+                        <strong>Toplam Uygunluk:</strong> 169 + 576 + 64 + 361 = <strong>1170</strong>
+                    </div>
+                    
+                    <div class="comparison-table" style="margin-top: 20px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Birey</th>
+                                    <th>Uygunluk (f(x))</th>
+                                    <th>Olasılık</th>
+                                    <th>Yüzde</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Birey 1</strong></td>
+                                    <td>169</td>
+                                    <td>169 / 1170 = 0.14</td>
+                                    <td><strong>%14</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 2</strong></td>
+                                    <td>576</td>
+                                    <td>576 / 1170 = 0.49</td>
+                                    <td><strong>%49</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 3</strong></td>
+                                    <td>64</td>
+                                    <td>64 / 1170 = 0.06</td>
+                                    <td><strong>%6</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 4</strong></td>
+                                    <td>361</td>
+                                    <td>361 / 1170 = 0.31</td>
+                                    <td><strong>%31</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>💡 Rulet Tekerleği Seçimi:</strong> Bu değerler, rulet tekerleğinin her çevrilişinde hangi olasılıkla hangi bireyin seçileceğini belirtir. Birey 2 en yüksek uygunluğa sahip olduğu için (%49) en yüksek seçilme şansına sahiptir.
+                    </div>
+                </div>
+
+                <!-- Adım 4 -->
+                <div class="agent-type-card detailed">
+                    <h3>📝 Adım 4: Çiftleşme Havuzu (Mating Pool) Oluşturma</h3>
+                    <div class="formula-box">
+                        <strong>İşlem:</strong> Popülasyondaki birey sayısı sabit kaldığından, rulet tekerleği 4 kere çevrilerek çiftleşme havuzu oluşturulur
+                    </div>
+                    
+                    <div class="comparison-table" style="margin-top: 20px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Birey</th>
+                                    <th>Seçilme Sayısı</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Birey 1</strong></td>
+                                    <td>1 kere</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 2</strong></td>
+                                    <td>2 kere</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 3</strong></td>
+                                    <td>0 kere</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 4</strong></td>
+                                    <td>1 kere</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="formula-box" style="margin-top: 15px;">
+                        <strong>Elde Edilen Çiftleşme Havuzu:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Aday 1:</strong> <code>01101</code> (Birey 1)</li>
+                            <li><strong>Aday 2:</strong> <code>11000</code> (Birey 2)</li>
+                            <li><strong>Aday 3:</strong> <code>11000</code> (Birey 2)</li>
+                            <li><strong>Aday 4:</strong> <code>10011</code> (Birey 4)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>💡 Not:</strong> Birey 2 en yüksek uygunluğa sahip olduğu için 2 kere seçilmiştir. Birey 3 en düşük uygunluğa sahip olduğu için hiç seçilmemiştir.
+                    </div>
+                </div>
+
+                <!-- Adım 5 -->
+                <div class="agent-type-card detailed">
+                    <h3>📝 Adım 5: Çaprazlama (Crossover)</h3>
+                    <div class="formula-box">
+                        <strong>İki Aşamalı Süreç:</strong>
+                        <ol style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>İlk Aşama:</strong> Adaylar çiftleşmek üzere rastgele olarak eşlenirler</li>
+                            <li><strong>İkinci Aşama:</strong> Her ikili grup için birer kere zar atılarak çaprazlama noktası (k) belirlenir</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="formula-box" style="margin-top: 15px;">
+                        <strong>Rastgele Eşleştirme Sonucu:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Grup 1:</strong> (Aday 1, Aday 2)</li>
+                            <li><strong>Grup 2:</strong> (Aday 3, Aday 4)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="comparison-box" style="margin-top: 20px;">
+                        <div>
+                            <h4>🔀 Çiftleşme Grubu 1: (k=4)</h4>
+                            <div class="example-box">
+                                <strong>Aday 1:</strong> <code>0110|1</code><br>
+                                <strong>Aday 2:</strong> <code>1100|0</code><br>
+                                <strong>Çaprazlama Noktası:</strong> k = 4 (4. bit'ten sonra)
+                            </div>
+                            
+                            <div class="formula-box" style="margin-top: 15px;">
+                                <strong>Oluşan Bireyler:</strong><br>
+                                <strong>Birey 1:</strong> <code>0110</code> (Aday 1'den) + <code>0</code> (Aday 2'den) = <code>01100</code><br>
+                                <strong>Birey 2:</strong> <code>1100</code> (Aday 2'den) + <code>1</code> (Aday 1'den) = <code>11001</code>
+                            </div>
+                            
+                            <div class="note-box" style="margin-top: 10px;">
+                                <strong>Kontrol:</strong><br>
+                                • Birey 1: <code>01100</code> → x = 12, x² = 144<br>
+                                • Birey 2: <code>11001</code> → x = 25, x² = 625
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4>🔀 Çiftleşme Grubu 2: (k=2)</h4>
+                            <div class="example-box">
+                                <strong>Aday 3:</strong> <code>11|000</code><br>
+                                <strong>Aday 4:</strong> <code>10|011</code><br>
+                                <strong>Çaprazlama Noktası:</strong> k = 2 (2. bit'ten sonra)
+                            </div>
+                            
+                            <div class="formula-box" style="margin-top: 15px;">
+                                <strong>Oluşan Bireyler:</strong><br>
+                                <strong>Birey 3:</strong> <code>11</code> (Aday 3'ten) + <code>011</code> (Aday 4'ten) = <code>11011</code><br>
+                                <strong>Birey 4:</strong> <code>10</code> (Aday 4'ten) + <code>000</code> (Aday 3'ten) = <code>10000</code>
+                            </div>
+                            
+                            <div class="note-box" style="margin-top: 10px;">
+                                <strong>Kontrol:</strong><br>
+                                • Birey 3: <code>11011</code> → x = 27, x² = 729<br>
+                                • Birey 4: <code>10000</code> → x = 16, x² = 256
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adım 6 -->
+                <div class="agent-type-card detailed">
+                    <h3>📝 Adım 6: Mutasyon (Mutation)</h3>
+                    <div class="formula-box">
+                        <strong>Mutasyon Oranı (pm):</strong> Genellikle düşük tutulur (örn: 0.01 veya 1/popülasyon büyüklüğü ve 1/kromozom uzunluğu)<br>
+                        <strong>İşlem:</strong> Seçilen bit(ler) tersine çevrilir (0→1 veya 1→0)
+                    </div>
+                    
+                    <div class="example-box" style="margin-top: 15px;">
+                        <strong>Örnek Mutasyon:</strong><br>
+                        <strong>Birey 3 (Çaprazlama Sonrası):</strong> <code>11011</code><br>
+                        <strong>Mutasyon Noktası:</strong> 2. bit (0→1 veya 1→0)<br>
+                        <strong>Mutasyon Sonucu Birey 3:</strong> <code>10011</code>
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>💡 Not:</strong> Mutasyon sırasında kromozomdaki gen sayısı değişmez, sabit kalır. Mutasyon oranı düşük olduğu için mutasyonun etkileri nadiren gözlemlenir.
+                    </div>
+                </div>
+
+                <!-- Yeni Popülasyon -->
+                <div class="concept-card">
+                    <h3>✅ Yeni Popülasyon (Nesil i+1)</h3>
+                    <div class="formula-box">
+                        <strong>Adım 6'nın Tamamlanmasıyla:</strong> Yeni nesil için popülasyondaki bireyler belirlenir
+                    </div>
+                    
+                    <div class="comparison-table" style="margin-top: 20px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Birey</th>
+                                    <th>İkili Kod</th>
+                                    <th>x (Ondalık)</th>
+                                    <th>f(x) = x²</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Birey 1</strong></td>
+                                    <td><code>01100</code></td>
+                                    <td>12</td>
+                                    <td>144</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 2</strong></td>
+                                    <td><code>11001</code></td>
+                                    <td>25</td>
+                                    <td>625</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 3</strong></td>
+                                    <td><code>10011</code></td>
+                                    <td>19</td>
+                                    <td>361</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birey 4</strong></td>
+                                    <td><code>10000</code></td>
+                                    <td>16</td>
+                                    <td>256</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 20px; background: linear-gradient(135deg, rgba(0, 191, 255, 0.1) 0%, rgba(0, 100, 200, 0.1) 100%);">
+                        <strong>📊 Karşılaştırma:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Başlangıç Popülasyonu Toplam Uygunluk:</strong> 169 + 576 + 64 + 361 = 1170</li>
+                            <li><strong>Yeni Popülasyon Toplam Uygunluk:</strong> 144 + 625 + 361 + 256 = 1386</li>
+                            <li><strong>İyileşme:</strong> 1386 - 1170 = 216 (artış)</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>💡 Önemli:</strong> Bu örnekte sadece bir iterasyon gerçekleştirilmiştir ve başlangıç popülasyonundan yeni nesil oluşturulmuştur, ancak tek bir iterasyon genetik algoritmanın çalışmasını tam olarak gözlemlemek için yeterli değildir. Algoritma, durma kriteri sağlanana kadar (örneğin maksimum nesil sayısına ulaşılana veya optimal çözüm bulunana kadar) bu süreci tekrarlar.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Terminoloji -->
+            <section id="terminology" class="learn-section">
+                <h2>5. GA Terminolojisi</h2>
+                
+                <div class="comparison-box">
+                    <div>
+                        <h3>🧬 Gen</h3>
+                        <div class="formula-box">
+                            <strong>Tanım:</strong> Kendi başına anlamlı bilgi taşıyan <strong>en küçük birim</strong><br>
+                            <strong>Biyolojik:</strong> Kalıtsal molekülde bulunan ve organizmanın karakterlerinin tayininde rol oynayan kalıtsal birim
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3>🧬 Kromozom</h3>
+                        <div class="formula-box">
+                            <strong>Tanım:</strong> Birden fazla genin bir araya gelerek oluşturduğu <strong>dizi</strong><br>
+                            <strong>GA'da:</strong> Alternatif aday çözümleri gösteren yapı
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-box" style="margin-top: 20px;">
+                    <div>
+                        <h3>👥 Popülasyon</h3>
+                        <div class="formula-box">
+                            <strong>Tanım:</strong> Kromozomlardan oluşan <strong>topluluk</strong><br>
+                            <strong>Özellik:</strong> Popülasyondaki birey sayısı genelde <strong>sabit</strong> tutulur<br>
+                            <strong>İlişki:</strong> Kromozom sayısı arttıkça çözüme ulaşma süresi (iterasyon sayısı) <strong>azalır</strong>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3>📊 Uygunluk (Fitness)</h3>
+                        <div class="formula-box">
+                            <strong>Tanım:</strong> Bir kromozomun <strong>amaç fonksiyonu değeri</strong><br>
+                            <strong>Kullanım:</strong> Seçim, çaprazlama ve mutasyon işlemlerinde kullanılır<br>
+                            <strong>Hedef:</strong> Uygunluk değerini <strong>maksimize</strong> etmek (veya minimize etmek)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Kodlama Türleri -->
+            <section id="encoding" class="learn-section">
+                <h2>6. Kodlama Türleri</h2>
+                
+                <div class="concept-card">
+                    <h3>🔑 Kodlamanın Önemi</h3>
+                    <div class="note-box warning">
+                        <strong>⚠️ Kritik:</strong> Kodlama GA'nın çok önemli bir kısmını oluşturmaktadır. Probleme GA uygulanmadan önce, verinin uygun şekilde kodlanması gerekmektedir. Kurulan genetik modelin hızlı ve güvenilir çalışması için bu kodlamanın doğru yapılması gerekmektedir.
+                    </div>
+                </div>
+
+                <!-- İkili Kodlama -->
+                <div class="agent-type-card detailed">
+                    <h3>1️⃣ İkili Kodlama (Binary Encoding)</h3>
+                    <div class="quick-summary-box">
+                        <strong>Hızlı Özet:</strong> En sık kullanılan yöntem. Her kromozom ikili diziye sahiptir {0, 1}. Her bit, çözümün belli karakteristiğini temsil eder veya tüm dizi bir sayıyı temsil eder.
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong><br>
+                        Kromozom: <code>10101001</code><br>
+                        • Her bit bir özelliği temsil edebilir<br>
+                        • Veya tüm dizi bir sayıyı temsil edebilir (örn: 169)
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>Kullanım Alanları:</strong> Geniş bir problem yelpazesi için kullanılır. Fonksiyon optimizasyonu, kombinatoryal problemler vb.
+                    </div>
+                </div>
+
+                <!-- Permütasyon Kodlama -->
+                <div class="agent-type-card detailed">
+                    <h3>2️⃣ Permütasyon Kodlama (Permutation Encoding)</h3>
+                    <div class="quick-summary-box">
+                        <strong>Hızlı Özet:</strong> Düzenleme problemlerinde kullanılır. Her kromozom, sayıları bir sırada temsil etmektedir.
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong><br>
+                        Kromozom A: <code>78941</code><br>
+                        Kromozom B: <code>87914</code><br>
+                        • Her sayı bir şehir, görev veya öğe olabilir<br>
+                        • Sıralama önemlidir
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>Kullanım Alanları:</strong> Gezgin satıcı problemi (TSP), çizelgeleme problemleri, düzenleme problemleri
+                    </div>
+                </div>
+
+                <!-- Değer Kodlama -->
+                <div class="agent-type-card detailed">
+                    <h3>3️⃣ Değer Kodlama (Value Encoding)</h3>
+                    <div class="quick-summary-box">
+                        <strong>Hızlı Özet:</strong> Gerçek sayılar veya kategorik değerlerin doğrudan kullanıldığı kodlama türü.
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek 1 - Gerçek Sayılar:</strong><br>
+                        Kromozom A: <code>1.2324 3.5354 4.6465 3.5556</code><br>
+                        <strong>Örnek 2 - Kategorik Değerler:</strong><br>
+                        Kromozom B: <code>Doğu, Batı, Güney, Kuzey</code>
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>Kullanım Alanları:</strong> Gerçek sayılar gibi karmaşık değerlerin kullanıldığı problemlerde, ikili kodlama zor olduğu için doğrudan değer kodlanması kullanılabilir.
+                    </div>
+                </div>
+
+                <!-- Ağaç Kodlama -->
+                <div class="agent-type-card detailed">
+                    <h3>4️⃣ Ağaç Kodlama (Tree Encoding)</h3>
+                    <div class="quick-summary-box">
+                        <strong>Hızlı Özet:</strong> Gelişen, değişen programlar veya ifadeler için kullanılır. Her kromozom, bazı nesnelerin (fonksiyonlar, komutlar) ağacıdır.
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong><br>
+                        İfade: <code>(z/3) - g</code><br>
+                        Ağaç Yapısı:<br>
+                        <pre style="background: rgba(138, 43, 226, 0.1); padding: 15px; border-radius: 10px; margin-top: 10px;">
+        -
+       / \
+      /   g
+     /
+    /
+   /
+  z
+ /
+3
+                        </pre>
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>Kullanım Alanları:</strong> Genetik programlama, ifade optimizasyonu, program geliştirme
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Seçim Yöntemleri -->
+            <section id="selection" class="learn-section">
+                <h2>7. Seçim Yöntemleri</h2>
+                
+                <!-- Rulet Çember Seçimi -->
+                <div class="agent-type-card detailed">
+                    <h3>🎰 Rulet-Çember Seçimi (Roulette Wheel Selection)</h3>
+                    <div class="quick-summary-box">
+                        <strong>Hızlı Özet:</strong> En basit seçim yöntemi. Her bir ferde ilişkin bölümün uzunluğu, onun uygunluk değeri kadar olur. Rasgele sayı üretilir ve hangi bölüm içerisine gelirse, o fert seçilir.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Uygulanışı:</strong>
+                        <ol style="margin-top: 10px; padding-left: 20px;">
+                            <li>Tüm fertler birbirine bitişik bir şekilde düz bir çizgi üzerine dizilirler</li>
+                            <li>Her bir ferde ilişkin bölümün uzunluğu, onun uygunluk değeri kadar olur</li>
+                            <li>Rasgele sayı üretilir ve rasgele sayı hangi bölüm içerisine gelirse, o bölümün ait olduğu fert seçilir</li>
+                            <li>İşlem ulaşılacak popülasyonun gerekli adedi elde edilene kadar devam eder</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Dezavantaj:</strong> En iyi kromozomun uygunluk değeri çok yüksekse, sürekli yüksek olasılıkla seçilir ve problem yaratabilir.
+                    </div>
+                </div>
+
+                <!-- Rank Seçimi -->
+                <div class="agent-type-card detailed">
+                    <h3>📊 Rank Seçimi (Rank Selection)</h3>
+                    <div class="quick-summary-box">
+                        <strong>Hızlı Özet:</strong> En iyi kromozomun uygunluk değeri çok yüksek olduğunda, Rulet-Çember seçimi problem yaratabileceği için kullanılır.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Uygulanışı:</strong>
+                        <ol style="margin-top: 10px; padding-left: 20px;">
+                            <li>Popülasyon uygunluk değerlerine göre <strong>ters sırada</strong> sıralanır</li>
+                            <li>N bireyli popülasyonda en iyi kromozom <strong>N</strong> değerini alır</li>
+                            <li>Seçim bu <strong>rank değerlerine</strong> göre yapılır</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>Avantaj:</strong> Uygunluk değerleri arasında büyük fark olsa bile, rank değerleri arasındaki fark sabit kalır.
+                    </div>
+                </div>
+
+                <!-- Kararlı Hal Seçimi -->
+                <div class="agent-type-card detailed">
+                    <h3>🔄 Kararlı Hal Seçimi (Steady-State Selection)</h3>
+                    <div class="quick-summary-box">
+                        <strong>Hızlı Özet:</strong> Kromozomların büyük kısmının bir sonraki nesilde hayatta kalmak zorunda olmasıdır. Yeni çocuklar oluşturmak için her nesilde UD yüksek birkaç kromozom seçilir. UD düşük bazı kromozomlar atılır ve yeni çocuk onun yerine yerleştirilir.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Ana Düşünce:</strong> Popülasyonun geri kalan kısmı yeni nesilde hayattadır (değişmez).
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>Kullanım:</strong> Popülasyonun büyük kısmını korumak istediğiniz durumlarda kullanılır.
+                    </div>
+                </div>
+
+                <!-- Elitizm -->
+                <div class="concept-card">
+                    <h3>👑 Elitizm (Elitism)</h3>
+                    <div class="formula-box">
+                        <strong>Tanım:</strong> En iyi kromozomların doğrudan yeni nesle aktarılması mekanizmasıdır.
+                    </div>
+                    
+                    <div class="note-box" style="background: linear-gradient(135deg, rgba(0, 191, 255, 0.1) 0%, rgba(0, 100, 200, 0.1) 100%);">
+                        <strong>💡 Önemli:</strong> Elitizm, uygunluk değerlendirme aşamasından doğrudan Yeni Popülasyon'a geçiş yapar. Seçim-çaprazlama-mutasyon sürecini atlayarak en iyi çözümlerin kaybolmasını önler.
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. Çaprazlama -->
+            <section id="crossover" class="learn-section">
+                <h2>8. Çaprazlama (Crossover)</h2>
+                
+                <div class="concept-card">
+                    <h3>🔀 Çaprazlama Nedir?</h3>
+                    <div class="formula-box">
+                        <strong>Tanım:</strong> İki kromozomun (çözümün) birbirleri arasında gen alışverişinde bulunup <strong>iki yeni kromozom</strong> oluşturmasıdır.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>🎯 Önem:</strong> Genetik algoritmadaki <strong>en önemli parametrelerden bir tanesidir</strong>. Seçim yöntemi ile yapay seçim sonucunda elde edilen yeni popülasyon dizisinden rastsal olarak iki kromozom seçilir ve karşılıklı çaprazlama işlemine tâbi tutulur.
+                    </div>
+                </div>
+
+                <!-- İkili Kodlama Çaprazlama -->
+                <div class="agent-type-card detailed">
+                    <h3>🔢 İkili Kodlama için Çaprazlama</h3>
+                    
+                    <h4>1-Noktalı Çaprazlama</h4>
+                    <div class="formula-box">
+                        <strong>Pc (Çaprazlama Olasılığı):</strong> Genellikle <strong>0.6 - 0.9</strong> aralığındadır<br>
+                        <strong>İşlem:</strong> Bir nokta seçilir, o noktadan sonraki genler değiştirilir
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/noktalıcaprazlamaikilikod.jpg" alt="1-Noktalı Çaprazlama" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Parent 1:</strong> 18 bit'lik ikili dizi, tamamı 0 (gri ve beyaz karelerle gösterilmiş)</li>
+                            <li><strong>Parent 2:</strong> 18 bit'lik ikili dizi, tamamı 1 (beyaz ve gri karelerle gösterilmiş)</li>
+                            <li><strong>Çaprazlama Noktası:</strong> Dikey çizgi, 6. ve 7. bit arasında (k=6)</li>
+                            <li><strong>Child 1:</strong> İlk 6 bit Parent 1'den (000000), kalan 12 bit Parent 2'den (111111111111)</li>
+                            <li><strong>Child 2:</strong> İlk 6 bit Parent 2'den (111111), kalan 12 bit Parent 1'den (000000000000)</li>
+                            <li><strong>Renk Kodlaması:</strong> Gri kareler = 0, Beyaz kareler = 1</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box" style="margin-top: 15px;">
+                        <strong>Örnek:</strong><br>
+                        Parent 1: <code>000000000000000000</code><br>
+                        Parent 2: <code>111111111111111111</code><br>
+                        <strong>k=6 noktasında çaprazlama:</strong><br>
+                        Child 1: <code>000000|111111111111</code><br>
+                        Child 2: <code>111111|000000000000</code>
+                    </div>
+                    
+                    <h4 style="margin-top: 20px;">N-Noktalı Çaprazlama</h4>
+                    <div class="formula-box">
+                        <strong>Fark:</strong> Birden fazla noktada gen alışverişi yapılır, bu sayede <strong>daha fazla genetik çeşitlilik</strong> sağlanır
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/n-noktalıcaprazlamaikilikod.jpg" alt="N-Noktalı Çaprazlama" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama (3-Noktalı Çaprazlama):</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Parent 1:</strong> 20 bit'lik ikili dizi, tamamı 0</li>
+                            <li><strong>Parent 2:</strong> 20 bit'lik ikili dizi, tamamı 1</li>
+                            <li><strong>Çaprazlama Noktaları:</strong> Üç dikey çizgi:
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li>1. nokta: 6. ve 7. bit arasında</li>
+                                    <li>2. nokta: 10. ve 11. bit arasında</li>
+                                    <li>3. nokta: 14. ve 15. bit arasında</li>
+                                </ul>
+                            </li>
+                            <li><strong>Segmentler:</strong> Diziler 4 segmente ayrılır:
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li>Segment 1: Bit 1-6 (uzunluk 6)</li>
+                                    <li>Segment 2: Bit 7-10 (uzunluk 4)</li>
+                                    <li>Segment 3: Bit 11-14 (uzunluk 4)</li>
+                                    <li>Segment 4: Bit 15-20 (uzunluk 6)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Child 1:</strong> Segment 1 ve 3 Parent 1'den, Segment 2 ve 4 Parent 2'den (gri karelerle vurgulanmış)</li>
+                            <li><strong>Child 2:</strong> Segment 1 ve 3 Parent 2'den, Segment 2 ve 4 Parent 1'den (gri karelerle vurgulanmış)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box" style="margin-top: 15px;">
+                        <strong>Örnek (3-Noktalı):</strong><br>
+                        Parent 1: <code>00000000000000000000</code><br>
+                        Parent 2: <code>11111111111111111111</code><br>
+                        Child 1: <code>000000|1111|0000|0111111</code><br>
+                        Child 2: <code>111111|0000|1111|1000000</code>
+                    </div>
+                    
+                    <h4 style="margin-top: 20px;">Düzenli Çaprazlama (Regular Crossover)</h4>
+                    <div class="formula-box">
+                        <strong>Özellik:</strong> Genler düzenli bir şekilde karıştırılır
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/duzenlicaprazlamaikilikod.jpg" alt="Düzenli Çaprazlama" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Parent 1:</strong> 20 bit'lik ikili dizi, tamamı 0 (gri kareler)</li>
+                            <li><strong>Parent 2:</strong> 20 bit'lik ikili dizi, tamamı 1 (beyaz kareler)</li>
+                            <li><strong>Child 1:</strong> 20 bit'lik dizi, düzenli bir desenle karıştırılmış (0 ve 1'ler düzenli bir şekilde dağıtılmış)</li>
+                            <li><strong>Child 2:</strong> 18 bit'lik dizi (daha kısa), yine düzenli bir desenle karıştırılmış</li>
+                            <li><strong>Fark:</strong> 1-Noktalı veya N-Noktalı çaprazlamadan farklı olarak, burada genler düzenli bir desenle (pattern) karıştırılır, rastgele segment değişimi değil</li>
+                            <li><strong>Renk Kodlaması:</strong> Gri kareler = 0, Beyaz kareler = 1</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box" style="margin-top: 15px;">
+                        <strong>Örnek:</strong><br>
+                        Parent 1: <code>0000000000000000</code><br>
+                        Parent 2: <code>1111111111111111</code><br>
+                        Child 1: <code>0100101100010110</code> (düzenli desen)<br>
+                        Child 2: <code>1011000111010011</code> (düzenli desen)
+                    </div>
+                </div>
+
+                <!-- Değer Kodlama Çaprazlama -->
+                <div class="agent-type-card detailed">
+                    <h3>📈 Değer Kodlama için Çaprazlama</h3>
+                    
+                    <h4>Tek Aritmetik Çaprazlama</h4>
+                    <div class="formula-box">
+                        <strong>Formül:</strong><br>
+                        <code>child1: (x₁,..., xₖ, α·yₖ + (1-α)·xₖ, ..., xₙ)</code><br>
+                        <strong>α (ağırlık faktörü):</strong> Genellikle 0.5 kullanılır<br>
+                        <strong>k:</strong> Çaprazlama noktası (gelişigüzel seçilir)
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/tekaritmetikcaprazlama(degerkod).jpg" alt="Tek Aritmetik Çaprazlama" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Parent 1 (X):</strong> 9 değerli dizi: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]</li>
+                            <li><strong>Parent 2 (Y):</strong> 9 değerli dizi: [0.3, 0.2, 0.3, 0.2, 0.3, 0.2, 0.3, 0.2, 0.3]</li>
+                            <li><strong>Çaprazlama Noktası:</strong> k = 8 (8. pozisyon)</li>
+                            <li><strong>α Değeri:</strong> α = 0.5 (basit ortalama)</li>
+                            <li><strong>Child 1:</strong> 
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li>İlk 7 gen (x₁...x₇) Parent 1'den kopyalanır: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]</li>
+                                    <li>8. gen aritmetik kombinasyon: α·y₈ + (1-α)·x₈ = 0.5·0.2 + 0.5·0.8 = 0.5 (çizgili kareyle vurgulanmış)</li>
+                                    <li>9. gen Parent 1'den: 0.9</li>
+                                </ul>
+                            </li>
+                            <li><strong>Child 2:</strong> 
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li>İlk 7 gen (y₁...y₇) Parent 2'den kopyalanır: [0.3, 0.2, 0.3, 0.2, 0.3, 0.2, 0.3]</li>
+                                    <li>8. gen aritmetik kombinasyon: α·x₈ + (1-α)·y₈ = 0.5·0.8 + 0.5·0.2 = 0.5 (çizgili kareyle vurgulanmış)</li>
+                                    <li>9. gen Parent 2'den: 0.3</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <h4 style="margin-top: 20px;">Basit Aritmetik Çaprazlama</h4>
+                    <div class="formula-box">
+                        <strong>Formül:</strong><br>
+                        <code>⟨x₁,...,xₖ, α·yₖ₊₁ + (1-α)·xₖ₊₁, ..., α·yₙ + (1-α)·xₙ⟩</code><br>
+                        <strong>Özellik:</strong> İlk k gen x'ten kopyalanır, k+1'den n'ye kadar olan genler aritmetik kombinasyonla oluşturulur
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/basitmetikcaprazlama(degerkod).jpg" alt="Basit Aritmetik Çaprazlama" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Parent 1 (X):</strong> 9 değerli dizi: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]</li>
+                            <li><strong>Parent 2 (Y):</strong> 9 değerli dizi: [0.3, 0.2, 0.3, 0.2, 0.3, 0.2, 0.3, 0.2, 0.3]</li>
+                            <li><strong>Çaprazlama Noktası:</strong> k = 6 (dikey siyah çizgi, 6. ve 7. element arasında)</li>
+                            <li><strong>α Değeri:</strong> α = 0.5</li>
+                            <li><strong>Child 1 (X'):</strong> 
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li>İlk 6 gen (x₁...x₆) Parent 1'den kopyalanır: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]</li>
+                                    <li>7-9. genler aritmetik kombinasyon (α=0.5 için ortalama):
+                                        <ul style="margin-top: 3px; padding-left: 15px;">
+                                            <li>7. gen: 0.5·0.3 + 0.5·0.7 = 0.5</li>
+                                            <li>8. gen: 0.5·0.2 + 0.5·0.8 = 0.5</li>
+                                            <li>9. gen: 0.5·0.3 + 0.5·0.9 = 0.6</li>
+                                        </ul>
+                                    </li>
+                                    <li>Sonuç: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.5, 0.5, 0.6]</li>
+                                </ul>
+                            </li>
+                            <li><strong>Child 2 (Y'):</strong> 
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li>İlk 6 gen (y₁...y₆) Parent 2'den kopyalanır: [0.3, 0.2, 0.3, 0.2, 0.3, 0.2]</li>
+                                    <li>7-9. genler aritmetik kombinasyon (α=0.5 için ortalama):
+                                        <ul style="margin-top: 3px; padding-left: 15px;">
+                                            <li>7. gen: 0.5·0.7 + 0.5·0.3 = 0.5</li>
+                                            <li>8. gen: 0.5·0.8 + 0.5·0.2 = 0.5</li>
+                                            <li>9. gen: 0.5·0.9 + 0.5·0.3 = 0.6</li>
+                                        </ul>
+                                    </li>
+                                    <li>Sonuç: [0.3, 0.2, 0.3, 0.2, 0.3, 0.2, 0.5, 0.5, 0.6]</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <h4 style="margin-top: 20px;">Bütün Aritmetik Çaprazlama</h4>
+                    <div class="formula-box">
+                        <strong>Formül:</strong><br>
+                        <code>a·x̄ + (1-a)·ȳ</code><br>
+                        <strong>Özellik:</strong> Tüm genler aritmetik olarak birleştirilir. a = 0.5 için genellikle kullanılır ve bu durumda her iki child aynı olur (basit ortalama)
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/butunaritmetikcaprazlama(degerkod).jpg" alt="Bütün Aritmetik Çaprazlama" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Parent 1 (X):</strong> 9 değerli dizi: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]</li>
+                            <li><strong>Parent 2 (Y):</strong> 9 değerli dizi: [0.3, 0.2, 0.3, 0.2, 0.3, 0.2, 0.3, 0.2, 0.3]</li>
+                            <li><strong>a Değeri:</strong> a = 0.5 (basit ortalama)</li>
+                            <li><strong>Formül:</strong> Her gen için: a·xᵢ + (1-a)·yᵢ = 0.5·xᵢ + 0.5·yᵢ</li>
+                            <li><strong>Hesaplama (Her Pozisyon İçin):</strong>
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li>1. gen: 0.5·0.1 + 0.5·0.3 = 0.2</li>
+                                    <li>2. gen: 0.5·0.2 + 0.5·0.2 = 0.2</li>
+                                    <li>3. gen: 0.5·0.3 + 0.5·0.3 = 0.3</li>
+                                    <li>4. gen: 0.5·0.4 + 0.5·0.2 = 0.3</li>
+                                    <li>5. gen: 0.5·0.5 + 0.5·0.3 = 0.4</li>
+                                    <li>6. gen: 0.5·0.6 + 0.5·0.2 = 0.4</li>
+                                    <li>7. gen: 0.5·0.7 + 0.5·0.3 = 0.5</li>
+                                    <li>8. gen: 0.5·0.8 + 0.5·0.2 = 0.5</li>
+                                    <li>9. gen: 0.5·0.9 + 0.5·0.3 = 0.6</li>
+                                </ul>
+                            </li>
+                            <li><strong>Child 1 ve Child 2:</strong> a = 0.5 olduğu için her iki child <strong>aynı</strong> olur: [0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6]</li>
+                            <li><strong>Fark:</strong> Tek Aritmetik ve Basit Aritmetik'ten farklı olarak, burada <strong>tüm genler</strong> aritmetik olarak birleştirilir, sadece bir kısmı değil</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Permütasyon Kodlama Çaprazlama -->
+                <div class="agent-type-card detailed">
+                    <h3>🔄 Permütasyon Kodlama için Çaprazlama</h3>
+                    
+                    <h4>Sıralama Çaprazlama (OX - Order Crossover)</h4>
+                    <div class="formula-box">
+                        <strong>İki Adım:</strong>
+                        <ol style="margin-top: 10px; padding-left: 20px;">
+                            <li>Çaprazlama noktası seçilir, aynısı kopyalanır</li>
+                            <li>Gerisi ikinci parent'tan sırasıyla alınır</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/sıralama.jpg" alt="Sıralama Çaprazlama (OX)" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Parent 1:</strong> [1, 2, 3, 4, 5, 6, 7, 8, 9]</li>
+                            <li><strong>Parent 2:</strong> [9, 3, 7, 8, 2, 6, 5, 1, 4]</li>
+                            <li><strong>Adım 1:</strong> Çaprazlama noktası seçilir (4-7 arası), segment [4, 5, 6, 7] Parent 1'den kopyalanır (gri arka planla vurgulanmış)</li>
+                            <li><strong>Kısmi Child:</strong> [_, _, _, 4, 5, 6, 7, _, _] (boş hücreler _ ile gösterilmiş)</li>
+                            <li><strong>Adım 2:</strong> Boş hücreler Parent 2'den doldurulur, ancak segment'teki elemanlar (4, 5, 6, 7) atlanır</li>
+                            <li><strong>Parent 2'den Filtrelenmiş Elemanlar:</strong> [9, 3, 8, 2, 1] (4, 5, 6, 7 hariç, Parent 2'deki sırayla)</li>
+                            <li><strong>Döngüsel Yerleştirme:</strong> Filtrelenmiş elemanlar döngüsel olarak boş hücrelere yerleştirilir: 3, 8, 2, 1, 9</li>
+                            <li><strong>Final Child:</strong> [3, 8, 2, 4, 5, 6, 7, 1, 9]</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box" style="margin-top: 15px;">
+                        <strong>Örnek:</strong><br>
+                        Parent 1: <code>1 2 3 | 4 5 6 | 7 8 9</code><br>
+                        Parent 2: <code>9 3 7 | 8 2 6 | 5 1 4</code><br>
+                        Child: <code>3 8 2 | 4 5 6 | 7 1 9</code>
+                    </div>
+                    
+                    <h4 style="margin-top: 20px;">Parçasal Eşleşmeli Çaprazlama (PMX)</h4>
+                    <div class="formula-box">
+                        <strong>Üç Adım:</strong>
+                        <ol style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Adım 1:</strong> Çaprazlama noktası seçilir, segment kopyalanır</li>
+                            <li><strong>Adım 2:</strong> Eşleşme (mapping) oluşturulur</li>
+                            <li><strong>Adım 3:</strong> Eşleşme kullanılarak child tamamlanır</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/parcesel.jpg" alt="Parçasal Eşleşmeli Çaprazlama (PMX)" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Parent 1:</strong> [1, 2, 3, 4, 5, 6, 7, 8, 9]</li>
+                            <li><strong>Parent 2:</strong> [9, 3, 7, 8, 2, 6, 5, 1, 4]</li>
+                            <li><strong>Segment:</strong> Pozisyon 4-7 (Parent 1: [4, 5, 6, 7], Parent 2: [8, 2, 6, 5]) - gri arka planla vurgulanmış</li>
+                            <li><strong>Adım 1:</strong> Segment [4, 5, 6, 7] Parent 1'den child'a kopyalanır: [_, _, _, 4, 5, 6, 7, _, _]</li>
+                            <li><strong>Adım 2 - Eşleşme (Mapping):</strong>
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li>4 ↔ 8 (Parent 1'deki 4, Parent 2'deki 8 ile eşleşir)</li>
+                                    <li>5 ↔ 2 (Parent 1'deki 5, Parent 2'deki 2 ile eşleşir)</li>
+                                    <li>6 ↔ 6 (aynı, eşleşme yok)</li>
+                                    <li>7 ↔ 5 (Parent 1'deki 7, Parent 2'deki 5 ile eşleşir)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Adım 2 - Çakışma Çözümü (Kırmızı Oklar):</strong>
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li>8 (P2[4]) → 1 (P1[8]) pozisyonuna yerleştirilir</li>
+                                    <li>2 (P2[5]) → 3 (P1[3]) pozisyonuna yerleştirilir</li>
+                                    <li>5 (P2[7]) → 9 (P1[9]) pozisyonuna yerleştirilir</li>
+                                </ul>
+                            </li>
+                            <li><strong>Ara Child (Adım 2 Sonu):</strong> [_, _, 2, 4, 5, 6, 7, 8, _]</li>
+                            <li><strong>Adım 3:</strong> Kalan boş hücreler Parent 2'den alınır, eşleşme kurallarına göre çakışmalar çözülür</li>
+                            <li><strong>Final Child:</strong> [9, 3, 2, 4, 5, 6, 7, 1, 8]</li>
+                        </ul>
+                    </div>
+                    
+                    <h4 style="margin-top: 20px;">Çevrim Çaprazlama (CX - Cycle Crossover)</h4>
+                    <div class="formula-box">
+                        <strong>İki Adım:</strong>
+                        <ol style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Adım 1:</strong> Çevrimleri bul (cycles)</li>
+                            <li><strong>Adım 2:</strong> Değişimli çevrimleri çocuğa kopyala (alternating cycles)</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/cevrimcx.jpg" alt="Çevrim Çaprazlama (CX)" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Parent 1:</strong> [1, 2, 3, 4, 5, 6, 7, 8, 9]</li>
+                            <li><strong>Parent 2:</strong> [9, 3, 7, 8, 2, 6, 5, 1, 4]</li>
+                            <li><strong>Adım 1 - Çevrimleri Bul:</strong>
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li><strong>Çevrim 1:</strong> (1 → 9 → 4 → 8 → 1)
+                                        <ul style="margin-top: 3px; padding-left: 15px;">
+                                            <li>P1[1]=1 → P2[1]=9</li>
+                                            <li>P1[9]=9 → P2[9]=4</li>
+                                            <li>P1[4]=4 → P2[4]=8</li>
+                                            <li>P1[8]=8 → P2[8]=1 (döngü tamamlandı)</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Çevrim 2:</strong> (2 → 3 → 7 → 5 → 2)
+                                        <ul style="margin-top: 3px; padding-left: 15px;">
+                                            <li>P1[2]=2 → P2[2]=3</li>
+                                            <li>P1[3]=3 → P2[3]=7</li>
+                                            <li>P1[7]=7 → P2[7]=5</li>
+                                            <li>P1[5]=5 → P2[5]=2 (döngü tamamlandı)</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Çevrim 3:</strong> (6 → 6) - Self-loop (kırmızı kenarlıklı)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Adım 2 - Değişimli Çevrimleri Kopyala:</strong>
+                                <ul style="margin-top: 5px; padding-left: 15px;">
+                                    <li><strong>Çevrim 1 (pozisyonlar 1, 9, 4, 8):</strong> Parent 2'den alınır → [9, _, _, 8, _, 6, _, 1, 4]</li>
+                                    <li><strong>Çevrim 2 (pozisyonlar 2, 3, 7, 5):</strong> Parent 1'den alınır → [9, 2, 3, 8, 5, 6, 7, 1, 4]</li>
+                                    <li><strong>Çevrim 3 (pozisyon 6):</strong> Parent 2'den alınır (zaten 6)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Final Child:</strong> [9, 2, 3, 8, 5, 6, 7, 1, 4]</li>
+                            <li><strong>Önemli:</strong> Çevrimler değişimli (alternating) olarak Parent 1 ve Parent 2'den alınır, bu sayede her pozisyon için hangi parent'tan alınacağı belirlenir</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Mutasyon -->
+            <section id="mutation" class="learn-section">
+                <h2>9. Mutasyon (Mutation)</h2>
+                
+                <div class="concept-card">
+                    <h3>🧬 Mutasyon Nedir?</h3>
+                    <div class="formula-box">
+                        <strong>Temel Amaç:</strong> Mevcut kromozomların bir veya daha fazla genini değiştirerek yeni kromozomlar elde etmektir.
+                    </div>
+                    
+                    <div class="formula-box" style="margin-top: 15px;">
+                        <strong>Özellikler:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Mutasyon Oranı (pm):</strong> Genellikle <strong>düşük</strong> tutulur (örneğin 0.01)</li>
+                            <li><strong>Gen Sayısı:</strong> Mutasyon sırasında kromozomdaki gen sayısı <strong>değişmez</strong>, sabit kalır</li>
+                            <li><strong>Etki:</strong> Düşük olasılık nedeniyle mutasyonun etkileri <strong>nadiren</strong> gözlemlenir</li>
+                            <li><strong>Rol:</strong> Popülasyondaki çeşitliliğin azalmasını önlemek için kullanılır</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- İkili Kod Mutasyon -->
+                <div class="agent-type-card detailed">
+                    <h3>🔢 İkili Kodda Mutasyon</h3>
+                    <div class="formula-box">
+                        <strong>İşlem:</strong> Seçilen bit(ler) <strong>tersine çevrilir</strong> (0→1 veya 1→0)
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong><br>
+                        Parent: <code>11111111111111111111</code><br>
+                        Child: <code>01001011000101100011</code><br>
+                        (Bazı bitler tersine çevrilmiş)
+                    </div>
+                </div>
+
+                <!-- Değer Kod Mutasyon -->
+                <div class="agent-type-card detailed">
+                    <h3>📈 Değer Kodda Mutasyon</h3>
+                    <div class="formula-box">
+                        <strong>Kısıt:</strong> x_i ve x'_i değerleri <strong>[LB_i, UB_i]</strong> aralığı içinde olmalıdır<br>
+                        <strong>LB_i:</strong> Alt sınır (Lower Bound)<br>
+                        <strong>UB_i:</strong> Üst sınır (Upper Bound)
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>Önemli:</strong> Mutasyon sonrası değerler, tanımlı aralık dışına çıkmamalıdır.
+                    </div>
+                </div>
+
+                <!-- Permütasyon Mutasyon -->
+                <div class="agent-type-card detailed">
+                    <h3>🔄 Permütasyon Kodda Mutasyon</h3>
+                    <div class="formula-box">
+                        <strong>İşlem:</strong> Genlerin <strong>yerleri değiştirilir</strong>
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/assets/permutasyon.jpg" alt="Permütasyon Kodda Mutasyon" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong>📋 Görsel Açıklama - Dört Mutasyon Türü:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Başlangıç Dizisi:</strong> [1, 2, 3, 4, 5, 6, 7, 8, 9] (Segment [2, 3, 4, 5] açık gri arka planla vurgulanmış)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="comparison-box" style="margin-top: 20px;">
+                        <div>
+                            <h4>1️⃣ Ekleme Mutasyon (Insertion Mutation)</h4>
+                            <div class="formula-box">
+                                <strong>İşlem:</strong> Bir eleman seçilir ve başka bir pozisyona <strong>eklenir</strong> (insert edilir)
+                            </div>
+                            <div class="example-box" style="margin-top: 10px;">
+                                <strong>Örnek:</strong><br>
+                                Başlangıç: <code>1 2 3 4 5 6 7 8 9</code><br>
+                                Mutasyon: <code>1 2 5 3 4 6 7 8 9</code><br>
+                                <strong>Açıklama:</strong> Eleman 5, pozisyon 4'ten alınır ve pozisyon 2 ile 3 arasına eklenir. Elemanlar 3 ve 4 bir pozisyon sağa kayar.
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4>2️⃣ Yer Değiştirme Mutasyon (Swap/Transposition Mutation)</h4>
+                            <div class="formula-box">
+                                <strong>İşlem:</strong> İki elemanın <strong>yerleri değiştirilir</strong> (swap edilir)
+                            </div>
+                            <div class="example-box" style="margin-top: 10px;">
+                                <strong>Örnek:</strong><br>
+                                Başlangıç: <code>1 2 3 4 5 6 7 8 9</code><br>
+                                Mutasyon: <code>1 5 3 4 2 6 7 8 9</code><br>
+                                <strong>Açıklama:</strong> Eleman 2 (pozisyon 2) ve eleman 5 (pozisyon 5) yer değiştirir.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-box" style="margin-top: 20px;">
+                        <div>
+                            <h4>3️⃣ Ters Mutasyon (Inversion Mutation)</h4>
+                            <div class="formula-box">
+                                <strong>İşlem:</strong> Bir segment <strong>tersine çevrilir</strong> (reverse edilir)
+                            </div>
+                            <div class="example-box" style="margin-top: 10px;">
+                                <strong>Örnek:</strong><br>
+                                Başlangıç: <code>1 2 3 4 5 6 7 8 9</code><br>
+                                Mutasyon: <code>1 5 4 3 2 6 7 8 9</code><br>
+                                <strong>Açıklama:</strong> Segment [2, 3, 4, 5] tersine çevrilir → [5, 4, 3, 2]
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4>4️⃣ Karışık Mutasyon (Scramble Mutation)</h4>
+                            <div class="formula-box">
+                                <strong>İşlem:</strong> Bir segment <strong>karıştırılır</strong> (scramble edilir)
+                            </div>
+                            <div class="example-box" style="margin-top: 10px;">
+                                <strong>Örnek:</strong><br>
+                                Başlangıç: <code>1 2 3 4 5 6 7 8 9</code><br>
+                                Mutasyon: <code>1 3 5 4 2 6 7 8 9</code><br>
+                                <strong>Açıklama:</strong> Segment [2, 3, 4, 5] rastgele karıştırılır → [3, 5, 4, 2]
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 20px; background: linear-gradient(135deg, rgba(0, 191, 255, 0.1) 0%, rgba(0, 100, 200, 0.1) 100%);">
+                        <strong>💡 Önemli Notlar:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Tüm mutasyon türlerinde, <strong>segment [2, 3, 4, 5]</strong> etkilenir (açık gri arka planla vurgulanmış)</li>
+                            <li>Mutasyon sonrası, değişen elemanlar yine <strong>açık gri arka planla</strong> vurgulanmıştır</li>
+                            <li>Her mutasyon türü, farklı bir <strong>çeşitlilik</strong> sağlar ve farklı problem türleri için uygun olabilir</li>
+                            <li>Mutasyon oranı (pm) genellikle <strong>düşük</strong> tutulur (örn: 0.01) çünkü çok sık mutasyon çözümü bozabilir</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. Hızlı Özet -->
+            <section id="quick-summary" class="learn-section">
+                <h2>10. Hızlı Özet (Ezber İçin)</h2>
+                
+                <div class="concept-card">
+                    <h3>📝 GA Temel Bilgiler</h3>
+                    <div class="formulas-grid">
+                        <div class="formula-card">
+                            <h3>Biyolojik Prensipler</h3>
+                            <ul style="text-align: left; padding-left: 20px;">
+                                <li>Çiftleşme</li>
+                                <li>Özellik Aktarma</li>
+                                <li>Güçlü Olanın Yaşama Şansı</li>
+                                <li>Mutasyon</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="formula-card">
+                            <h3>Kodlama Türleri</h3>
+                            <ul style="text-align: left; padding-left: 20px;">
+                                <li>İkili (En sık kullanılan)</li>
+                                <li>Permütasyon (TSP, çizelgeleme)</li>
+                                <li>Değer (Gerçek sayılar)</li>
+                                <li>Ağaç (Program/ifade)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="formula-card">
+                            <h3>Seçim Yöntemleri</h3>
+                            <ul style="text-align: left; padding-left: 20px;">
+                                <li>Rulet-Çember (En basit)</li>
+                                <li>Rank (Yüksek uygunluk durumunda)</li>
+                                <li>Kararlı Hal (Büyük kısmı korur)</li>
+                                <li>Elitizm (En iyileri korur)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="formula-card">
+                            <h3>Çaprazlama Olasılığı</h3>
+                            <span class="formula">Pc = 0.6 - 0.9</span>
+                            <p>(İkili kod için)</p>
+                        </div>
+                        
+                        <div class="formula-card">
+                            <h3>Mutasyon Olasılığı</h3>
+                            <span class="formula">Pm = 0.01</span>
+                            <p>(Genellikle düşük)</p>
+                        </div>
+                        
+                        <div class="formula-card">
+                            <h3>Popülasyon</h3>
+                            <ul style="text-align: left; padding-left: 20px;">
+                                <li>Birey sayısı genelde sabit</li>
+                                <li>Sayı arttıkça iterasyon azalır</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="concept-card" style="margin-top: 30px;">
+                    <h3>🔄 GA Adımları (Özet)</h3>
+                    <div class="formula-box">
+                        <ol style="margin-top: 10px; padding-left: 20px;">
+                            <li>Başlangıç popülasyonu üret</li>
+                            <li>Uygunluk değerlendirme</li>
+                            <li>Elitizm (isteğe bağlı)</li>
+                            <li>Seçim</li>
+                            <li>Çaprazlama</li>
+                            <li>Mutasyon</li>
+                            <li>Yeni popülasyon</li>
+                            <li>Kötü kromozomları çıkar</li>
+                            <li>Tekrarla</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="next-step">
+            <h3>Hazır mısın?</h3>
+            <p>Öğrendiklerini pekiştirmek için şimdi soruları çözebilirsin!</p>
+            <button class="btn-primary" onclick="startQuizFromLearn()">Sınavı Başlat →</button>
+        </div>
+    </div>
+
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="courses-data.js"></script>
+    <script>
+        // Learn Page JavaScript for Chapter 6
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChapterInfo();
+            setupSmoothScroll();
+        });
+
+        function loadChapterInfo() {
+            const courseId = localStorage.getItem('currentCourse');
+            const chapterId = localStorage.getItem('currentChapter');
+            
+            if (!courseId || !chapterId) {
+                localStorage.setItem('currentCourse', 'yapay-zeka');
+                localStorage.setItem('currentChapter', 'chapter-6');
+                updateChapterInfo('yapay-zeka', 'chapter-6');
+                return;
+            }
+            
+            updateChapterInfo(courseId, chapterId);
+        }
+
+        function updateChapterInfo(courseId, chapterId) {
+            const course = coursesData.courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            const chapter = course.chapters.find(ch => ch.id === chapterId);
+            if (!chapter) return;
+            
+            const titleElement = document.getElementById('chapter-title');
+            const descElement = document.getElementById('chapter-description');
+            
+            if (titleElement) {
+                titleElement.textContent = `${course.icon} ${chapter.title}`;
+            }
+            
+            if (descElement) {
+                descElement.textContent = chapter.description || 'Genetik algoritmaların tanımları, kodlama türleri, seçim, çaprazlama, mutasyon';
+            }
+        }
+
+        function setupSmoothScroll() {
+            const links = document.querySelectorAll('.table-of-contents a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        function startQuizFromLearn() {
+            const courseId = localStorage.getItem('currentCourse');
+            const chapterId = localStorage.getItem('currentChapter');
+            if (courseId && chapterId) {
+                window.location.href = `quiz.html`;
+            } else {
+                alert('Ders veya bölüm bilgisi bulunamadı.');
+                window.location.href = 'Kurslar/courses.html';
+            }
+        }
+    </script>
+</body>
+</html>
+

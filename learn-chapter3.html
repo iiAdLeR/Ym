@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğren - Problem Çözme Ajanları ve Arama Stratejileri</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="chapters.html" class="back-btn">← Geri</a>
+                <h1 id="chapter-title">📖 Problem Çözme Ajanları ve Arama Stratejileri</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">Problem çözme süreci, arama stratejileri (BFS, DFS, UCS, IDS, A*), durum uzayı, arama ağacı</p>
+        </header>
+
+        <div class="learn-container">
+            <!-- İçindekiler -->
+            <div class="table-of-contents">
+                <h3>📑 İçindekiler</h3>
+                <ul>
+                    <li><a href="#overview">1. Genel Bakış</a></li>
+                    <li><a href="#problem-solving">2. Problem Çözme Süreci (4 Adım)</a></li>
+                    <li><a href="#examples">3. Örnekler (Romanya, Vacuum, 8-Puzzle)</a></li>
+                    <li><a href="#search-types">4. Arama Türleri</a></li>
+                    <li><a href="#uninformed">5. Bilinçsiz (Kör) Arama Stratejileri</a></li>
+                    <li><a href="#informed">6. Bilgili (Heuristik) Arama</a></li>
+                    <li><a href="#evaluation">7. Arama Stratejilerinin Değerlendirilmesi</a></li>
+                    <li><a href="#quick-summary">8. Hızlı Özet (Ezber İçin)</a></li>
+                </ul>
+            </div>
+
+            <!-- Genel Bakış -->
+            <section id="overview" class="learn-section">
+                <h2>1. Genel Bakış</h2>
+                
+                <div class="concept-card">
+                    <h3>🎯 Problem Çözme Nedir?</h3>
+                    <p><strong>Problem çözme</strong> = Bir hedef tanımlamak ve bu hedefe ulaşmak için uygun eylemler dizisini bulmak</p>
+                    <div class="formula-box">
+                        <strong>Problem Çözme Ajanı:</strong><br>
+                        Belirli bir başlangıç durumundan başlayarak hedef duruma ulaşmak için <strong>arama (search)</strong> yöntemleri kullanır.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📊 Problem Çözmede 4 Genel Adım</h3>
+                    <div class="formulas-grid">
+                        <div class="formula-card">
+                            <h3>1️⃣ Hedef Belirleme</h3>
+                            <div class="formula">Goal Definition</div>
+                            <p>Ajanın neyi başarmak istediğini belirlemek</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>2️⃣ Problem Belirleme</h3>
+                            <div class="formula">Problem Formulation</div>
+                            <p>State space'i belirlemek</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>3️⃣ Arama</h3>
+                            <div class="formula">Search</div>
+                            <p>Başlangıçtan hedefe eylem dizisi bulmak</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>4️⃣ Uygulama</h3>
+                            <div class="formula">Execution</div>
+                            <p>Planı çalıştırmak</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Problem Çözme Süreci -->
+            <section id="problem-solving" class="learn-section">
+                <h2>2. Problem Çözme Süreci (Detaylı)</h2>
+                
+                <!-- Adım 1: Hedef Belirleme -->
+                <div class="agent-type-card detailed">
+                    <h3>1️⃣ Hedef Belirleme (Goal Definition)</h3>
+                    
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Ajanın neyi başarmak istediğini belirlemek. Hedef, başarılı durumların tanımıdır.
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek Hedefler:</strong>
+                        <ul>
+                            <li><strong>Vacuum World:</strong> Tüm kareler temiz olsun</li>
+                            <li><strong>8-Puzzle:</strong> Karolar hedef düzenine gelsin</li>
+                            <li><strong>Navigasyon:</strong> Hedef koordinata ulaşmak</li>
+                        </ul>
+                    </div>
+
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Hedef İfade Şekilleri:</strong><br>
+                            • Mantıksal koşul<br>
+                            • Durum kümesi<br>
+                            • Ödül fonksiyonu
+                        </div>
+                        <div>
+                            <strong>Karar:</strong><br>
+                            • Tam hedef durumu mu?<br>
+                            • Yoksa "hedef koşulu" mu?<br>
+                            • Örn: "En az 10 puan kazan"
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adım 2: Problem Belirleme -->
+                <div class="agent-type-card detailed">
+                    <h3>2️⃣ Problem Belirleme (Problem Formulation)</h3>
+                    
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Problem formülasyonu → Aramanın state space'ini belirler.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>6 Temel Bileşen:</strong><br>
+                        1. <strong>Initial state</strong> (Başlangıç durumu)<br>
+                        2. <strong>States</strong> (Durumlar)<br>
+                        3. <strong>Actions</strong> (Eylemler)<br>
+                        4. <strong>Transition model</strong> → result(state, action) → new_state<br>
+                        5. <strong>Goal test</strong> (Hedef testi)<br>
+                        6. <strong>Path cost / utility</strong> (Yol maliyeti)
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>🔄 Geçiş Modeli (Transition Model)</h4>
+                        <div class="formula">result(state, action) → new_state</div>
+                        <p>Belirli bir durumda belirli bir eylem yapıldığında yeni durumun ne olacağını tanımlar.</p>
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Önemli:</strong> Temsil seçimi çok önemlidir. Bazı temsil biçimleri çok büyük uzaylara yol açabilir.
+                    </div>
+                </div>
+
+                <!-- Adım 3: Arama -->
+                <div class="agent-type-card detailed">
+                    <h3>3️⃣ Arama (Search)</h3>
+                    
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Başlangıç durumundan hedefe giden eylem dizisini bulmak.
+                    </div>
+
+                    <div class="comparison-box">
+                        <div>
+                            <h4>🌳 Ağaç Arama (Tree Search)</h4>
+                            <ul>
+                                <li>Durumlar tekrar ziyaret edilebilir</li>
+                                <li>Döngü oluşturabilir</li>
+                                <li>"Patlama" (explosion) olabilir</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>📊 Grafik Arama (Graph Search)</h4>
+                            <ul>
+                                <li>Ziyaret edilen durumlar kaydedilir</li>
+                                <li>Tekrar engellenir</li>
+                                <li>Daha verimlidir</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>🔍 Fringe (Sınır Kümesi)</h4>
+                        <p>Henüz genişletilmemiş tüm düğümlerin kümesidir.</p>
+                        <div class="formula-box">
+                            <strong>Uygulama:</strong> Öncelik kuyruğu (priority queue)
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>🌳 Arama Ağacı (Search Tree)</h4>
+                        <div class="formula-box">
+                            <strong>Öğeler:</strong><br>
+                            • <strong>Root:</strong> Başlangıç durumu<br>
+                            • <strong>Nodes:</strong> Durumları temsil eder<br>
+                            • <strong>Leaves:</strong> Genişletilemeyen veya çözüme ulaştıran durum<br>
+                            • <strong>Successor function:</strong> Yeni durumları üretir
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adım 4: Uygulama -->
+                <div class="agent-type-card detailed">
+                    <h3>4️⃣ Uygulama (Execution)</h3>
+                    
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Arama sonucu elde edilen plan çalıştırılır.
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Önemli Notlar:</strong>
+                        <ul>
+                            <li>Plan hata verirse → yeniden plan yapılır</li>
+                            <li>Gerçek zaman kısıtları olabilir</li>
+                            <li>Bazen en iyi çözüm yerine "yeterince iyi" çözüm alınır</li>
+                            <li><strong>Monitoring:</strong> Uygulama sırasında durum beklenenle karşılaştırılır</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Çözüm -->
+                <div class="concept-card">
+                    <h3>✅ Çözüm (Solution)</h3>
+                    <div class="formula-box">
+                        <strong>Bir çözüm</strong> = Başlangıçtan hedefe giden eylem dizisi<br>
+                        <strong>Optimal çözüm</strong> = En düşük maliyetli yol
+                    </div>
+                </div>
+            </section>
+
+            <!-- Örnekler -->
+            <section id="examples" class="learn-section">
+                <h2>3. Örnekler</h2>
+                
+                <!-- Romanya Problemi -->
+                <div class="example-env-card">
+                    <h4>🔵 Örnek: Romanya Problemi</h4>
+                    <div class="example-box">
+                        <strong>Senaryo:</strong> Romanya'da tatildeyim; şu anda Arad'dayım. Uçağım yarın Bükreş'ten kalkacak.
+                    </div>
+                    <div class="formula-box">
+                        <strong>Görev:</strong><br>
+                        • <strong>Hedef:</strong> Bükreş'te olmak<br>
+                        • <strong>Durumlar:</strong> Şehirler<br>
+                        • <strong>Eylemler:</strong> Şehirler arasında sürmek<br>
+                        • <strong>Çözüm:</strong> Şehirler dizisi<br>
+                        • <strong>Örnek:</strong> Arad → Sibiu → Făgăraș → Bükreş
+                    </div>
+                </div>
+
+                <!-- Vacuum World -->
+                <div class="example-env-card">
+                    <h4>🔵 Örnek: Vacuum World (Elektrikli Süpürge Dünyası)</h4>
+                    <div class="formula-box">
+                        <strong>Durumlar:</strong><br>
+                        • A/B konumları<br>
+                        • Temiz/kirli durumu<br>
+                        • <strong>Toplam durum = 8</strong>
+                    </div>
+                    <div class="formula-box">
+                        <strong>Başlangıç durumu:</strong> Herhangi bir durum olabilir
+                    </div>
+                    <div class="formula-box">
+                        <strong>Eylemler:</strong><br>
+                        • Sol<br>
+                        • Sağ<br>
+                        • Temizle
+                    </div>
+                    <div class="formula-box">
+                        <strong>Hedef testi:</strong> Tüm kareler temiz mi?<br>
+                        <strong>Yol maliyeti:</strong> Eylem sayısı
+                    </div>
+                </div>
+
+                <!-- 8-Puzzle -->
+                <div class="example-env-card">
+                    <h4>🔵 Örnek: 8-Puzzle Problemi</h4>
+                    
+                    <div class="comparison-box">
+                        <div>
+                            <h4>A) Artırımlı Formülasyon</h4>
+                            <ul>
+                                <li><strong>Durumlar:</strong> 0–8 vezir</li>
+                                <li><strong>Başlangıç:</strong> Hiç vezir yok</li>
+                                <li><strong>Eylemler:</strong> Boş kareye vezir eklemek</li>
+                                <li><strong>Hedef testi:</strong> 8 vezir var ve hiçbiri tehdit etmiyor</li>
+                                <li><strong>Yol maliyeti:</strong> Yok</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>B) Tam-Durum Formülasyonu</h4>
+                            <ul>
+                                <li><strong>Durumlar:</strong> 8 vezir herhangi yerde</li>
+                                <li><strong>Başlangıç:</strong> Her sütunda bir vezir</li>
+                                <li><strong>Eylemler:</strong> Veziri sütununda hareket ettirmek</li>
+                                <li><strong>Hedef:</strong> Tehdit yok</li>
+                                <li><strong>Yol maliyeti:</strong> Yok</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Robot Montajı -->
+                <div class="example-env-card">
+                    <h4>🔵 Örnek: Robot Montajı</h4>
+                    <div class="formula-box">
+                        <strong>Durumlar:</strong> Robot eklem açıları, parçaların gerçek değerli koordinatları<br>
+                        <strong>Başlangıç durumu:</strong> Herhangi bir kol pozisyonu<br>
+                        <strong>Eylemler:</strong> Eklemlerin sürekli hareketi<br>
+                        <strong>Hedef testi:</strong> Montaj tamamlandı mı?<br>
+                        <strong>Yol maliyeti:</strong> Süre
+                    </div>
+                </div>
+
+                <!-- Durum Grafiği -->
+                <div class="concept-card">
+                    <h3>📊 Durum Grafiği (State Graph)</h3>
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • Her durum bir düğüm<br>
+                        • Her eylem bir bağlantı<br>
+                        • <strong>SUCCESSORS(s)</strong> = s durumunun ardılları<br>
+                        • Birden fazla bağlı bileşen olabilir
+                    </div>
+                    <div class="note-box">
+                        <strong>Not:</strong> Tüm durum grafiğini oluşturmak maliyetlidir. Bu yüzden sadece gereken kısım keşfedilir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Arama Türleri -->
+            <section id="search-types" class="learn-section">
+                <h2>4. Arama Türleri</h2>
+                
+                <div class="comparison-box">
+                    <div>
+                        <h3>🔍 Kör (Uninformed) Arama</h3>
+                        <div class="formula-box">
+                            <strong>Özellik:</strong><br>
+                            Durumu sıralamak için <strong>hiçbir ek bilgi</strong> kullanmaz<br>
+                            Sadece state space bilgisi
+                        </div>
+                        <div class="example-box">
+                            <strong>Örnek:</strong> N1 ve N2 rastgele düğümlerdir → hiçbir bilgi yok.
+                        </div>
+                    </div>
+                    <div>
+                        <h3>🎯 Bilgili (Heuristik) Arama</h3>
+                        <div class="formula-box">
+                            <strong>Özellik:</strong><br>
+                            Durumu sıralamak için <strong>problem bilgisi</strong> kullanır<br>
+                            Bir durumun diğerinden "daha iyi" olup olmadığını tahmin eder
+                        </div>
+                        <div class="example-box">
+                            <strong>Örnek:</strong> Yanlış yerleştirilmiş kare sayısı → N2 daha umut verici.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bilinçsiz Arama Stratejileri -->
+            <section id="uninformed" class="learn-section">
+                <h2>5. Bilinçsiz (Kör) Arama Stratejileri</h2>
+                
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Strateji</th>
+                                <th>Yapı</th>
+                                <th>Tamlık</th>
+                                <th>Optimalite</th>
+                                <th>Zaman</th>
+                                <th>Alan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>BFS</strong></td>
+                                <td>FIFO</td>
+                                <td>✅ Evet (b sonluysa)</td>
+                                <td>✅ Evet (adım maliyetleri eşitse)</td>
+                                <td>O(b^d)</td>
+                                <td>O(b^d)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>UCS</strong></td>
+                                <td>Öncelik Kuyruğu</td>
+                                <td>✅ Evet</td>
+                                <td>✅ Evet</td>
+                                <td>O(b^d)</td>
+                                <td>O(b^d)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DFS</strong></td>
+                                <td>LIFO (Stack)</td>
+                                <td>❌ Hayır (sonsuz döngü)</td>
+                                <td>❌ Hayır</td>
+                                <td>O(b^m)</td>
+                                <td>O(bm)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DLS</strong></td>
+                                <td>LIFO + Limit</td>
+                                <td>⚠️ l < d → eksik</td>
+                                <td>⚠️ l > d → optimal değil</td>
+                                <td>O(b^l)</td>
+                                <td>O(bl)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>IDS</strong></td>
+                                <td>DLS Tekrarı</td>
+                                <td>✅ Evet</td>
+                                <td>✅ Evet</td>
+                                <td>O(b^d)</td>
+                                <td>O(bd)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bidirectional</strong></td>
+                                <td>İki Yönlü</td>
+                                <td>✅ Evet</td>
+                                <td>✅ Evet</td>
+                                <td>O(b^(d/2))</td>
+                                <td>O(b^(d/2))</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BFS -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 BFS (Breadth-First Search)</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> En sığ düğüm genişletilir. FIFO kuyruğu kullanır.
+                    </div>
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • <strong>Tamlık:</strong> Evet (b sonluysa)<br>
+                        • <strong>Optimalite:</strong> Evet (adım maliyetleri eşitse)<br>
+                        • <strong>Zaman:</strong> O(b^d) = b⁰ + b¹ + b² + … + bᵈ<br>
+                        • <strong>Alan:</strong> O(b^d) - Hafıza en büyük problemdir
+                    </div>
+                </div>
+
+                <!-- UCS -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 UCS (Uniform Cost Search)</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> En düşük yol maliyeti genişletilir. Öncelik kuyruğu kullanır.
+                    </div>
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • En iyi maliyetli çözümü bulur<br>
+                        • Her zaman optimal çözüm bulur<br>
+                        • BFS'in maliyetli versiyonudur
+                    </div>
+                    <div class="note-box">
+                        <strong>Fringe Sıralaması:</strong> En düşük yol maliyetine göre sıralanır.
+                    </div>
+                </div>
+
+                <!-- DFS -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 DFS (Depth-First Search)</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> En derin düğüm genişletilir. LIFO (Stack) kullanır.
+                    </div>
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • <strong>Tamlık:</strong> Hayır (sonsuz döngü olabilir)<br>
+                        • <strong>Optimalite:</strong> Hayır<br>
+                        • <strong>Zaman:</strong> O(b^m)<br>
+                        • <strong>Alan:</strong> O(bm) - Bellek avantajı
+                    </div>
+                </div>
+
+                <!-- DLS -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 DLS (Depth-Limited Search)</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> DFS + derinlik sınırı (limit = l)
+                    </div>
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • <strong>l < d:</strong> Çözüm eksik<br>
+                        • <strong>l > d:</strong> Optimal değil<br>
+                        • <strong>Zaman:</strong> O(b^l)<br>
+                        • <strong>Alan:</strong> O(bl)
+                    </div>
+                </div>
+
+                <!-- IDS -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 IDS (Iterative Deepening Search)</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> DLS'in 0,1,2,3… şeklinde tekrarlanması
+                    </div>
+                    <div class="formula-box">
+                        <strong>Avantajları:</strong><br>
+                        • BFS kadar tam<br>
+                        • DFS kadar az bellek<br>
+                        • <strong>Zaman:</strong> O(b^d)<br>
+                        • <strong>Alan:</strong> O(bd)
+                    </div>
+                    <div class="note-box">
+                        <strong>Not:</strong> Her seviyede tekrar arama yapılır ama bu maliyet düşüktür çünkü üst seviyeler küçüktür.
+                    </div>
+                </div>
+
+                <!-- Bidirectional -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Bidirectional Search</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Hem başlangıçtan hem hedeften arama
+                    </div>
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • Uygulaması zordur<br>
+                        • Tersine çevrilebilir eylemler gerekir<br>
+                        • <strong>Zaman:</strong> O(b^(d/2)) - Çok daha hızlı!<br>
+                        • <strong>Alan:</strong> O(b^(d/2))
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bilgili Arama -->
+            <section id="informed" class="learn-section">
+                <h2>6. Bilgili (Heuristik) Arama</h2>
+                
+                <div class="concept-card">
+                    <h3>🎯 Heuristik Nedir?</h3>
+                    <p>Bir durumun hedefe ne kadar yakın olduğunu tahmin eden fonksiyon.</p>
+                    <div class="formula-box">
+                        <strong>Örnek (8-Puzzle):</strong> Yanlış yerleştirilmiş kare sayısı
+                    </div>
+                </div>
+
+                <!-- Greedy Best-First -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Greedy Best-First Search</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Sadece heuristik değerine (h(n)) göre en umut verici düğümü genişletir.
+                    </div>
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • Sadece h(n) kullanır<br>
+                        • Optimal değildir<br>
+                        • Hızlı ama doğru olmayabilir
+                    </div>
+                </div>
+
+                <!-- A* -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 A* Search</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> En popüler bilgili arama algoritması. f(n) = g(n) + h(n) kullanır.
+                    </div>
+                    <div class="formula-box">
+                        <strong>Formül:</strong><br>
+                        <span class="formula">f(n) = g(n) + h(n)</span><br>
+                        • <strong>g(n):</strong> Başlangıçtan n'ye gerçek maliyet<br>
+                        • <strong>h(n):</strong> n'den hedefe tahmini maliyet (heuristik)<br>
+                        • <strong>f(n):</strong> Toplam tahmini maliyet
+                    </div>
+                    <div class="formula-box">
+                        <strong>Optimalite Koşulları:</strong><br>
+                        • <strong>Geçerli (Admissible):</strong> h(n) ≤ gerçek maliyet (hiç abartmaz)<br>
+                        • <strong>Tutarlı (Consistent):</strong> h(n) ≤ c(n,n') + h(n') (üçgen eşitsizliği)
+                    </div>
+                    <div class="note-box">
+                        <strong>Önemli:</strong> A* geçerli ve tutarlı heuristik ile optimal çözüm bulur.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Değerlendirme -->
+            <section id="evaluation" class="learn-section">
+                <h2>7. Arama Stratejilerinin Değerlendirilmesi</h2>
+                
+                <div class="concept-card">
+                    <h3>📊 4 Değerlendirme Kriteri</h3>
+                    <div class="formulas-grid">
+                        <div class="formula-card">
+                            <h3>1. Tamlık</h3>
+                            <div class="formula">Completeness</div>
+                            <p>Çözüm varsa bulur mu?</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>2. Optimalite</h3>
+                            <div class="formula">Optimality</div>
+                            <p>En düşük maliyetli çözümü bulur mu?</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>3. Zaman Karmaşıklığı</h3>
+                            <div class="formula">Time Complexity</div>
+                            <p>Üretilen düğüm sayısı</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>4. Alan Karmaşıklığı</h3>
+                            <div class="formula">Space Complexity</div>
+                            <p>Bellek maliyeti</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📐 Notasyon</h3>
+                    <div class="formula-box">
+                        <strong>Kullanılan Semboller:</strong><br>
+                        • <strong>b:</strong> Maksimum dallanma faktörü<br>
+                        • <strong>d:</strong> Optimal çözüm derinliği<br>
+                        • <strong>m:</strong> Maksimum derinlik (sonsuz olabilir)<br>
+                        • <strong>l:</strong> Derinlik limiti (DLS için)
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hızlı Özet -->
+            <section id="quick-summary" class="learn-section">
+                <h2>8. Hızlı Özet (Ezber İçin) 📚</h2>
+                
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.15) 0%, rgba(75, 0, 130, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>🎯 Problem Çözme 4 Adım</h3>
+                    <ol style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>Hedef Belirleme</strong> - Ajanın neyi başarmak istediği</li>
+                        <li><strong>Problem Belirleme</strong> - 6 bileşen: Initial state, States, Actions, Transition model, Goal test, Path cost</li>
+                        <li><strong>Arama</strong> - Ağaç (döngü olabilir) vs Grafik (tekrar engellenir)</li>
+                        <li><strong>Uygulama</strong> - Planı çalıştırma</li>
+                    </ol>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>🔑 Bilinçsiz Arama Stratejileri</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>BFS:</strong> FIFO, O(b^d) zaman/alan, tam ve optimal</li>
+                        <li><strong>UCS:</strong> Öncelik kuyruğu, en düşük maliyet, optimal</li>
+                        <li><strong>DFS:</strong> LIFO, O(b^m) zaman, O(bm) alan, tam değil</li>
+                        <li><strong>DLS:</strong> DFS + limit, l < d → eksik</li>
+                        <li><strong>IDS:</strong> DLS tekrarı, BFS kadar tam, DFS kadar az bellek</li>
+                        <li><strong>Bidirectional:</strong> İki yönlü, O(b^(d/2)) - çok hızlı!</li>
+                    </ul>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(0, 191, 255, 0.15) 0%, rgba(0, 100, 200, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>⚡ Bilgili Arama</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>Greedy:</strong> Sadece h(n), optimal değil</li>
+                        <li><strong>A*:</strong> f(n) = g(n) + h(n), geçerli ve tutarlı heuristik ile optimal</li>
+                    </ul>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(255, 69, 0, 0.15) 0%, rgba(255, 140, 0, 0.15) 100%); padding: 30px; border-radius: 15px;">
+                    <h3>⚠️ Önemli Notlar</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>Fringe:</strong> Henüz genişletilmemiş düğümler</li>
+                        <li><strong>Ağaç vs Grafik:</strong> Grafik daha verimli (tekrar engellenir)</li>
+                        <li><strong>BFS:</strong> Hafıza en büyük problem (O(b^d))</li>
+                        <li><strong>IDS:</strong> BFS ve DFS'in en iyi özelliklerini birleştirir</li>
+                        <li><strong>A*:</strong> Geçerli heuristik = hiç abartmaz, Tutarlı = üçgen eşitsizliği</li>
+                        <li><strong>Vacuum World:</strong> 8 durum (2 konum × 2 durum × 2 durum)</li>
+                        <li><strong>Transition Model:</strong> result(state, action) → new_state</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Sonraki Adım -->
+            <div class="next-step">
+                <h3>🎯 Hazır mısın?</h3>
+                <p>Artık problem çözme ve arama stratejilerini öğrendin! Şimdi bilgini test etmeye hazırsın.</p>
+                <a href="quiz.html" class="btn-start">Sınava Başla →</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="courses-data.js"></script>
+    <script>
+        // Learn Page JavaScript for Chapter 3
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChapterInfo();
+            setupSmoothScroll();
+        });
+
+        function loadChapterInfo() {
+            const courseId = localStorage.getItem('currentCourse');
+            const chapterId = localStorage.getItem('currentChapter');
+            
+            if (!courseId || !chapterId) {
+                localStorage.setItem('currentCourse', 'yapay-zeka');
+                localStorage.setItem('currentChapter', 'chapter-3');
+                updateChapterInfo('yapay-zeka', 'chapter-3');
+                return;
+            }
+            
+            updateChapterInfo(courseId, chapterId);
+        }
+
+        function updateChapterInfo(courseId, chapterId) {
+            const course = coursesData.courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            const chapter = course.chapters.find(ch => ch.id === chapterId);
+            if (!chapter) return;
+            
+            const titleElement = document.getElementById('chapter-title');
+            const descElement = document.getElementById('chapter-description');
+            
+            if (titleElement) {
+                titleElement.textContent = `${course.icon} ${chapter.title}`;
+            }
+            
+            if (descElement) {
+                descElement.textContent = chapter.description || 'Problem çözme süreci, arama stratejileri';
+            }
+        }
+
+        function setupSmoothScroll() {
+            const links = document.querySelectorAll('.table-of-contents a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+

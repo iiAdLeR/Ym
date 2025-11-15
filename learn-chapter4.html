@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğren - Derinlik Sınırlı Arama ve Bilgili Arama</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="chapters.html" class="back-btn">← Geri</a>
+                <h1 id="chapter-title">📖 Derinlik Sınırlı Arama ve Bilgili Arama</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">DLS, IDS, Bidirectional Search, Tree vs Graph Search, Greedy, A*</p>
+        </header>
+
+        <div class="learn-container">
+            <!-- İçindekiler -->
+            <div class="table-of-contents">
+                <h3>📑 İçindekiler</h3>
+                <ul>
+                    <li><a href="#dls">1. Depth-Limited Search (DLS)</a></li>
+                    <li><a href="#ids">2. Iterative Deepening Search (IDS)</a></li>
+                    <li><a href="#bidirectional">3. Bidirectional Search</a></li>
+                    <li><a href="#tree-vs-graph">4. Tree Search vs Graph Search</a></li>
+                    <li><a href="#best-first">5. Best-First Search</a></li>
+                    <li><a href="#greedy">6. Greedy Best-First Search</a></li>
+                    <li><a href="#a-star">7. A* Search Algorithm</a></li>
+                    <li><a href="#heuristics">8. Heuristics (Admissible & Consistent)</a></li>
+                    <li><a href="#visual-examples">9. Visual Examples</a></li>
+                    <li><a href="#quick-summary">10. Hızlı Özet</a></li>
+                </ul>
+            </div>
+
+            <!-- DLS -->
+            <section id="dls" class="learn-section">
+                <h2>1. Depth-Limited Search (DLS)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 DLS Nedir?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Derinlik öncelikli aramanın derinlik sınırı l olan hali. Sonsuz yol problemine çözüm getirir.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • Derinlik sınırı: l<br>
+                        • Derinlik l'deki düğümler haleflere sahip değildir<br>
+                        • Problem bilgisi kullanılabilir<br>
+                        • Sonsuz yol problemine çözüm getirir
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>❌ Sorunlar:</h4>
+                        <ul>
+                            <li><strong>Eğer l < d:</strong> Sonuçlar eksik olur (çözüm derinlik sınırının ötesinde)</li>
+                            <li><strong>Eğer l > d:</strong> Optimal olmaz (gereksiz derinlikte arama yapar)</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Karmaşıklıklar:</strong><br>
+                        • <strong>Zaman:</strong> O(b^l)<br>
+                        • <strong>Alan:</strong> O(b × l)
+                    </div>
+                </div>
+            </section>
+
+            <!-- IDS -->
+            <section id="ids" class="learn-section">
+                <h2>2. Iterative Deepening Search (IDS)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 IDS Nedir?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> DLS'in 0, 1, 2, 3... şeklinde tekrarlanması. BFS kadar optimal, DFS kadar az bellek kullanır.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Değerlendirme:</strong><br>
+                        • <strong>Tamlık:</strong> EVET (sonsuz yol yoksa)<br>
+                        • <strong>Zaman karmaşıklığı:</strong> O(b^d)<br>
+                        • <strong>Alan karmaşıklığı:</strong> O(bd)<br>
+                        • <strong>Optimalite:</strong> EVET, eğer adım maliyeti sabitse (örneğin cost = 1)
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Not:</strong> Algoritması, belirli durumların tekrar tekrar üretilmesi nedeniyle maliyetli görünüyor, ancak üst seviyeler küçük olduğu için bu maliyet düşüktür.
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>📊 Düğüm Üretimi</h4>
+                        <div class="formula-box">
+                            <strong>Her seviyede üretim sayısı:</strong><br>
+                            • Seviye d: 1 kez<br>
+                            • Seviye d-1: 2 kez<br>
+                            • Seviye d-2: 3 kez<br>
+                            • Seviye 2: d-1 kez<br>
+                            • Seviye 1: d kez
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>📐 IDS Toplam Düğüm Sayısı</h4>
+                        <div class="formula-box">
+                            <strong>Formül:</strong><br>
+                            <span class="formula">N(IDS) = (d)b + (d-1)b² + … + (1)bᵈ</span>
+                        </div>
+                        <div class="example-box">
+                            <strong>Örnek (b=10, d=5):</strong><br>
+                            N(IDS) = 6⋅10⁰ + 5⋅10¹ + 4⋅10² + 3⋅10³ + 2⋅10⁴ + 1⋅10⁵<br>
+                            = 6 + 50 + 400 + 3,000 + 20,000 + 100,000<br>
+                            = <strong>123,450</strong>
+                        </div>
+                    </div>
+
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Özellik</th>
+                                    <th>IDS</th>
+                                    <th>BFS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>b=10, d=5</strong></td>
+                                    <td>N = 123,450</td>
+                                    <td>N = 1,111,100</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Alan Karmaşıklığı</strong></td>
+                                    <td>O(bd)</td>
+                                    <td>O(b^d)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tamlık</strong></td>
+                                    <td>✅ Evet</td>
+                                    <td>✅ Evet</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Optimalite</strong></td>
+                                    <td>✅ Evet</td>
+                                    <td>✅ Evet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Birim Maliyet Araması:</strong> IDS birim maliyet aramasının aynı ilkelerini kullanarak yinelemeli uzunluk artırma araması olarak genişletilebilir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bidirectional Search -->
+            <section id="bidirectional" class="learn-section">
+                <h2>3. Bidirectional Search (İki Yönlü Arama)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Bidirectional Search Nedir?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Başlangıç ve hedeften iki eş zamanlı arama yapılır.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Motivasyon:</strong><br>
+                        Düğüm genişlemeden önce diğer Fringe'e ait olup olmadığını kontrol edin.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • <strong>Zaman:</strong> O(b^(d/2)) - Çok daha hızlı!<br>
+                        • <strong>Alan:</strong> O(b^(d/2))<br>
+                        • <strong>Tamlık:</strong> Evet (her iki arama da tamamlayıcı ve optimaldir eğer her ikisi de BFS ise)
+                    </div>
+
+                    <div class="note-box warning">
+                        <strong>⚠️ Dezavantaj:</strong> Alan karmaşıklığı bir dezavantajdır.
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>✅ Şartlar:</h4>
+                        <ul>
+                            <li>Her düğümün öncülü verimli hesaplanabilmelidir</li>
+                            <li>Eylemler kolayca tersine çevrilebiliyorsa uygulanabilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>🔄 Tersine Çevrilebilir Problemler</h4>
+                        <div class="example-box">
+                            <strong>Örnekler:</strong>
+                            <ul>
+                                <li><strong>8-Puzzle:</strong> "Yukarı" hareketinin tersi "Aşağı", "Sol" hareketinin tersi "Sağ"</li>
+                                <li><strong>Harita/Şehir Ağı:</strong> A → B yolu varsa ve B → A'da aynı yol mevcutsa → tersine çevrilebilir</li>
+                                <li><strong>Robot Hareketi:</strong> İleri gidebiliyorsa ve aynı yolu geri dönebiliyorsa → tersine çevrilebilir</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tree vs Graph Search -->
+            <section id="tree-vs-graph" class="learn-section">
+                <h2>4. Tree Search vs Graph Search</h2>
+                
+                <div class="comparison-box">
+                    <div>
+                        <h3>🌳 Tree Search</h3>
+                        <div class="formula-box">
+                            <strong>Özellikler:</strong><br>
+                            • Kapalı liste kullanmaz<br>
+                            • Döngü oluşturabilir<br>
+                            • Durumlar tekrar ziyaret edilebilir<br>
+                            • "Patlama" (explosion) olabilir
+                        </div>
+                        <div class="note-box">
+                            <strong>Fringe:</strong> Her zaman bizim stratejilerimizi belirler.
+                        </div>
+                    </div>
+                    <div>
+                        <h3>📊 Graph Search</h3>
+                        <div class="formula-box">
+                            <strong>Özellikler:</strong><br>
+                            • <strong>Kapalı liste</strong> kullanır<br>
+                            • Tüm genişletilmiş düğümleri saklar<br>
+                            • Tekrar genişletilmelerini önler<br>
+                            • Daha verimlidir
+                        </div>
+                        <div class="note-box">
+                            <strong>Kapalı Liste:</strong> Tüm genişletilmiş düğümleri saklar.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>⚠️ Tekrar Eden Durumlar</h3>
+                    <div class="note-box warning">
+                        <strong>Önemli:</strong> Tekrar eden durumların tespit edilmemesi, çözülebilir problemleri çözülemez hale getirebilir.
+                    </div>
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Bir labirentte kaybolduğunuzu düşünün; eğer algoritma, gittiğiniz yolları kaydetmiyorsa, sürekli olarak aynı yollara geri dönerek çıkışı bulamaz. Bu durum, gereksiz hesaplamalara yol açarak zaman kaybına neden olur.
+                    </div>
+                    <div class="note-box">
+                        <strong>Çözüm:</strong> Tekrar eden durumların önlenmesi için daha önce ziyaret edilen durumları saklamak amacıyla durum kaydı gibi yöntemler kullanılabilir. Böylece, arama algoritmalarının etkinliği artırılır ve daha hızlı sonuçlar elde edilir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📊 Graph Search: Değerlendirme</h3>
+                    <div class="formula-box">
+                        <strong>Optimalite:</strong> Graph search yeni keşfedilen yolları reddeder → alt-optimal çözüme yol açabilir. Ancak sabit adım maliyeti ile BFS veya UCS kullanıldığında geçerli olabilir.
+                    </div>
+                    <div class="formula-box">
+                        <strong>Karmaşıklık:</strong> Zaman ve alan karmaşıklığı durum uzayı boyutuna orantılıdır (O(b^d)'den küçük olabilir).
+                    </div>
+                    <div class="note-box warning">
+                        <strong>⚠️ DFS ve IDS:</strong> Kapalı liste doğrusal alan gereksinimini bozar çünkü tüm düğümler saklanır.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Best-First Search -->
+            <section id="best-first" class="learn-section">
+                <h2>5. Best-First Search (En İyi Öncelikli Arama)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Best-First Search Nedir?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Bilgili aramanın genel yaklaşımı. Bir düğüm, değerlendirme fonksiyonuna f(n) dayalı olarak genişletilmek üzere seçilir.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Değerlendirme Fonksiyonu f(n):</strong><br>
+                        • Uygunluğun tahmini<br>
+                        • Genellikle tahmini maliyet veya mesafedir<br>
+                        • En iyi görünen düğümü seç
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Uygulama:</strong> Kuyruk, azalan uygunluk sırasına göre sıralanır.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Özel Durumlar:</strong><br>
+                        • Açgözlü arama (Greedy)<br>
+                        • A* araması
+                    </div>
+                </div>
+            </section>
+
+            <!-- Greedy -->
+            <section id="greedy" class="learn-section">
+                <h2>6. Greedy Best-First Search (Açgözlü En İyi-Öncelikli Arama)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Greedy Best-First Search</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Değerlendirme fonksiyonu f(n) = h(n). Hedefe en yakın görünen düğümü genişletir.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Formül:</strong><br>
+                        <span class="formula">f(n) = h(n)</span><br>
+                        • h(n): sezgisel fonksiyon<br>
+                        • Hedefe tahmini maliyet<br>
+                        • n hedefse h(n) = 0
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek (Romanya):</strong><br>
+                        hₛₗd(n) = n'den Bükreş'e olan düz çizgi mesafesi
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Değerlendirme:</strong><br>
+                        • <strong>Tamlık:</strong> HAYIR (tekrarlanan durumları kontrol etmez)<br>
+                        • <strong>Zaman karmaşıklığı:</strong> O(b^m)<br>
+                        • <strong>Alan:</strong> O(b^m) → tüm düğümleri bellekte tutar<br>
+                        • <strong>Optimalite:</strong> HAYIR
+                    </div>
+
+                    <div class="note-box warning">
+                        <strong>⚠️ Sorun:</strong> h(n)'i minimize etmek yanlış başlangıçlara götürebilir (ör: Iasi → Fagaras)
+                    </div>
+                </div>
+            </section>
+
+            <!-- A* -->
+            <section id="a-star" class="learn-section">
+                <h2>7. A* Search Algorithm</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 A* Algoritması</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> En iyi bilinen en iyi-öncelikli arama biçimi. Fikir: pahalı olan yolları genişletmekten kaçınmak.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Formül:</strong><br>
+                        <span class="formula">f(n) = g(n) + h(n)</span><br>
+                        • <strong>g(n):</strong> Düğüme ulaşma maliyeti (başlangıçtan n'ye gerçek yol maliyeti)<br>
+                        • <strong>h(n):</strong> Hedefe gitmenin tahmini maliyeti (heuristik)<br>
+                        • <strong>f(n):</strong> Toplam tahmin maliyeti
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>✅ Optimalite Koşulları</h4>
+                        <div class="formula-box">
+                            <strong>Teorem:</strong> Eğer h(n) kabul edilebilir (admissible) bir sezgi ise, A* algoritması ağaç araması kullanarak optimaldir.
+                        </div>
+                        <div class="note-box">
+                            <strong>A* Optimality Proof:</strong> Suboptimal hedef G₂ frontier'de olsa bile, A* her zaman daha düşük f(n)'li düğümü önce genişletir. Böylece optimal yol G₁ garanti edilir.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Heuristics -->
+            <section id="heuristics" class="learn-section">
+                <h2>8. Heuristics (Kabul Edilebilir ve Tutarlı)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Kabul Edilebilir Sezgiler (Admissible Heuristics)</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Tanım:</strong> Bir sezgi h(n), her düğüm n için h(n) ≤ h*(n) koşulunu sağlıyorsa kabul edilebilir (admissible) olarak tanımlanır.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Koşul:</strong><br>
+                        <span class="formula">h(n) ≤ h*(n)</span><br>
+                        Burada h*(n), düğüm n'den hedef duruma ulaşmanın gerçek maliyetidir.
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Özellik:</strong> Kabul edilebilir bir sezgi, hedefe ulaşmanın maliyetini asla abartmaz; yani iyimserdir.
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek:</strong> hₛₗd(n), gerçek yol mesafesini asla abartmayan bir sezgidir.
+                    </div>
+                </div>
+
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Tutarlı Sezgiler (Consistent Heuristics)</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Tanım:</strong> Bir sezgisel fonksiyon h(n) tutarlı (consistent) ise, her düğüm n ve her halef n' için üçgen eşitsizliğini sağlamalıdır.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Koşul (Üçgen Eşitsizliği):</strong><br>
+                        <span class="formula">h(n) ≤ c(n, n') + h(n')</span><br>
+                        Burada c(n, n') n'den n'e giden maliyettir.
+                    </div>
+
+                    <div class="note-box">
+                        <strong>İlişki:</strong> Her tutarlı fonksiyon geçerlidir, ancak her geçerli fonksiyon tutarlı değildir. Tutarlılık, optimal çözümler bulma garantisi sağlar.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📊 Geçerlilik vs Tutarlılık</h3>
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Geçerlilik (Admissibility):</strong><br>
+                            Bir sezgisel fonksiyonun her durum için hedefe ulaşmanın gerçek maliyetini asla aşmaması durumudur.
+                        </div>
+                        <div>
+                            <strong>Tutarlılık (Consistency):</strong><br>
+                            Üçgen eşitsizliğini sağlar: h(n) ≤ c(n, n') + h(n')
+                        </div>
+                    </div>
+                    <div class="note-box">
+                        <strong>Önemli:</strong> Her tutarlı fonksiyon geçerlidir, ancak her geçerli fonksiyon tutarlı değildir.
+                    </div>
+                </div>
+
+                <!-- 8-Puzzle Heuristics -->
+                <div class="concept-card">
+                    <h3>🧩 8-Puzzle Heuristics</h3>
+                    
+                    <div class="comparison-box">
+                        <div>
+                            <h4>1. Misplaced Tiles (Yerinde Olmayan Taş Sayısı)</h4>
+                            <div class="formula-box">
+                                <strong>h₁(n) = yanlış yerleştirilmiş taş sayısı</strong><br>
+                                Mevcut durumdaki taşların hedef durumdaki konumları ile eşleşmeyen sayısını sayar.
+                            </div>
+                        </div>
+                        <div>
+                            <h4>2. Manhattan Distance</h4>
+                            <div class="formula-box">
+                                <strong>h₂(n) = Manhattan mesafesi</strong><br>
+                                Her taşın mevcut konumundan hedef konumuna ulaşmak için gereken en kısa yolun toplam uzunluğu. Her taş için, yatay ve dikey olarak hedef konumuna olan mesafe hesaplanır.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Özellik</th>
+                                    <th>Misplaced Tiles</th>
+                                    <th>Manhattan Distance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>A* ile kullanılabilir</strong></td>
+                                    <td>✅ Evet</td>
+                                    <td>✅ Evet</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Bilgilendiricilik</strong></td>
+                                    <td>Daha az</td>
+                                    <td>Daha fazla</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Çözüm kalitesi</strong></td>
+                                    <td>İyi</td>
+                                    <td>Daha iyi</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual Examples -->
+            <section id="visual-examples" class="learn-section">
+                <h2>9. Visual Examples (Görsel Örnekler)</h2>
+                
+                <!-- Consistent Heuristic Example -->
+                <div class="concept-card">
+                    <h3>📊 Consistent Heuristic: Example</h3>
+                    <p>Aşağıdaki grafik, tutarlı heuristik kontrolünü gösterir:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] -->|c=1| B["h=100<br/>(Brown)"]
+                            Start -->|c=2| C["h=1<br/>(Yellow)"]
+                            B -->|c=1| D["h=90<br/>(Light Blue)"]
+                            C -->|c=2| D
+                            D -->|c=100| Goal["Goal<br/>h=0<br/>(Dark Green)"]
+                            
+                            style Start fill:#ff0000,stroke:#000,stroke-width:2px
+                            style B fill:#8b4513,stroke:#000,stroke-width:2px
+                            style C fill:#ffff00,stroke:#000,stroke-width:2px
+                            style D fill:#87ceeb,stroke:#000,stroke-width:2px
+                            style Goal fill:#006400,stroke:#000,stroke-width:2px
+                        </div>
+                        
+                        <div class="speech-bubble">
+                            <strong>Consistency Check:</strong><br>
+                            <p><strong>100 <= 1+90?</strong></p>
+                            <p><strong style="color: #ff4500;">No, h is not consistent.</strong></p>
+                            <p>Imagine h = 80,</p>
+                            <p><strong>80 <= 1+90?</strong></p>
+                            <p><strong style="color: #006400;">Yes, what happened?</strong></p>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>Açıklama:</strong> Brown node için h=100, ancak c=1 ile Light Blue node'a (h=90) gidiyor. 100 <= 1+90? Hayır! Bu yüzden tutarlı değil. Eğer h=80 olsaydı, 80 <= 91 olurdu ve tutarlı olurdu.
+                    </div>
+                </div>
+
+                <!-- A* f-values Example -->
+                <div class="concept-card">
+                    <h3>📊 A* f-values Calculation</h3>
+                    <p>Aşağıdaki grafik, A* algoritmasında f(n) = g(n) + h(n) değerlerinin hesaplanmasını gösterir:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] -->|"f=1+100<br/>=101"| B["f=1+100<br/>=101<br/>(Brown)"]
+                            Start -->|"f=2+1<br/>=3"| C["f=2+1<br/>=3<br/>(Yellow)"]
+                            B -->|"?"| D1["?<br/>(Light Blue)"]
+                            C -->|"f=4+90<br/>=94"| D2["f=4+90<br/>=94<br/>(Light Blue)"]
+                            D2 -->|"f=104"| Goal["Goal<br/>f=104<br/>(Dark Green)"]
+                            
+                            style Start fill:#ff0000,stroke:#000,stroke-width:2px
+                            style B fill:#8b4513,stroke:#000,stroke-width:2px
+                            style C fill:#ffff00,stroke:#000,stroke-width:2px
+                            style D1 fill:#87ceeb,stroke:#ff0000,stroke-width:3px,stroke-dasharray: 5 5
+                            style D2 fill:#87ceeb,stroke:#000,stroke-width:2px
+                            style Goal fill:#006400,stroke:#000,stroke-width:2px
+                        </div>
+                        
+                        <div class="note-box">
+                            <strong>Hesaplama:</strong> Sol taraftaki light blue node (D1) için f değeri:<br>
+                            g(n) = 1 (Start→Brown) + 1 (Brown→D1) = 2<br>
+                            h(n) = 90<br>
+                            <strong>f(n) = 2 + 90 = 92</strong>
+                        </div>
+                        <div class="note-box">
+                            <strong>Sağ Yol:</strong> Yellow→Light Blue→Goal: 2 + 2 + 100 = 104 (toplam maliyet)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IDS Visualization -->
+                <div class="concept-card">
+                    <h3>📊 IDS: Iterative Deepening Process</h3>
+                    <p>IDS, derinlik limitini artırarak DLS'i tekrar tekrar uygular:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] --> DLS0[DLS depth=0]
+                            DLS0 --> DLS1[DLS depth=1]
+                            DLS1 --> DLS2[DLS depth=2]
+                            DLS2 --> DLS3[DLS depth=3]
+                            DLS3 --> DLS4[DLS depth=4]
+                            DLS4 --> Solution[Solution Found!]
+                            
+                            style Start fill:#ff0000
+                            style Solution fill:#006400
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bidirectional Search -->
+                <div class="concept-card">
+                    <h3>📊 Bidirectional Search</h3>
+                    <p>İki yönlü arama: başlangıçtan ve hedeften eş zamanlı arama:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph LR
+                            Start[Start] -->|Forward Search| Middle1[Middle States]
+                            Goal[Goal] -->|Backward Search| Middle2[Middle States]
+                            Middle1 -.->|Meet| Intersection[Intersection Point]
+                            Middle2 -.->|Meet| Intersection
+                            
+                            style Start fill:#ff0000
+                            style Goal fill:#006400
+                            style Intersection fill:#ffa500
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tree vs Graph Search -->
+                <div class="concept-card">
+                    <h3>📊 Tree Search vs Graph Search</h3>
+                    <p>Tree Search döngüler oluşturabilir, Graph Search kapalı liste ile tekrar engeller:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            A[State A] --> B[State B]
+                            B --> C[State C]
+                            C --> A
+                            
+                            style A fill:#ff0000
+                            style B fill:#ffff00
+                            style C fill:#87ceeb
+                            
+                            Note1[Tree Search: Döngü oluşur]
+                            Note2[Graph Search: Kapalı liste ile engellenir]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BFS vs DFS Visualization -->
+                <div class="concept-card">
+                    <h3>📊 BFS vs DFS: Nasıl Yayılırlar?</h3>
+                    <p>BFS genişliğine, DFS derinliğine yayılır:</p>
+                    
+                    <div class="comparison-box">
+                        <div>
+                            <h4>🌊 BFS (Breadth-First)</h4>
+                            <div class="mermaid-graph">
+                                <div class="mermaid">
+                                graph TD
+                                    Start[Start] --> L1A[Level 1]
+                                    Start --> L1B[Level 1]
+                                    L1A --> L2A[Level 2]
+                                    L1A --> L2B[Level 2]
+                                    L1B --> L2C[Level 2]
+                                    L1B --> L2D[Level 2]
+                                    L2A --> L3A[Level 3]
+                                    L2B --> L3B[Level 3]
+                                    
+                                    style Start fill:#ff0000
+                                    style L1A fill:#ffff00
+                                    style L1B fill:#ffff00
+                                    style L2A fill:#87ceeb
+                                    style L2B fill:#87ceeb
+                                    style L2C fill:#87ceeb
+                                    style L2D fill:#87ceeb
+                                    style L3A fill:#90ee90
+                                    style L3B fill:#90ee90
+                                </div>
+                                <p style="text-align: center; margin-top: 10px; color: #666;"><strong>Seviye seviye yayılır</strong></p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>🌳 DFS (Depth-First)</h4>
+                            <div class="mermaid-graph">
+                                <div class="mermaid">
+                                graph TD
+                                    Start[Start] --> N1[Node 1]
+                                    N1 --> N2[Node 2]
+                                    N2 --> N3[Node 3]
+                                    N3 --> N4[Node 4]
+                                    N4 --> N5[Node 5]
+                                    
+                                    style Start fill:#ff0000
+                                    style N1 fill:#ffff00
+                                    style N2 fill:#87ceeb
+                                    style N3 fill:#90ee90
+                                    style N4 fill:#ffa500
+                                    style N5 fill:#ff69b4
+                                </div>
+                                <p style="text-align: center; margin-top: 10px; color: #666;"><strong>Derinliğine yayılır</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UCS Path Comparison -->
+                <div class="concept-card">
+                    <h3>📊 UCS: Path Comparison (Maliyet Karşılaştırması)</h3>
+                    <p>UCS en düşük maliyetli yolu seçer:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] -->|cost=5| A[Node A<br/>g=5]
+                            Start -->|cost=2| B[Node B<br/>g=2]
+                            Start -->|cost=8| C[Node C<br/>g=8]
+                            A -->|cost=3| Goal[Goal<br/>g=8]
+                            B -->|cost=4| Goal
+                            C -->|cost=1| Goal
+                            
+                            style Start fill:#ff0000
+                            style A fill:#ffff00
+                            style B fill:#90ee90
+                            style C fill:#ffa500
+                            style Goal fill:#006400
+                        </div>
+                        <div class="note-box">
+                            <strong>UCS Seçimi:</strong> UCS önce Node B'yi (g=2) genişletir çünkü en düşük maliyetlidir. Sonra Goal'a ulaşır (g=2+4=6). Toplam maliyet: 6 (en optimal).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- A* Optimality Proof -->
+                <div class="concept-card">
+                    <h3>📊 A* Optimality Proof (A* Optimalite Kanıtı)</h3>
+                    <p>A* neden optimal? Aşağıdaki grafik gösterir:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] -->|f=10| N1[Node 1<br/>f=10]
+                            Start -->|f=15| N2[Node 2<br/>f=15]
+                            N1 -->|f=12| G1[Goal G₁<br/>f=12<br/>OPTIMAL]
+                            N2 -->|f=20| G2[Goal G₂<br/>f=20<br/>Suboptimal]
+                            
+                            style Start fill:#ff0000
+                            style N1 fill:#90ee90
+                            style N2 fill:#ffa500
+                            style G1 fill:#006400,stroke:#00ff00,stroke-width:3px
+                            style G2 fill:#8b0000,stroke:#ff0000,stroke-width:2px,stroke-dasharray: 5 5
+                        </div>
+                        <div class="note-box">
+                            <strong>Kanıt:</strong> Suboptimal hedef G₂ (f=20) frontier'de olsa bile, A* her zaman daha düşük f(n)'li düğümü (N1, f=10) önce genişletir. Böylece optimal yol G₁ (f=12) garanti edilir.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8-Puzzle State Transitions -->
+                <div class="concept-card">
+                    <h3>📊 8-Puzzle: State Transitions with Heuristic Values</h3>
+                    <p>8-Puzzle'da durum geçişleri ve heuristic değerleri:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            S1["Initial State<br/>h=4<br/>(4 misplaced)"] -->|Move Left| S2["State 2<br/>h=3<br/>(3 misplaced)"]
+                            S1 -->|Move Right| S3["State 3<br/>h=5<br/>(5 misplaced)"]
+                            S1 -->|Move Down| S4["State 4<br/>h=5<br/>(5 misplaced)"]
+                            S2 -->|Move Right| S5["State 5<br/>h=2<br/>(2 misplaced)"]
+                            S5 -->|Move Right| S6["State 6<br/>h=1<br/>(1 misplaced)"]
+                            S6 -->|Move Down| Goal["Goal State<br/>h=0<br/>(SOLVED!)"]
+                            
+                            style S1 fill:#ff0000
+                            style S2 fill:#90ee90
+                            style S3 fill:#ffa500
+                            style S4 fill:#ffa500
+                            style S5 fill:#87ceeb
+                            style S6 fill:#ffff00
+                            style Goal fill:#006400,stroke:#00ff00,stroke-width:3px
+                        </div>
+                        <div class="note-box">
+                            <strong>Açıklama:</strong> Her durumda heuristic değeri (yanlış yerleştirilmiş kare sayısı) gösterilir. A* veya Greedy bu değerlere göre en umut verici yolu seçer.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Romanya Map -->
+                <div class="concept-card">
+                    <h3>📊 Romanya Map: Search Paths</h3>
+                    <p>Romanya haritasında arama yolları (örnek: Arad → Bucharest):</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Arad[Arad<br/>Start] -->|140| Sibiu[Sibiu<br/>h=253]
+                            Arad -->|75| Zerind[Zerind<br/>h=374]
+                            Arad -->|118| Timisoara[Timisoara<br/>h=329]
+                            Sibiu -->|80| Rimnicu[Rimnicu<br/>h=193]
+                            Sibiu -->|99| Fagaras[Fagaras<br/>h=178]
+                            Fagaras -->|211| Bucharest[Bucharest<br/>Goal h=0]
+                            Rimnicu -->|97| Pitesti[Pitesti<br/>h=100]
+                            Pitesti -->|101| Bucharest
+                            
+                            style Arad fill:#ff0000
+                            style Sibiu fill:#ffff00
+                            style Zerind fill:#ffa500
+                            style Timisoara fill:#ffa500
+                            style Rimnicu fill:#87ceeb
+                            style Fagaras fill:#90ee90
+                            style Pitesti fill:#87ceeb
+                            style Bucharest fill:#006400,stroke:#00ff00,stroke-width:3px
+                        </div>
+                        <div class="note-box">
+                            <strong>A* Yolu:</strong> Arad (140) → Sibiu (140+253=393) → Rimnicu (220+193=413) → Pitesti (317+100=417) → Bucharest (418). Toplam maliyet: 418.
+                        </div>
+                        <div class="note-box">
+                            <strong>Greedy Yolu:</strong> Arad → Sibiu (h=253) → Fagaras (h=178) → Bucharest. Daha uzun ama hızlı seçim yapar.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hızlı Özet -->
+            <section id="quick-summary" class="learn-section">
+                <h2>10. Hızlı Özet (Ezber İçin) 📚</h2>
+                
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.15) 0%, rgba(75, 0, 130, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>🎯 Algoritmalar ve Karmaşıklıkları</h3>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);"><strong>DLS</strong></td>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);">Zaman: O(b^l), Alan: O(bl)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);"><strong>IDS</strong></td>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);">Zaman: O(b^d), Alan: O(bd) - BFS kadar optimal, DFS kadar az bellek</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);"><strong>Bidirectional</strong></td>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);">Zaman: O(b^(d/2)) - Çok hızlı!</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);"><strong>Greedy</strong></td>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);">f(n) = h(n), Tam değil, Optimal değil</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);"><strong>A*</strong></td>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);">f(n) = g(n) + h(n), Geçerli heuristik ile optimal</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>🔑 Önemli Formüller</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>A*:</strong> f(n) = g(n) + h(n)</li>
+                        <li><strong>Greedy:</strong> f(n) = h(n)</li>
+                        <li><strong>Geçerli Heuristik:</strong> h(n) ≤ h*(n)</li>
+                        <li><strong>Tutarlı Heuristik:</strong> h(n) ≤ c(n, n') + h(n')</li>
+                        <li><strong>IDS Toplam:</strong> N(IDS) = (d)b + (d-1)b² + … + (1)bᵈ</li>
+                    </ul>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(0, 191, 255, 0.15) 0%, rgba(0, 100, 200, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>⚡ Tree vs Graph Search</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>Tree Search:</strong> Kapalı liste yok, döngü olabilir</li>
+                        <li><strong>Graph Search:</strong> Kapalı liste var, tekrar engellenir</li>
+                        <li><strong>Tekrar Eden Durumlar:</strong> Çözülebilir problemleri çözülemez yapabilir</li>
+                    </ul>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(255, 69, 0, 0.15) 0%, rgba(255, 140, 0, 0.15) 100%); padding: 30px; border-radius: 15px;">
+                    <h3>⚠️ Önemli Notlar</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>DLS:</strong> l < d → eksik, l > d → optimal değil</li>
+                        <li><strong>IDS:</strong> BFS kadar optimal, DFS kadar az bellek</li>
+                        <li><strong>Bidirectional:</strong> Öncül hesaplanabilmeli, eylemler tersine çevrilebilmeli</li>
+                        <li><strong>Greedy:</strong> Tam değil, optimal değil, h(n) minimize eder</li>
+                        <li><strong>A*:</strong> Geçerli heuristik ile optimal (tree search)</li>
+                        <li><strong>Her tutarlı fonksiyon geçerlidir</strong>, ama her geçerli tutarlı değildir</li>
+                        <li><strong>Manhattan Distance</strong> Misplaced Tiles'dan daha bilgilendiricidir</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Sonraki Adım -->
+            <div class="next-step">
+                <h3>🎯 Hazır mısın?</h3>
+                <p>Artık tüm arama stratejilerini ve heuristikleri öğrendin! Şimdi bilgini test etmeye hazırsın.</p>
+                <a href="quiz.html" class="btn-start">Sınava Başla →</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="courses-data.js"></script>
+    <script>
+        // Learn Page JavaScript for Chapter 4
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChapterInfo();
+            setupSmoothScroll();
+        });
+
+        function loadChapterInfo() {
+            const courseId = localStorage.getItem('currentCourse');
+            const chapterId = localStorage.getItem('currentChapter');
+            
+            if (!courseId || !chapterId) {
+                localStorage.setItem('currentCourse', 'yapay-zeka');
+                localStorage.setItem('currentChapter', 'chapter-4');
+                updateChapterInfo('yapay-zeka', 'chapter-4');
+                return;
+            }
+            
+            updateChapterInfo(courseId, chapterId);
+        }
+
+        function updateChapterInfo(courseId, chapterId) {
+            const course = coursesData.courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            const chapter = course.chapters.find(ch => ch.id === chapterId);
+            if (!chapter) return;
+            
+            const titleElement = document.getElementById('chapter-title');
+            const descElement = document.getElementById('chapter-description');
+            
+            if (titleElement) {
+                titleElement.textContent = `${course.icon} ${chapter.title}`;
+            }
+            
+            if (descElement) {
+                descElement.textContent = chapter.description || 'DLS, IDS, Bidirectional Search, Greedy, A*';
+            }
+        }
+
+        function setupSmoothScroll() {
+            const links = document.querySelectorAll('.table-of-contents a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+

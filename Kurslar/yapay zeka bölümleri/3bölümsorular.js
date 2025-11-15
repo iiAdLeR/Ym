@@ -5,13 +5,13 @@ const questions = [
     {
         question: "Yapay zekâda problem çözme ne anlama gelir?",
         options: [
-            "Bir hedef tanımlamak ve bu hedefe ulaşmak için uygun eylemler dizisini bulmak",
             "Sadece veri analizi yapmak",
             "Sadece algoritma yazmak",
             "Sadece görüntü işleme",
+            "Bir hedef tanımlamak ve bu hedefe ulaşmak için uygun eylemler dizisini bulmak",
             "Sadece doğal dil işleme"
         ],
-        correctAnswer: "E",
+        correctAnswer: "D",
         explanation: "Yapay zekâda problem çözme, bir hedef tanımlamak ve bu hedefe ulaşmak için uygun eylemler dizisini bulmak demektir. Bir problem çözme ajanı, belirli bir başlangıç durumundan başlayarak hedef duruma ulaşmak için arama (search) yöntemleri kullanır.",
         wrongExplanations: [
             { option: "A", reason: "Problem çözme sadece veri analizi değil, hedefe ulaşmak için eylem dizisi bulmaktır." },
@@ -24,12 +24,12 @@ const questions = [
         question: "Problem çözmede kaç genel adım vardır?",
         options: [
             "2 adım",
-            "3 adım",
             "4 adım",
+            "3 adım",
             "5 adım",
             "6 adım"
         ],
-        correctAnswer: "C",
+        correctAnswer: "B",
         explanation: "Problem çözmede dört genel adım vardır: (1) Hedef Belirleme (Goal Definition), (2) Problem Belirleme (Problem Formulation), (3) Arama (Search), (4) Uygulama (Execution).",
         wrongExplanations: [
             { option: "A", reason: "2 adım yeterli değildir, problem çözme daha kapsamlı bir süreçtir." },
@@ -41,13 +41,13 @@ const questions = [
     {
         question: "Problem çözme adımlarından 'Hedef Belirleme' ne anlama gelir?",
         options: [
-            "Sadece algoritma yazmak",
             "Ajanın neyi başarmak istediğini belirlemek",
+            "Sadece algoritma yazmak",
             "Sadece veri toplamak",
             "Sadece arama yapmak",
             "Sadece planı uygulamak"
         ],
-        correctAnswer: "B",
+        correctAnswer: "A",
         explanation: "Hedef Belirleme (Goal Definition), ajanın neyi başarmak istediğini belirlemek anlamına gelir. Örnek hedefler: Vacuum dünyası için tüm karelerin temiz olması, 8-puzzle için karoların hedef düzenine gelmesi, navigasyon için hedef koordinata ulaşmak.",
         wrongExplanations: [
             { option: "A", reason: "Algoritma yazmak hedef belirleme değil, uygulama aşamasıdır." },
@@ -60,12 +60,12 @@ const questions = [
         question: "Problem Belirleme (Problem Formulation) hangi bileşenleri içerir?",
         options: [
             "Sadece başlangıç durumu",
-            "Başlangıç durumu, durumlar, eylemler, geçiş modeli, hedef testi, yol maliyeti",
             "Sadece hedef testi",
             "Sadece eylemler",
-            "Sadece yol maliyeti"
+            "Sadece yol maliyeti",
+            "Başlangıç durumu, durumlar, eylemler, geçiş modeli, hedef testi, yol maliyeti"
         ],
-        correctAnswer: "D",
+        correctAnswer: "E",
         explanation: "Problem Belirleme (Problem Formulation) şu temel bileşenleri içerir: (1) Başlangıç durumu (initial state), (2) Durumlar (states), (3) Eylemler (actions), (4) Geçiş modeli (transition model) - result(state, action) → new_state, (5) Hedef testi (goal test), (6) Yol maliyeti (path cost).",
         wrongExplanations: [
             { option: "A", reason: "Sadece başlangıç durumu yeterli değildir, diğer bileşenler de gereklidir." },
@@ -78,12 +78,12 @@ const questions = [
         question: "Geçiş modeli (transition model) neyi ifade eder?",
         options: [
             "Sadece başlangıç durumunu",
-            "result(state, action) → new_state (bir durumda bir eylem yapıldığında yeni durumun ne olacağını)",
             "Sadece hedef durumunu",
+            "result(state, action) → new_state (bir durumda bir eylem yapıldığında yeni durumun ne olacağını)",
             "Sadece yol maliyetini",
             "Sadece eylemleri"
         ],
-        correctAnswer: "D",
+        correctAnswer: "C",
         explanation: "Geçiş modeli (transition model), result(state, action) → new_state şeklinde ifade edilir. Bu, belirli bir durumda belirli bir eylem yapıldığında yeni durumun ne olacağını tanımlar.",
         wrongExplanations: [
             { option: "A", reason: "Geçiş modeli sadece başlangıç durumunu değil, durum değişimini tanımlar." },
@@ -95,13 +95,13 @@ const questions = [
     {
         question: "Arama (Search) sürecinde hangi iki tip arama vardır?",
         options: [
-            "Sadece ağaç araması",
             "Ağaç araması ve grafik araması",
+            "Sadece ağaç araması",
             "Sadece grafik araması",
             "Sadece BFS",
             "Sadece DFS"
         ],
-        correctAnswer: "E",
+        correctAnswer: "A",
         explanation: "Arama sürecinde iki tip arama vardır: (1) Ağaç araması: Döngü olabilir, düğümler tekrar ziyaret edilir. (2) Grafik araması: Ziyaret edilen durumlar kaydedilir → tekrar engellenir, daha verimlidir.",
         wrongExplanations: [
             { option: "A", reason: "Sadece ağaç araması değil, grafik araması da vardır." },
@@ -115,11 +115,11 @@ const questions = [
         options: [
             "Sadece BFS",
             "Sadece DFS",
-            "BFS, UCS, DFS, Depth-Limited Search, Iterative Deepening Search, Bidirectional Search",
             "Sadece A*",
+            "BFS, UCS, DFS, Depth-Limited Search, Iterative Deepening Search, Bidirectional Search",
             "Sadece Greedy"
         ],
-        correctAnswer: "C",
+        correctAnswer: "D",
         explanation: "Bilinçsiz (Uninformed) arama stratejileri şunlardır: BFS (Breadth-First Search), UCS (Uniform Cost Search), DFS (Depth-First Search), Depth-Limited Search, Iterative Deepening Search, Bidirectional Search. Bu stratejiler durumları sıralamak için hiçbir ek bilgi (heuristik) kullanmaz, sadece problem tanımındaki bilgilerle çalışır.",
         wrongExplanations: [
             { option: "A", reason: "Sadece BFS değil, başka bilinçsiz arama stratejileri de vardır." },
@@ -137,7 +137,7 @@ const questions = [
             "Hash tablosu",
             "Ağaç yapısı"
         ],
-        correctAnswer: "A",
+        correctAnswer: "B",
         explanation: "Breadth-First Search (BFS) FIFO (First In First Out) kuyruğu kullanır. En sığ düğümü genişletir, yani önce aynı derinlikteki tüm düğümleri işler, sonra bir sonraki derinlik seviyesine geçer.",
         wrongExplanations: [
             { option: "B", reason: "LIFO (stack) DFS'in kullandığı yapıdır." },
@@ -150,12 +150,12 @@ const questions = [
         question: "BFS'in zaman karmaşıklığı nedir? (b: dallanma faktörü, d: çözüm derinliği)",
         options: [
             "O(bm)",
-            "O(b^d)",
             "O(bd)",
             "O(bl)",
-            "O(m^2)"
+            "O(m^2)",
+            "O(b^d)"
         ],
-        correctAnswer: "C",
+        correctAnswer: "E",
         explanation: "BFS'in zaman karmaşıklığı O(b^d) dir. Burada b maksimum dallanma faktörü, d ise çözüm derinliğidir. BFS, çözüm derinliği kadar seviyede tüm düğümleri genişletir.",
         wrongExplanations: [
             { option: "A", reason: "O(bm) DFS'in zaman karmaşıklığıdır (m: maksimum derinlik)." },
@@ -168,12 +168,12 @@ const questions = [
         question: "BFS'in alan/bellek karmaşıklığı nedir?",
         options: [
             "O(bm)",
-            "O(b^d)",
             "O(bd)",
+            "O(b^d)",
             "O(bl)",
             "O(m)"
         ],
-        correctAnswer: "D",
+        correctAnswer: "C",
         explanation: "BFS'in alan/bellek karmaşıklığı O(b^d) dir. Bu çok yüksek bellek kullanımı anlamına gelir çünkü her seviyedeki tüm düğümleri bellekte tutar. Bu, BFS'in en büyük dezavantajıdır.",
         wrongExplanations: [
             { option: "A", reason: "O(bm) DFS'in alan karmaşıklığıdır." },
@@ -185,13 +185,13 @@ const questions = [
     {
         question: "Uniform Cost Search (UCS) hangi özelliğe sahiptir?",
         options: [
+            "En düşük yol maliyetine sahip düğümü genişletir ve her zaman optimal çözüm bulur",
             "En sığ düğümü genişletir",
             "En derin düğümü genişletir",
-            "En düşük yol maliyetine sahip düğümü genişletir ve her zaman optimal çözüm bulur",
             "Sadece heuristiğe bakar",
             "Her zaman en hızlı çözümü bulur"
         ],
-        correctAnswer: "D",
+        correctAnswer: "A",
         explanation: "Uniform Cost Search (UCS), en düşük yol maliyetine sahip düğümü genişletir. Her zaman optimal çözüm bulur çünkü yol maliyeti artan sıraya göre genişletir. Öncelik kuyruğu kullanır ve BFS'in maliyetli versiyonudur.",
         wrongExplanations: [
             { option: "A", reason: "En sığ düğümü genişletmek BFS'in özelliğidir." },
@@ -205,11 +205,11 @@ const questions = [
         options: [
             "Derinliğe göre artan",
             "Derinliğe göre azalan",
-            "Artan yol maliyetine göre",
             "Rastgele",
+            "Artan yol maliyetine göre",
             "Heuristik değerine göre"
         ],
-        correctAnswer: "E",
+        correctAnswer: "D",
         explanation: "UCS'te fringe (sınır kümesi), artan yol maliyetine göre sıralanmış bir kuyruktur. g(n) = toplam yol maliyeti olarak hesaplanır ve en düşük g(n) değerine sahip düğüm önce genişletilir.",
         wrongExplanations: [
             { option: "A", reason: "Derinliğe göre sıralama BFS'in özelliğidir." },
@@ -221,13 +221,13 @@ const questions = [
     {
         question: "Depth-First Search (DFS) hangi yapıyı kullanır?",
         options: [
+            "LIFO yapı (stack)",
             "FIFO kuyruğu",
             "Öncelik kuyruğu",
-            "LIFO yapı (stack)",
             "Hash tablosu",
             "Ağaç yapısı"
         ],
-        correctAnswer: "E",
+        correctAnswer: "A",
         explanation: "Depth-First Search (DFS) LIFO (Last In First Out) yapı, yani stack (yığın) kullanır. En derin düğümü genişletir, bir daldaki en derin noktaya kadar ilerler, sonra geri döner.",
         wrongExplanations: [
             { option: "A", reason: "FIFO kuyruğu BFS'in kullandığı yapıdır." },
@@ -241,11 +241,11 @@ const questions = [
         options: [
             "Tam, optimal ve çok bellek kullanır",
             "Tam, optimal ve çok az bellek kullanır",
+            "Tam değil, optimal değil, çok az bellek kullanır",
             "Tam değil, optimal ve çok bellek kullanır",
-            "Her zaman en hızlı çözümü bulur",
-            "Tam değil, optimal değil, çok az bellek kullanır"
+            "Her zaman en hızlı çözümü bulur"
         ],
-        correctAnswer: "E",
+        correctAnswer: "C",
         explanation: "DFS'in temel özellikleri: (1) Tam değil - sonsuz döngü olabilir, (2) Optimal değil - en kısa çözümü garanti etmez, (3) Çok az bellek kullanır - O(bm) alan karmaşıklığı. Zaman karmaşıklığı O(b^m) dir.",
         wrongExplanations: [
             { option: "A", reason: "DFS tam ve optimal değildir, ayrıca az bellek kullanır." },
@@ -276,12 +276,12 @@ const questions = [
         question: "Iterative Deepening Search (IDS) nasıl çalışır?",
         options: [
             "Sadece bir kez DLS uygular",
-            "DLS'i tekrar tekrar artırarak uygular (depth 0, 1, 2, ...)",
             "Sadece BFS uygular",
+            "DLS'i tekrar tekrar artırarak uygular (depth 0, 1, 2, ...)",
             "Sadece DFS uygular",
             "Rastgele arama yapar"
         ],
-        correctAnswer: "B",
+        correctAnswer: "C",
         explanation: "Iterative Deepening Search (IDS), DLS'i tekrar tekrar artırarak uygular. Önce depth=0 ile başlar, çözüm bulamazsa depth=1, sonra depth=2 şeklinde devam eder. BFS gibi optimal, DFS gibi az bellek kullanır ve genellikle en pratik arama stratejisidir.",
         wrongExplanations: [
             { option: "A", reason: "IDS bir kez değil, birden fazla kez DLS uygular." },
@@ -296,10 +296,10 @@ const questions = [
             "BFS kadar optimal, DFS kadar az bellek kullanır - genellikle en pratik strateji",
             "Sadece hızlıdır",
             "Sadece az bellek kullanır",
-            "Her zaman en hızlı çözümü bulur",
-            "Sadece basittir"
+            "Sadece basittir",
+            "Her zaman en hızlı çözümü bulur"
         ],
-        correctAnswer: "A",
+        correctAnswer: "E",
         explanation: "IDS'in avantajları: (1) BFS kadar optimal - en kısa çözümü bulur, (2) DFS kadar az bellek kullanır - O(bd) alan karmaşıklığı, (3) Genellikle en pratik arama stratejisidir. Bu nedenle birçok gerçek dünya problemi için tercih edilir.",
         wrongExplanations: [
             { option: "B", reason: "IDS sadece hızlı değil, aynı zamanda optimal ve az bellek kullanır." },
@@ -311,13 +311,13 @@ const questions = [
     {
         question: "Bidirectional Search nedir?",
         options: [
-            "Hem hedeften hem başlangıçtan başlar, zaman ve alan maliyetini ciddi şekilde azaltabilir",
             "Sadece başlangıçtan arama",
+            "Hem hedeften hem başlangıçtan başlar, zaman ve alan maliyetini ciddi şekilde azaltabilir",
             "Sadece hedeften arama",
             "Rastgele yönlerde arama",
             "Sadece derinlemesine arama"
         ],
-        correctAnswer: "A",
+        correctAnswer: "B",
         explanation: "Bidirectional Search, hem hedeften hem başlangıçtan başlar. İki yönlü arama yaparak zaman ve alan maliyetini ciddi şekilde azaltabilir. Ancak uygulanması zor olabilir çünkü hedef tanımı gereklidir.",
         wrongExplanations: [
             { option: "B", reason: "Sadece başlangıçtan arama tek yönlü aramadır, bidirectional değildir." },
@@ -335,7 +335,7 @@ const questions = [
             "Bilgili arama daha basittir",
             "Sadece isimleri farklıdır"
         ],
-        correctAnswer: "A",
+        correctAnswer: "D",
         explanation: "Kör (Uninformed) arama, durumları sıralamak için hiçbir ek bilgi kullanmaz, sadece problem tanımındaki bilgilerle çalışır. Bilgili (Informed/Heuristik) arama ise hedefe yakınlığı değerlendiren heuristik fonksiyon kullanır (örnek: 8-puzzle'da yanlış yerleştirilmiş kare sayısı).",
         wrongExplanations: [
             { option: "B", reason: "Açıkça fark vardır - heuristik kullanımı." },
@@ -347,13 +347,13 @@ const questions = [
     {
         question: "8-puzzle örneğinde kullanılan heuristik nedir?",
         options: [
-            "Yanlış yerleştirilmiş kare sayısı",
             "Sadece derinlik",
             "Sadece yol maliyeti",
             "Sadece zaman",
-            "Rastgele sayı"
+            "Rastgele sayı",
+            "Yanlış yerleştirilmiş kare sayısı"
         ],
-        correctAnswer: "A",
+        correctAnswer: "E",
         explanation: "8-puzzle örneğinde kullanılan heuristik, yanlış yerleştirilmiş kare sayısıdır. Bu heuristik, bir durumun hedef duruma ne kadar yakın olduğunu tahmin etmek için kullanılır.",
         wrongExplanations: [
             { option: "B", reason: "Derinlik bir heuristik değildir, arama ağacının bir özelliğidir." },
@@ -371,7 +371,7 @@ const questions = [
             "Sadece derinliğe bakar",
             "Her zaman en yavaştır"
         ],
-        correctAnswer: "A",
+        correctAnswer: "B",
         explanation: "Greedy Best-First Search sadece heuristiğe (h(n)) bakar. Hızlıdır çünkü hedefe en yakın görünen düğümü seçer, ancak optimal değildir çünkü gerçek yol maliyetini (g(n)) dikkate almaz.",
         wrongExplanations: [
             { option: "B", reason: "Sadece yol maliyetine bakmak UCS'in özelliğidir." },
@@ -383,13 +383,13 @@ const questions = [
     {
         question: "A* arama algoritmasında f(n) = g(n) + h(n) formülünde ne anlama gelir?",
         options: [
+            "g(n): gerçek maliyet, h(n): heuristik maliyet - f(n) toplam tahmini maliyet",
             "g(n): heuristik maliyet, h(n): gerçek maliyet",
             "g(n): derinlik, h(n): heuristik",
-            "g(n): gerçek maliyet, h(n): heuristik maliyet - f(n) toplam tahmini maliyet",
             "g(n): zaman, h(n): alan",
             "g(n): düğüm sayısı, h(n): yol sayısı"
         ],
-        correctAnswer: "C",
+        correctAnswer: "A",
         explanation: "A* algoritmasında: g(n) = başlangıçtan n düğümüne kadar gerçek yol maliyeti, h(n) = n düğümünden hedefe kadar tahmini maliyet (heuristik), f(n) = g(n) + h(n) = toplam tahmini maliyet. Admissible heuristik kullanıldığında A* optimaldir.",
         wrongExplanations: [
             { option: "A", reason: "g(n) heuristik değil, gerçek maliyettir; h(n) gerçek değil, heuristiktir." },
@@ -403,11 +403,11 @@ const questions = [
         options: [
             "Her zaman",
             "Sadece heuristik kullanmadığında",
-            "Heuristik admissible (tutarlı/hedef maliyetini hiçbir zaman aşmayan) olduğunda",
             "Sadece g(n)'e baktığında",
-            "Sadece h(n)'e baktığında"
+            "Sadece h(n)'e baktığında",
+            "Heuristik admissible (tutarlı/hedef maliyetini hiçbir zaman aşmayan) olduğunda"
         ],
-        correctAnswer: "C",
+        correctAnswer: "E",
         explanation: "A* algoritması, heuristik admissible (tutarlı) olduğunda optimaldir. Admissible heuristik, gerçek maliyeti hiçbir zaman aşmayan, yani h(n) ≤ h*(n) olan heuristiktir (h*(n) gerçek optimal maliyet).",
         wrongExplanations: [
             { option: "A", reason: "A* her zaman optimal değildir, admissible heuristik gereklidir." },
@@ -420,12 +420,12 @@ const questions = [
         question: "Vacuum World örneğinde toplam durum sayısı kaçtır?",
         options: [
             "4 durum",
-            "16 durum",
             "8 durum",
+            "16 durum",
             "2 durum",
             "32 durum"
         ],
-        correctAnswer: "C",
+        correctAnswer: "B",
         explanation: "Vacuum World örneğinde toplam 8 durum vardır: 2 konum (A veya B) × 2 kare durumu (her kare temiz veya kirli) = 2^3 = 8 durum. Durumlar: [Konum, A karesi durumu, B karesi durumu] şeklinde ifade edilir.",
         wrongExplanations: [
             { option: "A", reason: "4 durum yeterli değildir, 8 durum vardır." },
@@ -439,11 +439,11 @@ const questions = [
         options: [
             "8! = 40320 düğüm",
             "8^2 = 64 düğüm",
-            "9! = 362880 düğüm",
             "9^2 = 81 düğüm",
+            "9! = 362880 düğüm",
             "Sınırsız düğüm"
         ],
-        correctAnswer: "C",
+        correctAnswer: "D",
         explanation: "8-puzzle probleminde durum grafiği 9! = 362880 düğüm içerir. Çünkü 9 kare (8 sayı + 1 boş) vardır ve bunların farklı permütasyonları 9! farklı durum oluşturur.",
         wrongExplanations: [
             { option: "A", reason: "8! doğru değildir, 9! olmalıdır çünkü boş kare de dahildir." },
@@ -455,13 +455,13 @@ const questions = [
     {
         question: "Arama ağacında (Search Tree) 'fringe' (sınır kümesi) nedir?",
         options: [
+            "Genişletilmemiş tüm düğümlerin kümesi",
             "Tüm ziyaret edilen düğümler",
             "Sadece kök düğüm",
             "Sadece hedef düğümler",
-            "Genişletilmemiş tüm düğümlerin kümesi",
             "Tüm düğümler"
         ],
-        correctAnswer: "D",
+        correctAnswer: "A",
         explanation: "Fringe (sınır kümesi), arama ağacında genişletilmemiş (henüz işlenmemiş) tüm düğümlerin kümesidir. Genelde öncelik kuyruğu olarak tutulur ve arama algoritması bu kümeden düğüm seçer.",
         wrongExplanations: [
             { option: "A", reason: "Ziyaret edilen düğümler closed set'tir, fringe değildir." },
@@ -476,10 +476,10 @@ const questions = [
             "En düşük maliyetli çözümü bulur mu?",
             "Ne kadar hızlıdır?",
             "Ne kadar bellek kullanır?",
-            "Çözüm varsa bulur mu?",
-            "Kaç düğüm üretir?"
+            "Kaç düğüm üretir?",
+            "Çözüm varsa bulur mu?"
         ],
-        correctAnswer: "D",
+        correctAnswer: "E",
         explanation: "Tamlık (Completeness), bir arama stratejisinin çözüm varsa bulup bulmayacağını sorar. Eğer problem için bir çözüm varsa, tam bir strateji bu çözümü bulmalıdır.",
         wrongExplanations: [
             { option: "A", reason: "Bu Optimalite (Optimality) kriteridir." },
@@ -492,12 +492,12 @@ const questions = [
         question: "Arama stratejilerini değerlendirme kriterlerinden 'Optimalite (Optimality)' ne anlama gelir?",
         options: [
             "Çözüm varsa bulur mu?",
-            "Ne kadar hızlıdır?",
             "En düşük maliyetli çözümü bulur mu?",
+            "Ne kadar hızlıdır?",
             "Ne kadar bellek kullanır?",
             "Kaç düğüm üretir?"
         ],
-        correctAnswer: "C",
+        correctAnswer: "B",
         explanation: "Optimalite (Optimality), bir arama stratejisinin en düşük maliyetli çözümü bulup bulmayacağını sorar. Optimal bir strateji, problem için mevcut en iyi (en düşük maliyetli) çözümü bulmalıdır.",
         wrongExplanations: [
             { option: "A", reason: "Bu Tamlık (Completeness) kriteridir." },
@@ -515,7 +515,7 @@ const questions = [
             "Düğüm sayısı",
             "Yol maliyeti"
         ],
-        correctAnswer: "A",
+        correctAnswer: "D",
         explanation: "Arama notasyonunda 'b', maksimum dallanma faktörünü (branching factor) temsil eder. Bu, her düğümün ortalama kaç çocuk düğüme sahip olduğunu gösterir. Arama ağacının genişliğini belirler.",
         wrongExplanations: [
             { option: "B", reason: "Çözüm derinliği 'd' ile temsil edilir." },
@@ -527,13 +527,13 @@ const questions = [
     {
         question: "Arama notasyonunda 'd' neyi temsil eder?",
         options: [
+            "Çözüm derinliği",
             "Maksimum dallanma faktörü",
             "Maksimum derinlik",
-            "Çözüm derinliği",
             "Düğüm sayısı",
             "Yol maliyeti"
         ],
-        correctAnswer: "D",
+        correctAnswer: "A",
         explanation: "Arama notasyonunda 'd', çözüm derinliğini (solution depth) temsil eder. Bu, başlangıç durumundan hedef duruma ulaşmak için gereken minimum adım sayısıdır.",
         wrongExplanations: [
             { option: "A", reason: "Maksimum dallanma faktörü 'b' ile temsil edilir." },
@@ -547,11 +547,11 @@ const questions = [
         options: [
             "Sadece düğümler",
             "Sadece kenarlar",
-            "Düğümler: durumlar, Kenarlar: eylemler - bir durumun ardıllarını gösterir",
             "Sadece hedef durum",
-            "Sadece başlangıç durumu"
+            "Sadece başlangıç durumu",
+            "Düğümler: durumlar, Kenarlar: eylemler - bir durumun ardıllarını gösterir"
         ],
-        correctAnswer: "D",
+        correctAnswer: "E",
         explanation: "Durum grafiği (State Graph) şunlardan oluşur: (1) Düğümler: durumları temsil eder, (2) Kenarlar: eylemleri temsil eder, (3) Successor(s): bir durumun ardıllarını (sonuç durumlarını) gösterir. Durum grafiği birden fazla bağlı bileşene sahip olabilir.",
         wrongExplanations: [
             { option: "A", reason: "Durum grafiği sadece düğümler değil, kenarlar da içerir." },
@@ -565,11 +565,11 @@ const questions = [
         options: [
             "Hiç fark yoktur",
             "Ağaç daha basittir",
-            "Grafik daha hızlıdır",
             "Ağaç: tekrar eden durumlar olabilir, Grafik: visited set ile tekrar önlenir - daha verimli",
+            "Grafik daha hızlıdır",
             "Sadece isimleri farklıdır"
         ],
-        correctAnswer: "D",
+        correctAnswer: "C",
         explanation: "Arama ağacı ile durum grafiği arasındaki fark: (1) Ağaç aramada tekrar eden durumlar olabilir, aynı durum farklı yollardan tekrar ziyaret edilebilir. (2) Grafik aramada ziyaret edilen durumlar bir 'visited set' ile kaydedilir ve tekrar engellenir, bu daha verimlidir.",
         wrongExplanations: [
             { option: "A", reason: "Açıkça fark vardır - tekrar kontrolü." },
@@ -581,13 +581,13 @@ const questions = [
     {
         question: "Bir çözüm (Solution) nedir?",
         options: [
+            "Başlangıçtan hedefe giden bir eylem dizisi",
             "Sadece hedef durum",
             "Sadece başlangıç durumu",
-            "Başlangıçtan hedefe giden bir eylem dizisi",
             "Sadece bir eylem",
             "Sadece bir durum"
         ],
-        correctAnswer: "D",
+        correctAnswer: "A",
         explanation: "Bir çözüm (Solution), başlangıç durumundan hedef duruma giden bir eylem dizisidir. Optimal çözüm ise en düşük maliyetli yoldur. Çözüm, arama sürecinin amacıdır.",
         wrongExplanations: [
             { option: "A", reason: "Çözüm sadece hedef durum değil, hedefe ulaşmak için gereken eylem dizisidir." },
@@ -602,10 +602,10 @@ const questions = [
             "Sadece başlangıç durumu",
             "Sadece hedef durumlar",
             "Sadece ziyaret edilen durumlar",
-            "Bir problemdeki tüm olası durumların kümesi",
-            "Sadece genişletilen durumlar"
+            "Sadece genişletilen durumlar",
+            "Bir problemdeki tüm olası durumların kümesi"
         ],
-        correctAnswer: "D",
+        correctAnswer: "E",
         explanation: "Durum uzayı (State Space), bir problemdeki tüm olası durumların kümesidir. Kritik not: Durum temsili kötü seçilirse → durum uzayı çok büyür → arama imkânsızlaşır. Bu nedenle etkili durum temsili çok önemlidir.",
         wrongExplanations: [
             { option: "A", reason: "Durum uzayı sadece başlangıç durumunu değil, tüm durumları içerir." },
@@ -619,11 +619,11 @@ const questions = [
         options: [
             "Kök düğüm",
             "Hedef düğüm",
-            "Başlangıç düğümü",
             "Genişletilemeyen durum (çocuk düğümü olmayan)",
+            "Başlangıç düğümü",
             "Tüm düğümler"
         ],
-        correctAnswer: "D",
+        correctAnswer: "C",
         explanation: "Arama ağacında 'leaf' (yaprak) düğüm, genişletilemeyen durumdur, yani çocuk düğümü olmayan düğümdür. Bu, ya hedef duruma ulaşılmıştır ya da o durumdan başka duruma geçiş yoktur.",
         wrongExplanations: [
             { option: "A", reason: "Kök düğüm başlangıç durumudur, leaf değildir." },
@@ -636,12 +636,12 @@ const questions = [
         question: "Romanya örneğinde (Arad → Bükreş) arama sonucu hangi rotayı verir?",
         options: [
             "Arad → Timisoara → Bükreş",
-            "Arad → Zarind → Bükreş",
             "Arad → Sibiu → Fagaras → Bükreş",
+            "Arad → Zarind → Bükreş",
             "Sadece direkt yol",
             "Rastgele rota"
         ],
-        correctAnswer: "D",
+        correctAnswer: "B",
         explanation: "Romanya örneğinde (Arad → Bükreş) problem çözme sonucu: Arad → Sibiu → Fagaras → Bükreş rotasını verir. Bu örnek, problem çözmenin tüm sürecini gösterir: hedef belirleme, problem belirleme, arama ve uygulama.",
         wrongExplanations: [
             { option: "A", reason: "Arad → Timisoara → Bükreş rotası verilmedi." },
@@ -653,13 +653,13 @@ const questions = [
     {
         question: "Uygulama (Execution) aşamasında ne olur?",
         options: [
+            "Ajan bulunan eylem dizisini uygular, plan hata verirse replanning gerekir, çevre değişmişse yeni arama yapılır",
             "Sadece arama yapılır",
             "Sadece hedef belirlenir",
             "Sadece problem belirlenir",
-            "Ajan bulunan eylem dizisini uygular, plan hata verirse replanning gerekir, çevre değişmişse yeni arama yapılır",
             "Hiçbir şey yapılmaz"
         ],
-        correctAnswer: "D",
+        correctAnswer: "A",
         explanation: "Uygulama (Execution) aşamasında: (1) Ajan bulunan eylem dizisini uygular, (2) Plan hata verirse replanning (yeniden planlama) gerekir, (3) Çevre değişmişse yeni arama yapılır, (4) Gerçek zaman kısıtları varsa en iyi değil, yeterince iyi çözüm kullanılır, (5) Monitoring: uygulama sırasında durumun beklenenle uyumu kontrol edilir.",
         wrongExplanations: [
             { option: "A", reason: "Arama uygulama aşamasından önce yapılır." },
@@ -677,7 +677,7 @@ const questions = [
             "Tam-durum daha hızlıdır",
             "Sadece isimleri farklıdır"
         ],
-        correctAnswer: "C",
+        correctAnswer: "E",
         explanation: "8-Vezir probleminde iki formülasyon vardır: (1) Artırımlı formülasyon: Durumlar 0-8 vezir yerleşimi, başlangıçta hiç vezir yok, eylemler boş kareye vezir eklemek. (2) Tam-durum formülasyonu: Durumlar 8 vezirin herhangi bir yerleşimi, başlangıçta her sütunda rastgele 1 vezir, eylemler sütundaki veziri hareket ettirmek.",
         wrongExplanations: [
             { option: "A", reason: "Açıkça fark vardır - başlangıç durumu ve eylemler farklıdır." },
@@ -695,7 +695,7 @@ const questions = [
             "Sadece son düğüm seçilir",
             "Hiç düğüm seçilmez"
         ],
-        correctAnswer: "C",
+        correctAnswer: "A",
         explanation: "TREE-SEARCH fonksiyonunda 'choose leaf node for expansion according to strategy' adımı, kullanılan arama stratejisine göre (BFS, DFS, UCS, A* vb.) bir leaf (yaprak) düğüm seçilmesi ve genişletilmesi anlamına gelir. Bu adım, farklı arama stratejilerinin farklı düğüm seçme kriterlerini uygulamasını sağlar.",
         wrongExplanations: [
             { option: "A", reason: "Rastgele değil, stratejiye göre seçilir." },

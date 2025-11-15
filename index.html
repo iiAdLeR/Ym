@@ -56,8 +56,75 @@
                 <p>Her ders için bölüm bazlı soru setleri</p>
             </div>
         </div>
+
+        <!-- Bize Değerlendir Section -->
+        <section class="feedback-section">
+            <div class="feedback-container">
+                <div class="feedback-header">
+                    <h2>⭐ Bize Değerlendir</h2>
+                    <p class="feedback-subtitle">Görüşleriniz bizim için çok değerli! Deneyiminizi bizimle paylaşın.</p>
+                </div>
+
+                <form id="feedback-form" class="feedback-form">
+                    <div id="feedback-status" class="feedback-status" style="display: none;"></div>
+
+                    <div class="form-group">
+                        <label for="feedback-name">Adınız <span class="optional">(İsteğe bağlı)</span></label>
+                        <input 
+                            type="text" 
+                            id="feedback-name" 
+                            name="name" 
+                            placeholder="Adınızı girin (isteğe bağlı)"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Değerlendirmeniz</label>
+                        <div class="star-rating">
+                            <input type="radio" id="star1" name="rating" value="1" required>
+                            <label for="star1" class="star">⭐</label>
+                            
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2" class="star">⭐</label>
+                            
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3" class="star">⭐</label>
+                            
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4" class="star">⭐</label>
+                            
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5" class="star">⭐</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="feedback-message-text">Mesajınız <span class="optional">(İsteğe bağlı)</span></label>
+                        <textarea 
+                            id="feedback-message-text" 
+                            name="message" 
+                            rows="5" 
+                            placeholder="Görüşlerinizi, önerilerinizi veya geri bildirimlerinizi buraya yazabilirsiniz... (isteğe bağlı)"
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" id="submit-feedback" class="btn-feedback">
+                        <span>Gönder</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="feedback.js"></script>
     <script src="courses-data.js"></script>
 </body>
 </html>

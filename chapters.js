@@ -55,6 +55,9 @@ function displayChapters(course) {
                 <p>${chapter.description}</p>
             </div>
             <div class="chapter-action">
+                <button class="btn-chapter btn-learn" onclick="startLearn('${course.id}', '${chapter.id}')">
+                    📖 Öğren
+                </button>
                 <button class="btn-chapter" onclick="startQuiz('${course.id}', '${chapter.id}')">
                     Sorulara Başla →
                 </button>
@@ -63,6 +66,32 @@ function displayChapters(course) {
 
         container.appendChild(chapterCard);
     });
+}
+
+function startLearn(courseId, chapterId) {
+    // Ders ve bölüm bilgisini localStorage'a kaydet
+    localStorage.setItem('currentCourse', courseId);
+    localStorage.setItem('currentChapter', chapterId);
+    
+    // Learn sayfasına yönlendir (farklı bölümler için farklı sayfalar)
+    let learnPage = 'learn.html'; // Default: Chapter 1
+    
+    if (chapterId === 'chapter-1') {
+        learnPage = 'learn.html';
+    } else if (chapterId === 'chapter-2') {
+        learnPage = 'learn-chapter2.html';
+    } else if (chapterId === 'chapter-3') {
+        learnPage = 'learn-chapter3.html';
+    } else if (chapterId === 'chapter-4') {
+        learnPage = 'learn-chapter4.html';
+    } else if (chapterId === 'chapter-5') {
+        learnPage = 'learn-chapter5.html';
+    } else if (chapterId === 'chapter-6') {
+        learnPage = 'learn-chapter6.html';
+    }
+    // Diğer bölümler için ileride eklenebilir
+    
+    window.location.href = learnPage;
 }
 
 function startQuiz(courseId, chapterId) {

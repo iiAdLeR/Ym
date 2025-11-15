@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğren - A* Algoritması, Bellek Sınırlı Arama ve Yerel Arama</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="chapters.html" class="back-btn">← Geri</a>
+                <h1 id="chapter-title">📖 A* Algoritması, Bellek Sınırlı Arama ve Yerel Arama</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">A* özellikleri, IDA*, RBFS, SMA*, Heuristik kalitesi, Hill Climbing, Simulated Annealing</p>
+        </header>
+
+        <div class="learn-container">
+            <!-- İçindekiler -->
+            <div class="table-of-contents">
+                <h3>📑 İçindekiler</h3>
+                <ul>
+                    <li><a href="#admissibility">1. Geçerlilik ve Tutarlılık</a></li>
+                    <li><a href="#a-star-complexity">2. A* Karmaşıklığı</a></li>
+                    <li><a href="#memory-limited">3. Bellek Sınırlı Arama (IDA*, RBFS, SMA*)</a></li>
+                    <li><a href="#heuristic-quality">4. Heuristik Kalitesi</a></li>
+                    <li><a href="#relaxed-problems">5. Rahatlatılmış Problemler</a></li>
+                    <li><a href="#local-search">6. Yerel Arama</a></li>
+                    <li><a href="#hill-climbing">7. Hill Climbing</a></li>
+                    <li><a href="#simulated-annealing">8. Simulated Annealing</a></li>
+                    <li><a href="#local-beam">9. Local Beam Search</a></li>
+                    <li><a href="#visual-examples">10. Visual Examples</a></li>
+                    <li><a href="#quick-summary">11. Hızlı Özet</a></li>
+                </ul>
+            </div>
+
+            <!-- Geçerlilik ve Tutarlılık -->
+            <section id="admissibility" class="learn-section">
+                <h2>1. Geçerlilik (Admissibility) ve Tutarlılık (Consistency)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Geçerlilik (Admissibility)</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Tanım:</strong> Bir sezgisel fonksiyonun her durum için hedefe ulaşmanın gerçek maliyetini asla aşmaması durumudur.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Koşul:</strong><br>
+                        <span class="formula">h(n) ≤ h*(n)</span><br>
+                        Burada h*(n), düğüm n'den hedef duruma ulaşmanın gerçek maliyetidir.
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Özellik:</strong> Bu, algoritmanın optimal çözümler bulmasını garanti eder.
+                    </div>
+                </div>
+
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Tutarlılık (Consistency)</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Tanım:</strong> Üçgen eşitsizliğini sağlayan sezgisel fonksiyon.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Koşul (Üçgen Eşitsizliği):</strong><br>
+                        <span class="formula">h(n) ≤ c(n, n') + h(n')</span><br>
+                        Burada c(n, n') n'den n'e giden maliyettir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📊 Geçerlilik ve Tutarlılık İlişkisi</h3>
+                    <div class="formula-box">
+                        <strong>Önemli İlişkiler:</strong><br>
+                        • <strong>Her tutarlı fonksiyon geçerlidir</strong><br>
+                        • <strong>Her geçerli fonksiyon tutarlı değildir</strong><br>
+                        • Bir sezgisel fonksiyon tutarlı ise → optimal çözümler bulma garantisi vardır<br>
+                        • Sadece geçerli olması, tutarlılık yoksa optimaliteyi tehlikeye atabilir
+                    </div>
+                    <div class="note-box">
+                        <strong>Sonuç:</strong> Etkili bir arama algoritması için her iki özelliğin birlikte düşünülmesi önemlidir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- A* Karmaşıklığı -->
+            <section id="a-star-complexity" class="learn-section">
+                <h2>2. A* Algoritması — Zaman ve Alan Karmaşıklığı</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 A* Karmaşıklıkları</h3>
+                    <div class="formula-box">
+                        <strong>Zaman karmaşıklığı:</strong> O(b^d)<br>
+                        <strong>Alan karmaşıklığı:</strong> O(b^d)
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Optimalite:</strong> A* algoritması, geçerli ve tutarlı bir sezgi kullanıldığında optimal çözüm garantisi verir.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Tamlık:</strong> A* eğer çözüm varsa her zaman bulur.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bellek Sınırlı Arama -->
+            <section id="memory-limited" class="learn-section">
+                <h2>3. Bellek Sınırlı Sezgisel Arama</h2>
+                
+                <div class="concept-card">
+                    <h3>📊 Üç Algoritma</h3>
+                    <div class="formulas-grid">
+                        <div class="formula-card">
+                            <h3>IDA*</h3>
+                            <div class="formula">Iterative Deepening A*</div>
+                            <p>Derinlik sınırlı arama ile A* birleşimi</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>RBFS</h3>
+                            <div class="formula">Recursive Best-First Search</div>
+                            <p>Özyinelemeli en iyi öncelikli arama</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>SMA*</h3>
+                            <div class="formula">Simplified Memory-Bounded A*</div>
+                            <p>Bellek sınırlı A*</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IDA* -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 IDA* — Iterative Deepening A*</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Derinlik sınırlı arama ile A* birleşimi. Her iterasyonda f-cutoff değerini artırarak çalışır.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Çalışma Mantığı:</strong><br>
+                        • Başlangıçta bir f-sınırı belirlenir<br>
+                        • Sınır içinde DFS çalışır<br>
+                        • Hedef bulunamazsa limit artırılır<br>
+                        • İteratif olarak devam eder
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Bellek Kullanımı:</strong> Çok düşüktür<br>
+                        • Sadece yol üzerindeki düğümler tutulur<br>
+                        • O(d) bellek kullanımı
+                    </div>
+                </div>
+
+                <!-- RBFS -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 RBFS — Recursive Best-First Search</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Özyinelemeli en iyi öncelikli arama. Derinlik öncelikli arama gibi çalışır.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Temel Özellikler:</strong><br>
+                        • Mevcut en iyi alternatif yolun f-değerini takip eder<br>
+                        • Eğer f-değeri alternatiften kötüleşirse → o alternatife geri döner<br>
+                        • Geri dönerken düğümün f-değerini çocuklarının en iyi f-değeri ile günceller<br>
+                        • Bu nedenle düğümü daha sonra yeniden genişletmek mümkündür
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Backup İşlemi:</strong> Geri dönüş sırasında f-değeri güncellenir, böylece düğüm tekrar genişletilebilir.
+                    </div>
+                </div>
+
+                <!-- SMA* -->
+                <div class="agent-type-card detailed">
+                    <h3>🔵 SMA* — Simplified Memory-Bounded A*</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Tüm mevcut belleği kullanır. Bellek dolunca en kötü yaprağı siler.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Çalışma Mantığı:</strong><br>
+                        • Bellek dolana kadar en iyi yaprakları genişletir<br>
+                        • Bellek dolunca en kötü yaprağı siler (en yüksek f-değerine sahip)<br>
+                        • Silinen düğümün bilgisi ebeveyne "yedek" olarak yazılır
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Tie-Breaking Kuralı:</strong><br>
+                        Eğer tüm yapraklar aynı f değerine sahipse:<br>
+                        • En yeni iyi yaprağı genişletir<br>
+                        • En eski kötü yaprağı siler
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>SMA* Garantileri:</strong><br>
+                        • Çözüm bulunabilirse → tamdır<br>
+                        • Optimal çözüm varsa → optimali bulur
+                    </div>
+                </div>
+
+                <!-- Karşılaştırma -->
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Algoritma</th>
+                                <th>Tamlık</th>
+                                <th>Optimalite</th>
+                                <th>Alan Karmaşıklığı</th>
+                                <th>Özellik</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>IDA*</strong></td>
+                                <td>✅ Evet</td>
+                                <td>✅ Evet</td>
+                                <td>O(bd)</td>
+                                <td>f-cutoff ile iteratif derinleşme</td>
+                            </tr>
+                            <tr>
+                                <td><strong>RBFS</strong></td>
+                                <td>✅ Evet</td>
+                                <td>✅ Evet</td>
+                                <td>O(bd)</td>
+                                <td>Backup ile f-değeri güncelleme</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SMA*</strong></td>
+                                <td>✅ Evet</td>
+                                <td>✅ Evet</td>
+                                <td>Bellek sınırlı</td>
+                                <td>En kötü yaprağı siler</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="note-box">
+                    <strong>Ortak Özellikler:</strong> İkisi de tamdır, ikisi de optimaldir. Her ikisi de bazı düğümleri tekrar tekrar üretir. RBFS → IDA*'dan biraz daha verimlidir.
+                </div>
+            </section>
+
+            <!-- Heuristik Kalitesi -->
+            <section id="heuristic-quality" class="learn-section">
+                <h2>4. Heuristik Kalitesi — Etkili Dallanma Faktörü (b*)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Etkili Dallanma Faktörü (b*)</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Tanım:</strong> Bir heuristiğin kalitesini ölçmek için etkili dallanma faktörü kullanılır.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Formül:</strong><br>
+                        A* tarafından genişletilen toplam düğüm N, çözüm derinliği d ise:<br>
+                        <span class="formula">N = 1 + b* + (b*)² + … + (b*)ᵈ</span>
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • Zor problemler için bu değer oldukça sabittir<br>
+                        • <strong>İyi bir heuristik → b* = 1 değerine yakın olandır</strong><br>
+                        • b* küçüldükçe arama daha etkilidir
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek:</strong> A* algoritması 150 düğüm genişletiyor ve çözüm derinliği 5 ise:<br>
+                        N = 1 + b* + (b*)² + (b*)³ + (b*)⁴ + (b*)⁵ = 150<br>
+                        Yaklaşık olarak b* ≈ 2.8-3.0
+                    </div>
+
+                    <div class="note-box">
+                        <strong>İdeal Değer:</strong> b* = 1, her seviyede sadece bir düğüm genişletildiği anlamına gelir (mükemmel sezgi durumu).
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rahatlatılmış Problemler -->
+            <section id="relaxed-problems" class="learn-section">
+                <h2>5. Rahatlatılmış Problemler (Relaxed Problems)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Rahatlatılmış Problem Nedir?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Tanım:</strong> Bir problemde eylemler üzerindeki kısıtlamalar azaltılırsa buna rahatlatılmış problem denir.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Teorem:</strong><br>
+                        Bir rahatlatılmış problemin optimal çözüm maliyeti, orijinal problem için kabul edilebilir heuristik oluşturur.
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Neden Geçerlidir?</strong> Rahatlatılmış problem daha kolay olduğu için, optimal çözümü orijinal problemin gerçek maliyetinden küçük veya eşit olur. Bu yüzden h(n) ≤ h*(n) koşulu sağlanır.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🧩 8-Puzzle: Rahatlatılmış Problem Örnekleri</h3>
+                    
+                    <div class="comparison-box">
+                        <div>
+                            <h4>Normal 8-Puzzle Kuralı:</h4>
+                            <div class="formula-box">
+                                Bir taş ancak bitişik boş kareye hareket eder.
+                            </div>
+                        </div>
+                        <div>
+                            <h4>Rahatlatılmış Versiyonlar:</h4>
+                            <div class="formula-box">
+                                1) Bir taş herhangi bir yere hareket edebilir<br>
+                                → h₁(n) = en kısa çözümü verir<br><br>
+                                2) Bir taş herhangi bir bitişik kareye hareket edebilir<br>
+                                → h₂(n) = en kısa çözümü verir
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note-box">
+                        <strong>İlişki:</strong> h₁(n) ≤ h₂(n) her zaman doğrudur. Çünkü h₁ daha fazla rahatlatılmıştır (taş her yere gidebilir), bu yüzden daha küçük maliyet verir.
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Geçerlilik:</strong> Bu iki fonksiyon geçerli heuristiktir.
+                    </div>
+                </div>
+
+                <!-- Pattern Database Example -->
+                <div class="concept-card">
+                    <h3>🧩 Pattern Database: 8-Puzzle Örneği</h3>
+                    <p>Aşağıdaki örnek, Pattern Database yaklaşımını kullanarak geçerli heuristik oluşturmayı gösterir:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="formula-box" style="margin-bottom: 20px;">
+                            <strong>Problem:</strong> 8-Puzzle - Initial State → Goal State
+                        </div>
+                        
+                        <!-- Initial and Goal States -->
+                        <div class="comparison-box" style="margin-bottom: 20px;">
+                            <div>
+                                <h4>Initial State:</h4>
+                                <div style="display: grid; grid-template-columns: repeat(3, 60px); gap: 5px; margin: 10px auto; max-width: 200px;">
+                                    <div style="background: #ff6b6b; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">5</div>
+                                    <div style="background: #f0f0f0; padding: 15px; text-align: center; border-radius: 5px;">_</div>
+                                    <div style="background: #4ecdc4; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">8</div>
+                                    <div style="background: #95e1d3; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">4</div>
+                                    <div style="background: #ffe66d; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">2</div>
+                                    <div style="background: #ff6b6b; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">1</div>
+                                    <div style="background: #a8e6cf; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">7</div>
+                                    <div style="background: #ffd93d; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">3</div>
+                                    <div style="background: #6c5ce7; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">6</div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4>Goal State:</h4>
+                                <div style="display: grid; grid-template-columns: repeat(3, 60px); gap: 5px; margin: 10px auto; max-width: 200px;">
+                                    <div style="background: #ff6b6b; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">1</div>
+                                    <div style="background: #ffe66d; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">2</div>
+                                    <div style="background: #ffd93d; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">3</div>
+                                    <div style="background: #95e1d3; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">4</div>
+                                    <div style="background: #ff6b6b; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">5</div>
+                                    <div style="background: #6c5ce7; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">6</div>
+                                    <div style="background: #a8e6cf; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">7</div>
+                                    <div style="background: #4ecdc4; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold;">8</div>
+                                    <div style="background: #f0f0f0; padding: 15px; text-align: center; border-radius: 5px;">_</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Decomposition -->
+                        <div class="formula-box" style="margin: 20px 0; text-align: center; font-size: 1.2em;">
+                            <strong>↓ Decomposition (Ayrıştırma) ↓</strong>
+                        </div>
+                        
+                        <!-- d1234 Branch -->
+                        <div class="comparison-box" style="margin-bottom: 20px;">
+                            <div>
+                                <h4>d1234: Tiles 1, 2, 3, 4</h4>
+                                <div class="formula-box" style="font-size: 0.9em; margin-bottom: 10px;">
+                                    <strong>Tanım:</strong> d1234 = Tiles 1, 2, 3, 4'ü hedef konumlarına taşımak için en kısa yol uzunluğu (diğer taşlar * olarak kabul edilir)
+                                </div>
+                                
+                                <div style="margin-bottom: 10px;">
+                                    <strong>Initial Sub-state:</strong>
+                                    <div style="display: grid; grid-template-columns: repeat(3, 50px); gap: 3px; margin: 10px auto; max-width: 170px;">
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #f0f0f0; padding: 12px; text-align: center; border-radius: 5px;">_</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #95e1d3; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">4</div>
+                                        <div style="background: #ffe66d; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">2</div>
+                                        <div style="background: #ff6b6b; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">1</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #ffd93d; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">3</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <strong>Goal Sub-state:</strong>
+                                    <div style="display: grid; grid-template-columns: repeat(3, 50px); gap: 3px; margin: 10px auto; max-width: 170px;">
+                                        <div style="background: #ff6b6b; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">1</div>
+                                        <div style="background: #ffe66d; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">2</div>
+                                        <div style="background: #ffd93d; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">3</div>
+                                        <div style="background: #95e1d3; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">4</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #f0f0f0; padding: 12px; text-align: center; border-radius: 5px;">_</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4>d5678: Tiles 5, 6, 7, 8</h4>
+                                <div class="formula-box" style="font-size: 0.9em; margin-bottom: 10px;">
+                                    <strong>Tanım:</strong> d5678 = Tiles 5, 6, 7, 8'i hedef konumlarına taşımak için en kısa yol uzunluğu (diğer taşlar * olarak kabul edilir)
+                                </div>
+                                
+                                <div style="margin-bottom: 10px;">
+                                    <strong>Initial Sub-state:</strong>
+                                    <div style="display: grid; grid-template-columns: repeat(3, 50px); gap: 3px; margin: 10px auto; max-width: 170px;">
+                                        <div style="background: #ff6b6b; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">5</div>
+                                        <div style="background: #f0f0f0; padding: 12px; text-align: center; border-radius: 5px;">_</div>
+                                        <div style="background: #4ecdc4; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">8</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #a8e6cf; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">7</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #6c5ce7; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">6</div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <strong>Goal Sub-state:</strong>
+                                    <div style="display: grid; grid-template-columns: repeat(3, 50px); gap: 3px; margin: 10px auto; max-width: 170px;">
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #d3d3d3; padding: 12px; text-align: center; border-radius: 5px;">*</div>
+                                        <div style="background: #ff6b6b; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">5</div>
+                                        <div style="background: #6c5ce7; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">6</div>
+                                        <div style="background: #a8e6cf; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">7</div>
+                                        <div style="background: #4ecdc4; padding: 12px; text-align: center; border-radius: 5px; font-weight: bold;">8</div>
+                                        <div style="background: #f0f0f0; padding: 12px; text-align: center; border-radius: 5px;">_</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Formula -->
+                        <div class="formula-box" style="margin-top: 20px; text-align: center; font-size: 1.3em; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2) 0%, rgba(75, 0, 130, 0.2) 100%);">
+                            <strong>Heuristik Formülü:</strong><br>
+                            <span class="formula" style="font-size: 1.5em; display: block; margin-top: 10px;">h = d1234 + d5678</span>
+                        </div>
+                        
+                        <div class="note-box" style="margin-top: 15px;">
+                            <strong>Pre-computation (Ön Hesaplama):</strong> d1234 ve d5678 değerleri önceden hesaplanır ve saklanır (Pattern Database). 
+                            Bu sayede arama sırasında hızlıca erişilebilir.
+                        </div>
+                        
+                        <div class="note-box" style="margin-top: 10px; background: linear-gradient(135deg, rgba(0, 191, 255, 0.1) 0%, rgba(0, 100, 200, 0.1) 100%);">
+                            <strong>Neden Geçerlidir?</strong> Her alt-problem bağımsız olarak çözüldüğü için, toplam maliyet (d1234 + d5678) 
+                            gerçek maliyetten küçük veya eşit olur. Bu yüzden h(n) ≤ h*(n) koşulu sağlanır ve heuristik geçerlidir.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Yerel Arama -->
+            <section id="local-search" class="learn-section">
+                <h2>6. Yerel Arama (Local Search) — Temel Kavramlar</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Yerel Arama Nedir?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Tanım:</strong> Yerel arama, optimizasyon problemlerinde hedefe ulaşan yol yerine hedef durumu doğrudan bulmaya çalışır.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • Yol önemli değildir<br>
+                        • Sadece mevcut durum tutulur<br>
+                        • Arama ağacı yoktur<br>
+                        • Komşu durumlara geçerek iyileştirme yapılır<br>
+                        • Çok az bellek kullanır<br>
+                        • Çok büyük/sonsuz durum uzaylarında bile çalışabilir
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek:</strong> 8 vezir problemi - Yol önemli değil, sadece final durum (hiç tehdit yok) önemlidir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hill Climbing -->
+            <section id="hill-climbing" class="learn-section">
+                <h2>7. Tepe Tırmanışı (Hill Climbing)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Hill Climbing Nedir?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Sürekli daha iyi komşu durumlara geçer. Açgözlü yerel arama.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • İleri bakış yoktur<br>
+                        • Sadece yakın komşular değerlendirilir<br>
+                        • Açgözlü yerel arama<br>
+                        • Birden fazla en iyi ardıl varsa → rastgele seçim
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Benzetme:</strong> "Everest'e yoğun sis ve hafıza kaybıyla tırmanmak gibi."
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🧩 Hill Climbing — Örnek (8 Vezir)</h3>
+                    <div class="formula-box">
+                        <strong>Tam durum formülasyonu kullanılır:</strong><br>
+                        • Her vezir kendi sütununda başka kareye taşınabilir<br>
+                        • h(n) = birbirini tehdit eden vezir çiftlerinin sayısı<br>
+                        • Hedef: h(n) = 0 (hiç tehdit yok)
+                    </div>
+                </div>
+
+                <!-- Hill Climbing 8-Queens Example -->
+                <div class="concept-card">
+                    <h3>📊 Hill Climbing: 8-Queens Örneği</h3>
+                    <p>Aşağıdaki örnek, Hill Climbing algoritmasının 8-Queens probleminde nasıl çalıştığını gösterir:</p>
+                    
+                    <div class="mermaid-graph">
+                        <!-- Diagram (a) -->
+                        <div style="margin-bottom: 30px;">
+                            <h4>(a) Mevcut Durum (h=17) ve Successor H-Değerleri</h4>
+                            <div class="formula-box" style="margin-bottom: 15px;">
+                                <strong>Açıklama:</strong> Mevcut durum h=17 değerine sahip. Her kare, o kareye vezir taşındığında elde edilecek h-değerini gösterir.
+                            </div>
+                            
+                            <!-- Chessboard representation -->
+                            <div style="display: grid; grid-template-columns: repeat(8, 50px); gap: 2px; margin: 20px auto; max-width: 420px; border: 3px solid #333; padding: 5px; background: #f0f0f0;">
+                                <!-- Row 8 (Top) -->
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">18</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333; font-weight: bold; background: #90ee90;">12</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">13</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">13</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333; font-weight: bold; background: #90ee90;">12</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                
+                                <!-- Row 7 -->
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">16</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">13</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">15</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333; font-weight: bold; background: #90ee90;">12</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333; font-weight: bold; background: #90ee90;">12</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">16</div>
+                                
+                                <!-- Row 6 -->
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333; font-weight: bold; background: #90ee90;">12</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">18</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">13</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">15</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333; font-weight: bold; background: #90ee90;">12</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                
+                                <!-- Row 5 -->
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">15</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.9em; border: 2px solid #000; background: #ff6b6b; color: white; font-weight: bold;">♛</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">13</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">16</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">13</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">16</div>
+                                
+                                <!-- Row 4 -->
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.9em; border: 2px solid #000; background: #ff6b6b; color: white; font-weight: bold;">♛</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">17</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">15</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.9em; border: 2px solid #000; background: #ff6b6b; color: white; font-weight: bold;">♛</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">16</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">16</div>
+                                
+                                <!-- Row 3 -->
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">17</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.9em; border: 2px solid #000; background: #ff6b6b; color: white; font-weight: bold;">♛</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">16</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">18</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">15</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.9em; border: 2px solid #000; background: #ff6b6b; color: white; font-weight: bold;">♛</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">15</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.9em; border: 2px solid #000; background: #ff6b6b; color: white; font-weight: bold;">♛</div>
+                                
+                                <!-- Row 2 -->
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">18</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.9em; border: 2px solid #000; background: #ff6b6b; color: white; font-weight: bold;">♛</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">15</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">15</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.9em; border: 2px solid #000; background: #ff6b6b; color: white; font-weight: bold;">♛</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">16</div>
+                                
+                                <!-- Row 1 (Bottom) -->
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">13</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">17</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333; font-weight: bold; background: #90ee90;">12</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">14</div>
+                                <div style="background: #f0d9b5; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333; font-weight: bold; background: #90ee90;">12</div>
+                                <div style="background: #b58863; padding: 8px; text-align: center; font-size: 0.75em; border: 1px solid #333;">18</div>
+                            </div>
+                            
+                            <div class="note-box" style="margin-top: 15px;">
+                                <strong>Açıklama:</strong> 
+                                <ul style="margin-top: 10px; padding-left: 20px;">
+                                    <li>Mevcut durum: <strong>h=17</strong> (8 vezir var, birbirini tehdit eden çiftlerin sayısı)</li>
+                                    <li>Her kare, o kareye vezir taşındığında elde edilecek <strong>h-değerini</strong> gösterir</li>
+                                    <li><strong style="color: #006400;">Yeşil kareler (h=12)</strong>: En iyi successor'lar - Hill Climbing bunlardan birini seçer</li>
+                                    <li>Vezirler (♛): Mevcut vezirlerin konumları</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Diagram (b) -->
+                        <div style="margin-top: 40px;">
+                            <h4>(b) Yerel Minimum (Local Minimum) - h=1</h4>
+                            <div class="formula-box" style="margin-bottom: 15px;">
+                                <strong>Açıklama:</strong> Bu durum bir yerel minimumdur. h=1 değerine sahiptir, ancak hiçbir tek vezir hareketi h-değerini azaltamaz.
+                            </div>
+                            
+                            <!-- Image representation for local minimum -->
+                            <div style="text-align: center; margin: 20px 0;">
+                                <img src="Kurslar/yapay zeka bölümleri/b.jpg" alt="Yerel Minimum (Local Minimum) - h=1" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                            </div>
+                            
+                            <div class="note-box" style="margin-top: 15px; background: linear-gradient(135deg, rgba(255, 69, 0, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%);">
+                                <strong>Yerel Minimum Problemi:</strong>
+                                <ul style="margin-top: 10px; padding-left: 20px;">
+                                    <li>Bu durum <strong>h=1</strong> değerine sahiptir (sadece 1 çift vezir birbirini tehdit ediyor)</li>
+                                    <li>Ancak <strong>hiçbir tek vezir hareketi</strong> h-değerini azaltamaz (tüm komşular h≥1)</li>
+                                    <li>Hill Climbing burada <strong>takılı kalır</strong> (%86 oranında bu durumda takılı kalır)</li>
+                                    <li>Çözüm: <strong>h=0</strong> olmalı (hiç tehdit yok), ama bu yerel minimumdan çıkmak için rastgele hareket veya restart gerekir</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-box" style="margin-top: 20px;">
+                            <strong>Hill Climbing Seçimi:</strong><br>
+                            Diagram (a)'da, Hill Climbing <strong>h=12</strong> değerine sahip karelerden birini seçer (en iyi successor). 
+                            Eğer birden fazla en iyi varsa, rastgele seçim yapar (Stochastic Hill Climbing).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Hill Climbing — Karşılaşılan Problemler</h3>
+                    
+                    <div class="env-property-card">
+                        <h4>1. Yerel Maksimum (Local Maximum)</h4>
+                        <ul>
+                            <li>Komşulardan daha iyi ama global maksimumdan daha düşük</li>
+                            <li>8 vezir probleminde <strong>%86 oranında</strong> burada sıkışır</li>
+                            <li>Algoritma burada takılı kalır</li>
+                        </ul>
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>2. Ridge (Sırt)</h4>
+                        <ul>
+                            <li>Zirveler dizisidir</li>
+                            <li>Yön bulmak zordur</li>
+                            <li>Algoritma yanlış yöne gidebilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>3. Plateaux (Düzlük)</h4>
+                        <ul>
+                            <li>Aynı h(n) değerine sahip geniş düz alan</li>
+                            <li>Rastgele hareket gerekebilir</li>
+                            <li>Algoritma ilerleyemez</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Hill Climbing Problems Visual Explanation -->
+                <div class="concept-card">
+                    <h3>📊 Hill Climbing Problems: Görsel Açıklama</h3>
+                    <p>Aşağıdaki görsel, Hill Climbing algoritmasında karşılaşılan farklı problem türlerini gösterir:</p>
+                    
+                    <!-- Image -->
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/problem.jpg" alt="Hill Climbing Problems" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    </div>
+                    
+                    <div class="mermaid-graph">
+                        <div class="comparison-box" style="margin-bottom: 20px;">
+                            <div>
+                                <h4>2D Objective Function Plot</h4>
+                                <div class="formula-box" style="margin-bottom: 15px;">
+                                    <strong>Eksenler:</strong><br>
+                                    • X-ekseni: State Space (Durum Uzayı)<br>
+                                    • Y-ekseni: Objective Function (Amaç Fonksiyonu)
+                                </div>
+                                
+                                <div class="note-box" style="margin-bottom: 15px;">
+                                    <strong>Global Maximum (Küresel Maksimum):</strong><br>
+                                    En yüksek tepe noktası. Bu, problemin gerçek optimal çözümüdür. Hill Climbing buraya ulaşmak ister, ancak yerel maksimumlarda takılı kalabilir.
+                                </div>
+                                
+                                <div class="note-box" style="margin-bottom: 15px;">
+                                    <strong>Shoulder (Omuz):</strong><br>
+                                    Global maximum'un solunda, yükselen eğimde düz bir plato bölgesi. Bu bölgede fonksiyon değeri sabit kalır, bu yüzden algoritma ilerleyemez.
+                                </div>
+                                
+                                <div class="note-box" style="margin-bottom: 15px;">
+                                    <strong>Local Maximum (Yerel Maksimum):</strong><br>
+                                    Global maximum'un sağında, daha küçük bir tepe. Komşu durumlardan daha iyi ama global maksimumdan daha düşük. Hill Climbing burada takılı kalır çünkü tüm komşular daha kötü.
+                                </div>
+                                
+                                <div class="note-box" style="margin-bottom: 15px;">
+                                    <strong>"Flat" Local Maximum (Düz Yerel Maksimum):</strong><br>
+                                    Daha da sağda, üstü düzleştirilmiş küçük bir tepe. Bu, geniş bir plato üzerinde yerel maksimumdur. Algoritma burada da takılı kalabilir.
+                                </div>
+                                
+                                <div class="note-box" style="background: linear-gradient(135deg, rgba(0, 191, 255, 0.1) 0%, rgba(0, 100, 200, 0.1) 100%);">
+                                    <strong>Current State (Mevcut Durum):</strong><br>
+                                    Global maximum ve local maximum arasındaki bir vadide işaretlenmiş. Ok, algoritmanın local maximum'a doğru hareket etme eğilimini gösterir. 
+                                    Bu, Hill Climbing'in global maximum yerine local maximum'a takılı kalma problemini gösterir.
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4>3D Ridge Illustration</h4>
+                                <div class="formula-box" style="margin-bottom: 15px;">
+                                    <strong>Ridge (Sırt) Nedir?</strong><br>
+                                    Bir dizi paralel eğri çizgiden oluşan, kemer veya parabol benzeri yapı. Her eğri üzerinde birden fazla nokta (siyah noktalar) vardır.
+                                </div>
+                                
+                                <div class="note-box" style="margin-bottom: 15px;">
+                                    <strong>Yapı:</strong><br>
+                                    • Birkaç paralel, eğri çizgi<br>
+                                    • Her çizgi üzerinde birden fazla siyah nokta<br>
+                                    • Noktalar arasında oklar, sırt boyunca yukarı ve eğri boyunca hareket yönünü gösterir
+                                </div>
+                                
+                                <div class="note-box" style="margin-bottom: 15px;">
+                                    <strong>Problem:</strong><br>
+                                    Ridge, Hill Climbing için zor bir durumdur çünkü:
+                                    <ul style="margin-top: 10px; padding-left: 20px;">
+                                        <li>Yön bulmak zordur - algoritma hangi yöne gitmesi gerektiğini bilemez</li>
+                                        <li>Yanlış yöne gidebilir - sırt boyunca değil, yan yöne hareket edebilir</li>
+                                        <li>Yavaş ilerleme - sırt boyunca ilerlemek için birçok küçük adım gerekir</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="note-box" style="background: linear-gradient(135deg, rgba(255, 69, 0, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%);">
+                                    <strong>Çözüm Stratejileri:</strong><br>
+                                    <ul style="margin-top: 10px; padding-left: 20px;">
+                                        <li><strong>Simulated Annealing:</strong> Kötü hamlelere izin vererek ridge'den çıkabilir</li>
+                                        <li><strong>Random Restart:</strong> Yeni başlangıç noktası seçerek ridge'den kaçabilir</li>
+                                        <li><strong>Tabu Search:</strong> Son ziyaret edilen durumları hatırlayarak ridge'de döngüye girmeyi önler</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-box" style="margin-top: 20px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(75, 0, 130, 0.1) 100%);">
+                            <strong>Özet:</strong><br>
+                            Bu görsel, Hill Climbing'in neden her zaman optimal çözümü bulamadığını gösterir:
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li><strong>Local Maximum:</strong> Algoritma komşulardan daha iyi ama optimal olmayan bir noktada takılı kalır</li>
+                                <li><strong>Shoulder/Plateau:</strong> Düz bölgelerde algoritma ilerleyemez, rastgele hareket gerekir</li>
+                                <li><strong>Ridge:</strong> Karmaşık yapılar algoritmanın yön bulmasını zorlaştırır</li>
+                                <li><strong>Flat Local Maximum:</strong> Geniş düz alanlar üzerinde yerel maksimumlar algoritmayı yanıltabilir</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Hill Climbing Versiyonları</h3>
+                    
+                    <div class="comparison-box">
+                        <div>
+                            <h4>1. Stokastik Tepe Tırmanması (Stochastic Hill Climbing)</h4>
+                            <div class="formula-box">
+                                <strong>Özellik:</strong> Mevcut durumdan yukarı yönlü hareketler arasında rastgele seçim yapılır.
+                            </div>
+                            <div class="example-box">
+                                <strong>8 Vezir Problemi - Detaylı Açıklama:</strong>
+                                <ol style="margin-top: 10px; padding-left: 20px;">
+                                    <li><strong>Başlangıç:</strong> 8 veziri rastgele olarak tahtanın farklı hücrelerine yerleştiriyorsunuz.</li>
+                                    <li><strong>Tehdit Sayımı:</strong> Bu yerleşim durumunda kaç çift vezirin birbirini tehdit ettiğini sayıyorsunuz (yani, aynı satırda, aynı sütunda veya aynı çaprazda olup olmadıklarını).</li>
+                                    <li><strong>Rastgele Seçim:</strong> Tüm olası hareketlerden (bir veziri başka bir yere taşıyarak) rastgele olarak en az tehdit olan durumu seçiyorsunuz.</li>
+                                    <li><strong>Devam:</strong> Bu işlemi, daha az tehdit olan bir düzenleme bulana kadar devam ettiriyorsunuz.</li>
+                                </ol>
+                            </div>
+                            <div class="note-box" style="margin-top: 10px;">
+                                <strong>Avantaj:</strong> Birden fazla iyi seçenek varsa, rastgele seçim yaparak çeşitlilik sağlar ve farklı yolları keşfetme şansı verir.
+                            </div>
+                        </div>
+                        <div>
+                            <h4>2. İlk Seçim Tepe Tırmanması (First Choice Hill Climbing)</h4>
+                            <div class="formula-box">
+                                <strong>Özellik:</strong> Daha iyi bir çözüm bulunana kadar rastgele halefler (yeni durumlar) üretir.
+                            </div>
+                            <div class="example-box">
+                                <strong>8 Vezir Problemi - Detaylı Açıklama:</strong>
+                                <ol style="margin-top: 10px; padding-left: 20px;">
+                                    <li><strong>Başlangıç:</strong> 8 veziri rastgele olarak tahtaya yerleştiriyorsunuz.</li>
+                                    <li><strong>Tehdit Kontrolü:</strong> Eğer bu yerleşimde, örneğin 6 çift vezir birbirini tehdit ediyorsa, bu durumda yeni bir pozisyon denemek için rastgele bir vezirin konumunu değiştiriyorsunuz.</li>
+                                    <li><strong>Kontrol ve Kabul:</strong> Bu yeni pozisyonda tehdit sayısını tekrar kontrol ediyorsunuz. Eğer daha iyi bir durum bulursanız (daha az tehdit), o durumu kabul ediyorsunuz.</li>
+                                    <li><strong>Devam:</strong> Bu şekilde, sürekli daha iyi düzenlemeler bulana kadar devam ediyorsunuz.</li>
+                                </ol>
+                            </div>
+                            <div class="note-box" style="margin-top: 10px;">
+                                <strong>Avantaj:</strong> Tüm komşuları değerlendirmek yerine, ilk daha iyi bulunanı seçerek zaman kazanır. Özellikle büyük durum uzaylarında etkilidir.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>🔄 Rastgele Yeniden Başlatma Tepe Tırmanması (Random Restart Hill Climbing)</h4>
+                        <div class="formula-box">
+                            <strong>Özellik:</strong> Yerel maksimumlarda sıkışmayı önlemek için zaman zaman tamamen yeni bir başlangıç yapar.
+                        </div>
+                        <div class="example-box">
+                            <strong>8 Vezir Problemi - Detaylı Açıklama:</strong>
+                            <ol style="margin-top: 10px; padding-left: 20px;">
+                                <li><strong>İlk Yerleşim:</strong> İlk başta 8 veziri tahtaya yerleştiriyorsunuz. Ancak, yerleşiminiz 4 çift veziri tehdit ediyorsa ve bu durumda yerel maksimumda sıkıştığınızı düşünüyorsunuz (yani, en iyi durumda olduğunuzu sanıyorsunuz ama hâlâ tehdit var).</li>
+                                <li><strong>Yeniden Başlatma:</strong> Bu durumda, tekrar başlamak için tüm vezirleri tahtadan kaldırıyorsunuz ve yeniden rastgele bir yerleşim yapıyorsunuz.</li>
+                                <li><strong>Yeni Deneme:</strong> Bu yeniden başlatmada, başka bir düzenleme ile belki daha iyi bir çözüm bulacaksınız.</li>
+                            </ol>
+                        </div>
+                        <div class="note-box" style="margin-top: 10px; background: linear-gradient(135deg, rgba(0, 191, 255, 0.1) 0%, rgba(0, 100, 200, 0.1) 100%);">
+                            <strong>Neden Önemli?</strong> Hill Climbing %86 oranında yerel maksimumda takılı kalır. Random Restart, bu problemi çözmek için en basit ve etkili yöntemlerden biridir. Her restart, yeni bir başlangıç noktasından arama yapma şansı verir.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Simulated Annealing -->
+            <section id="simulated-annealing" class="learn-section">
+                <h2>8. Simulated Annealing (Simüle Edilmiş Tavlama)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Simulated Annealing Nedir?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Kötü hamlelere izin verir (başta yüksek), zamanla azaltır. Yerel maksimumlardan kaçış sağlar.
+                    </div>
+
+                    <div class="formula-box" style="margin-bottom: 15px;">
+                        <strong>Temel Prensip:</strong><br>
+                        • Kötü hamlelerin yapılmasına izin vererek yerel maksimumlardan kaçış<br>
+                        • Ancak bu hamlelerin boyutunu ve sıklığını yavaş yavaş azaltmak<br>
+                        • <strong>Kaynak:</strong> Metalurjik aşındırma (metallurgical annealing) sürecinden esinlenilmiştir
+                    </div>
+
+                    <div class="formula-box" style="margin-bottom: 15px;">
+                        <strong>"Zıplayan Top Analojisi":</strong><br>
+                        • <strong>Sert sallama</strong> = yüksek sıcaklık (T) → Top çok yükseğe zıplayabilir, kötü konumlara da gidebilir<br>
+                        • <strong>Daha az sallama</strong> = daha düşük sıcaklık → Top daha az zıplar, daha kontrollü hareket eder<br>
+                        • <strong>T yeterince yavaş azalırsa</strong> → en iyi duruma ulaşılır (optimal çözüm)
+                    </div>
+
+                    <div class="formula-box" style="margin-bottom: 15px;">
+                        <strong>Kabul Olasılığı Formülü:</strong><br>
+                        • ΔE < 0 (yeni durum daha kötü) ise:<br>
+                        • Yeni durum <strong>e^(ΔE/T)</strong> olasılığı ile kabul edilir<br>
+                        • <strong>Sıcaklık T yüksekken</strong> → büyük olasılık (kötü hamleler daha kolay kabul edilir)<br>
+                        • <strong>Sıcaklık T düşükken</strong> → küçük olasılık (sadece iyi hamleler kabul edilir)
+                    </div>
+
+                    <div class="note-box" style="margin-bottom: 15px;">
+                        <strong>Çalışma Mekanizması:</strong>
+                        <ol style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Yüksek Sıcaklık (Başlangıç):</strong> Algoritma kötü hamlelere izin verir, böylece yerel maksimumlardan çıkabilir.</li>
+                            <li><strong>Sıcaklık Azalması:</strong> Zamanla sıcaklık T yavaşça azalır (cooling schedule).</li>
+                            <li><strong>Düşük Sıcaklık (Son):</strong> Sıcaklık düştükçe, kötü hamlelerin kabul edilme olasılığı azalır.</li>
+                            <li><strong>Optimal Çözüm:</strong> Eğer sıcaklık yeterince yavaş azalırsa, algoritma global optimuma ulaşır.</li>
+                        </ol>
+                    </div>
+
+                    <div class="example-box" style="margin-bottom: 15px;">
+                        <strong>Kullanım Alanları:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>VLSI yerleşimi:</strong> Entegre devrelerin yerleşim optimizasyonu</li>
+                            <li><strong>Havayolu planlaması:</strong> Uçuş rotalarının ve zamanlamalarının optimizasyonu</li>
+                            <li><strong>Büyük optimizasyon problemleri:</strong> Karmaşık, çok boyutlu optimizasyon problemlerinde</li>
+                            <li><strong>Üretim planlama:</strong> Fabrika düzeni ve üretim süreçlerinin optimizasyonu</li>
+                        </ul>
+                    </div>
+
+                    <div class="note-box" style="background: linear-gradient(135deg, rgba(0, 191, 255, 0.1) 0%, rgba(0, 100, 200, 0.1) 100%);">
+                        <strong>Neden Etkilidir?</strong><br>
+                        Simulated Annealing, Hill Climbing'in yerel maksimum problemini çözer. Kötü hamlelere izin vererek, algoritmanın yerel optimumdan çıkıp global optimuma ulaşmasını sağlar. Sıcaklık azalması sayesinde, başlangıçta geniş arama yapılırken, sonlara doğru daha odaklı ve hassas arama yapılır.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Local Beam Search -->
+            <section id="local-beam" class="learn-section">
+                <h2>9. Yerel Işın Arama (Local Beam Search)</h2>
+                
+                <div class="agent-type-card detailed">
+                    <h3>🔵 Local Beam Search Nedir?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Tek bir durum yerine k durum takip edilir.
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Çalışma Mantığı:</strong><br>
+                        1. Başlangıçta k rastgele durum<br>
+                        2. Tüm ardıllar üretilir<br>
+                        3. Eğer ardıllardan biri hedefse → çözüm<br>
+                        4. Değilse en iyi k durum seçilir<br>
+                        5. Aynı anda birden fazla arama yolu çalışır<br>
+                        6. Durumlar birbirleriyle bilgi paylaşır
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Fark:</strong> Hill Climbing tek bir durum takip eder, Local Beam Search k durum takip eder (paralel arama).
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual Examples -->
+            <section id="visual-examples" class="learn-section">
+                <h2>10. Visual Examples (Görsel Örnekler)</h2>
+                
+                <!-- Consistent Heuristics Definition -->
+                <div class="concept-card">
+                    <h3>📊 Consistent Heuristics: Tanım ve Özellikler</h3>
+                    <p>Aşağıdaki grafik, tutarlı heuristik tanımını ve özelliklerini gösterir:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            N["Node n<br/>h(n)"] -->|"c(n,a,n')"| N2["Node n'<br/>h(n')"]
+                            N -->|"h(n)"| Goal["Goal G"]
+                            N2 -->|"h(n')"| Goal
+                            
+                            style N fill:#87ceeb,stroke:#000,stroke-width:2px
+                            style N2 fill:#90ee90,stroke:#000,stroke-width:2px
+                            style Goal fill:#006400,stroke:#00ff00,stroke-width:3px
+                        </div>
+                        
+                        <div class="formula-box" style="margin-top: 20px;">
+                            <strong>Consistent Heuristic Tanımı:</strong><br>
+                            Bir heuristik tutarlıdır (consistent) eğer her node n ve her successor n' için:<br>
+                            <span class="formula">h(n) ≤ c(n, a, n') + h(n')</span>
+                        </div>
+                        
+                        <div class="formula-box" style="margin-top: 15px;">
+                            <strong>Özellik (Property):</strong><br>
+                            Eğer h tutarlı ise, şunu elde ederiz:<br>
+                            <div style="background: rgba(138, 43, 226, 0.1); padding: 15px; border-radius: 10px; margin-top: 10px;">
+                                f(n') = g(n') + h(n')<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= g(n) + c(n, a, n') + h(n')<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;≥ g(n) + h(n)<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= f(n)
+                            </div>
+                        </div>
+                        
+                        <div class="note-box" style="margin-top: 15px;">
+                            <strong>Sonuç:</strong> f(n) herhangi bir path boyunca azalmaz (non-decreasing).<br>
+                            <strong>Teorem:</strong> Eğer h(n) tutarlı ise, A* GRAPH-SEARCH kullanarak optimaldir.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consistent Heuristic Example -->
+                <div class="concept-card">
+                    <h3>📊 Consistent Heuristic: Örnek</h3>
+                    <p>Aşağıdaki grafik, tutarlı heuristik kontrolünü gösterir:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] -->|c=1| B["h=100<br/>(Brown)"]
+                            Start -->|c=2| C["h=1<br/>(Yellow)"]
+                            B -->|c=1| D["h=90<br/>(Light Blue)"]
+                            C -->|c=2| D
+                            D -->|c=100| Goal["Goal<br/>h=0<br/>(Dark Green)"]
+                            
+                            style Start fill:#ff0000,stroke:#000,stroke-width:2px
+                            style B fill:#8b4513,stroke:#000,stroke-width:2px
+                            style C fill:#ffff00,stroke:#000,stroke-width:2px
+                            style D fill:#87ceeb,stroke:#000,stroke-width:2px
+                            style Goal fill:#006400,stroke:#00ff00,stroke-width:3px
+                        </div>
+                        
+                        <div class="speech-bubble">
+                            <strong>Consistency Check:</strong><br>
+                            <p><strong>100 <= 1+90?</strong></p>
+                            <p><strong style="color: #ff4500;">No, h is not consistent.</strong></p>
+                            <p>Imagine h = 80,</p>
+                            <p><strong>80 <= 1+90?</strong></p>
+                            <p><strong style="color: #006400;">Yes, what happened?</strong></p>
+                        </div>
+                        
+                        <div class="note-box" style="margin-top: 15px;">
+                            <strong>Açıklama:</strong> Brown node için h=100, ancak c=1 ile Light Blue node'a (h=90) gidiyor. 
+                            Tutarlılık kontrolü: 100 <= 1+90? Hayır! (100 <= 91 yanlış). 
+                            Bu yüzden tutarlı değil. Eğer h=80 olsaydı, 80 <= 91 olurdu ve tutarlı olurdu.
+                        </div>
+                        
+                        <div class="formula-box" style="margin-top: 15px;">
+                            <strong>Yapı:</strong><br>
+                            • Start (Red) → Brown (h=100) via c=1<br>
+                            • Start (Red) → Yellow (h=1) via c=2<br>
+                            • Brown → Light Blue (h=90) via c=1<br>
+                            • Yellow → Light Blue (h=90) via c=2<br>
+                            • Light Blue → Goal (h=0) via c=100
+                        </div>
+                    </div>
+                </div>
+
+                <!-- A* f-values Calculation -->
+                <div class="concept-card">
+                    <h3>📊 A* f-values Calculation (Hesaplama)</h3>
+                    <p>Aşağıdaki grafik, A* algoritmasında f(n) = g(n) + h(n) değerlerinin hesaplanmasını gösterir:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] -->|"f=1+100<br/>=101"| B["f=1+100<br/>=101<br/>(Brown)"]
+                            Start -->|"f=2+1<br/>=3"| C["f=2+1<br/>=3<br/>(Yellow)"]
+                            B -->|"?"| D1["?<br/>(Light Blue)"]
+                            C -->|"f=4+90<br/>=94"| D2["f=4+90<br/>=94<br/>(Light Blue)"]
+                            D2 -->|"f=104"| Goal["Goal<br/>f=104<br/>(Dark Green)"]
+                            
+                            style Start fill:#ff0000,stroke:#000,stroke-width:2px
+                            style B fill:#8b4513,stroke:#000,stroke-width:2px
+                            style C fill:#ffff00,stroke:#000,stroke-width:2px
+                            style D1 fill:#87ceeb,stroke:#ff0000,stroke-width:3px,stroke-dasharray: 5 5
+                            style D2 fill:#87ceeb,stroke:#000,stroke-width:2px
+                            style Goal fill:#006400,stroke:#00ff00,stroke-width:3px
+                        </div>
+                        
+                        <div class="formula-box" style="margin-top: 15px;">
+                            <strong>Hesaplama:</strong> Sol taraftaki light blue node (D1) için f değeri:<br>
+                            g(n) = 1 (Start→Brown) + 1 (Brown→D1) = 2<br>
+                            h(n) = 90<br>
+                            <strong>f(n) = 2 + 90 = 92</strong>
+                        </div>
+                        <div class="note-box" style="margin-top: 10px;">
+                            <strong>Sağ Yol:</strong> Yellow→Light Blue→Goal: 2 + 2 + 100 = 104 (toplam maliyet)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IDA* Example -->
+                <div class="concept-card">
+                    <h3>📊 IDA*: Örnek (8-Puzzle)</h3>
+                    <p>Aşağıdaki görsel, IDA* algoritmasının 8-Puzzle probleminde nasıl çalıştığını ve cutoff mekanizmasını gösterir:</p>
+                    
+                    <div class="mermaid-graph">
+                        <img src="Kurslar/yapay zeka bölümleri/ideexampel.jpg" alt="IDA* Example" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); border: 2px solid rgba(138, 43, 226, 0.3); margin: 20px 0;">
+                        
+                        <div class="formula-box" style="margin-top: 20px;">
+                            <strong>Formül:</strong> f(N) = g(N) + h(N)<br>
+                            <strong>Heuristik:</strong> h(N) = yanlış yerleştirilmiş kare sayısı (number of misplaced tiles)<br>
+                            <strong>Cutoff Değeri:</strong> f-cutoff = 5
+                        </div>
+                        
+                        <div class="note-box" style="margin-top: 15px;">
+                            <strong>📋 Görsel Açıklama:</strong>
+                            <ol style="margin-top: 10px; padding-left: 20px;">
+                                <li><strong>Başlangıç Düğümü:</strong> Sol tarafta başlangıç durumu (3x3 grid) görülür. Altında <strong>f(N) = 4</strong> değeri yazılıdır.</li>
+                                <li><strong>Arama Yolu:</strong> Başlangıç düğümünden iki ok çıkar:
+                                    <ul style="margin-top: 5px; padding-left: 15px;">
+                                        <li>Bir ok, <strong>f(N) = 4</strong> değerine sahip bir düğüme gider (bu düğüm genişletilir)</li>
+                                        <li>Diğer ok, <strong>f(N) = 6</strong> değerine sahip gri bir düğüme gider (bu düğüm cutoff nedeniyle kesilir)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Cutoff Mekanizması:</strong> Görselde <strong>"Cutoff=5"</strong> yazısı görülür. Bu, f(N) > 5 olan tüm düğümlerin genişletilmediği anlamına gelir.</li>
+                                <li><strong>Kesilen Düğümler:</strong> Gri renkli boş 3x3 grid'ler, f(N) değeri 5'ten büyük olduğu için kesilen (pruned) düğümleri temsil eder:
+                                    <ul style="margin-top: 5px; padding-left: 15px;">
+                                        <li>f(N) = 6 olan düğümler → Cutoff=5 nedeniyle kesilir</li>
+                                        <li>f(N) = 7 olan düğümler → Cutoff=5 nedeniyle kesilir</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Devam Eden Arama:</strong> f(N) ≤ 5 olan düğümler genişletilmeye devam eder. Görselde bu düğümler renkli 3x3 grid'ler olarak gösterilir.</li>
+                                <li><strong>Iteratif Süreç:</strong> Eğer bu iterasyonda hedef bulunamazsa, IDA* f-cutoff değerini artırır (örneğin 6, 7, 8...) ve aramayı tekrar başlatır.</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="note-box" style="margin-top: 15px; background: linear-gradient(135deg, rgba(0, 191, 255, 0.1) 0%, rgba(0, 100, 200, 0.1) 100%);">
+                            <strong>💡 Önemli Noktalar:</strong>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li><strong>Bellek Verimliliği:</strong> IDA* sadece mevcut yol üzerindeki düğümleri tutar, bu yüzden bellek kullanımı çok düşüktür (O(d)).</li>
+                                <li><strong>Cutoff Stratejisi:</strong> f-cutoff değeri, algoritmanın ne kadar derine inebileceğini kontrol eder. Bu sayede sonsuz dallanma önlenir.</li>
+                                <li><strong>Optimalite:</strong> IDA* geçerli (admissible) heuristik kullanırsa optimal çözümü garanti eder.</li>
+                                <li><strong>Tamlık:</strong> Hedef varsa, IDA* mutlaka bulur (cutoff değeri yeterince artırıldığında).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IDA* Process -->
+                <div class="concept-card">
+                    <h3>📊 IDA*: Iterative Deepening Process</h3>
+                    <p>IDA* f-cutoff değerini artırarak iteratif derinleşme yapar:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] --> IDA1[IDA* f-cutoff=5]
+                            IDA1 -->|No Solution| IDA2[IDA* f-cutoff=6]
+                            IDA2 -->|No Solution| IDA3[IDA* f-cutoff=7]
+                            IDA3 -->|Solution Found!| Goal[Goal]
+                            
+                            style Start fill:#ff0000
+                            style IDA1 fill:#ffff00
+                            style IDA2 fill:#ffa500
+                            style IDA3 fill:#90ee90
+                            style Goal fill:#006400,stroke:#00ff00,stroke-width:3px
+                        </div>
+                        <div class="note-box">
+                            <strong>Açıklama:</strong> Her iterasyonda f-cutoff değeri artırılır. Sadece mevcut path bellekte tutulur (O(d) bellek).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RBFS Process -->
+                <div class="concept-card">
+                    <h3>📊 RBFS: Recursive Best-First Search</h3>
+                    <p>RBFS backtracking yapar ve f-değerlerini günceller:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start f=10] --> N1[Node 1 f=12]
+                            N1 --> N2[Node 2 f=15]
+                            N2 -->|f > alternative| Backup[Backup f-value]
+                            Backup -->|Updated f=13| N1
+                            N1 --> N3[Node 3 f=11]
+                            N3 --> Goal[Goal]
+                            
+                            style Start fill:#ff0000
+                            style N1 fill:#ffff00
+                            style N2 fill:#ffa500
+                            style Backup fill:#87ceeb,stroke:#ff0000,stroke-width:2px,stroke-dasharray: 5 5
+                            style N3 fill:#90ee90
+                            style Goal fill:#006400,stroke:#00ff00,stroke-width:3px
+                        </div>
+                        <div class="note-box">
+                            <strong>Açıklama:</strong> f-değeri alternatiften kötüleşirse geri döner ve f-değerini çocuklarının en iyi f-değeri ile günceller (backup).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SMA* Process -->
+                <div class="concept-card">
+                    <h3>📊 SMA*: Memory Management</h3>
+                    <p>SMA* bellek dolunca en kötü yaprağı siler:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] --> N1[Node 1 f=10]
+                            Start --> N2[Node 2 f=12]
+                            N1 --> N3[Node 3 f=11]
+                            N1 --> N4[Node 4 f=15]
+                            N2 --> N5[Node 5 f=13]
+                            N4 -.->|Memory Full| Delete[Delete Worst Leaf<br/>f=15]
+                            Delete --> Backup[Backup to Parent]
+                            
+                            style Start fill:#ff0000
+                            style N1 fill:#ffff00
+                            style N2 fill:#ffa500
+                            style N3 fill:#90ee90
+                            style N4 fill:#ff69b4,stroke:#ff0000,stroke-width:2px,stroke-dasharray: 5 5
+                            style N5 fill:#87ceeb
+                            style Delete fill:#8b0000
+                            style Backup fill:#87ceeb
+                        </div>
+                        <div class="note-box">
+                            <strong>Açıklama:</strong> Bellek dolunca en yüksek f-değerine sahip yaprak silinir. Silinen düğümün bilgisi ebeveyne yedeklenir.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hill Climbing Problems -->
+                <div class="concept-card">
+                    <h3>📊 Hill Climbing: Problemler</h3>
+                    <p>Hill Climbing'in karşılaştığı problemler:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] --> LocalMax[Local Maximum<br/>h=2<br/>%86 takılı kalır]
+                            Start --> Ridge[Ridge<br/>Yön bulmak zor]
+                            Start --> Plateau[Plateau<br/>Aynı h değeri]
+                            
+                            style Start fill:#ff0000
+                            style LocalMax fill:#ffa500,stroke:#ff0000,stroke-width:2px
+                            style Ridge fill:#ffff00
+                            style Plateau fill:#87ceeb
+                        </div>
+                        <div class="note-box">
+                            <strong>Çözümler:</strong> Stochastic Hill Climbing, Random Restart, Simulated Annealing
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulated Annealing -->
+                <div class="concept-card">
+                    <h3>📊 Simulated Annealing: Sıcaklık Azalması</h3>
+                    <p>Yüksek sıcaklık → kötü hamleler kabul, düşük sıcaklık → sadece iyi hamleler:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph LR
+                            HighT[High Temperature<br/>T=100<br/>Kötü hamleler kabul] --> MidT[Medium Temperature<br/>T=50<br/>Bazı kötü hamleler]
+                            MidT --> LowT[Low Temperature<br/>T=10<br/>Sadece iyi hamleler]
+                            LowT --> Optimal[Optimal Solution]
+                            
+                            style HighT fill:#ff0000
+                            style MidT fill:#ffa500
+                            style LowT fill:#ffff00
+                            style Optimal fill:#006400,stroke:#00ff00,stroke-width:3px
+                        </div>
+                        <div class="note-box">
+                            <strong>Formül:</strong> Kabul olasılığı = e^(ΔE/T). T yüksekken kötü hamleler kabul edilir, T düşükken reddedilir.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Local Beam Search -->
+                <div class="concept-card">
+                    <h3>📊 Local Beam Search: k=3 Örneği</h3>
+                    <p>3 durum paralel olarak takip edilir:</p>
+                    
+                    <div class="mermaid-graph">
+                        <div class="mermaid">
+                        graph TD
+                            Start[Start] --> S1[State 1]
+                            Start --> S2[State 2]
+                            Start --> S3[State 3]
+                            S1 --> S1A[Successor 1A]
+                            S1 --> S1B[Successor 1B]
+                            S2 --> S2A[Successor 2A]
+                            S2 --> S2B[Successor 2B]
+                            S3 --> S3A[Successor 3A]
+                            S3 --> S3B[Successor 3B]
+                            S1A --> Best[Best k=3 Selected]
+                            S1B --> Best
+                            S2A --> Best
+                            S2B --> Best
+                            S3A --> Best
+                            S3B --> Best
+                            
+                            style Start fill:#ff0000
+                            style S1 fill:#ffff00
+                            style S2 fill:#ffa500
+                            style S3 fill:#87ceeb
+                            style Best fill:#006400,stroke:#00ff00,stroke-width:3px
+                        </div>
+                        <div class="note-box">
+                            <strong>Açıklama:</strong> Tüm ardıllar üretilir, en iyi k=3 durum seçilir. Durumlar birbirleriyle bilgi paylaşır.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hızlı Özet -->
+            <section id="quick-summary" class="learn-section">
+                <h2>11. Hızlı Özet (Ezber İçin) 📚</h2>
+                
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.15) 0%, rgba(75, 0, 130, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>🎯 Geçerlilik vs Tutarlılık</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>Geçerlilik:</strong> h(n) ≤ h*(n) - Gerçek maliyeti asla aşmaz</li>
+                        <li><strong>Tutarlılık:</strong> h(n) ≤ c(n, n') + h(n') - Üçgen eşitsizliği</li>
+                        <li><strong>Her tutarlı fonksiyon geçerlidir</strong></li>
+                        <li><strong>Her geçerli fonksiyon tutarlı değildir</strong></li>
+                    </ul>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>🔑 Bellek Sınırlı Arama</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>IDA*:</strong> f-cutoff ile iteratif derinleşme, O(bd) bellek</li>
+                        <li><strong>RBFS:</strong> Backup ile f-değeri güncelleme, O(bd) bellek</li>
+                        <li><strong>SMA*:</strong> En kötü yaprağı siler, bellek sınırlı</li>
+                        <li><strong>Ortak:</strong> Tam, optimal, bazı düğümleri tekrar üretir</li>
+                    </ul>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(0, 191, 255, 0.15) 0%, rgba(0, 100, 200, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>⚡ Yerel Arama</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>Hill Climbing:</strong> Açgözlü, yerel maksimumda takılı kalır (%86)</li>
+                        <li><strong>Simulated Annealing:</strong> Kötü hamleleri e^(ΔE/T) ile kabul eder</li>
+                        <li><strong>Local Beam Search:</strong> k durum paralel takip eder</li>
+                        <li><strong>Problemler:</strong> Yerel maksimum, Ridge, Plateau</li>
+                    </ul>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(255, 69, 0, 0.15) 0%, rgba(255, 140, 0, 0.15) 100%); padding: 30px; border-radius: 15px;">
+                    <h3>⚠️ Önemli Notlar</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>A*:</strong> Zaman/Alan: O(b^d), geçerli+tutarlı heuristik ile optimal</li>
+                        <li><strong>b*:</strong> İdeal = 1, daha küçük = daha iyi heuristik</li>
+                        <li><strong>Rahatlatılmış Problem:</strong> Kısıtlamalar azaltılır → geçerli heuristik</li>
+                        <li><strong>8-Puzzle:</strong> h₁ (her yere) ≤ h₂ (bitişik) her zaman</li>
+                        <li><strong>Hill Climbing:</strong> 8 vezir %86 yerel maksimumda takılı kalır</li>
+                        <li><strong>Simulated Annealing:</strong> T yavaş azalırsa → optimal çözüm</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Sonraki Adım -->
+            <div class="next-step">
+                <h3>🎯 Hazır mısın?</h3>
+                <p>Artık A* algoritması, bellek sınırlı arama ve yerel arama yöntemlerini öğrendin! Şimdi bilgini test etmeye hazırsın.</p>
+                <a href="quiz.html" class="btn-start">Sınava Başla →</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="courses-data.js"></script>
+    <script>
+        // Learn Page JavaScript for Chapter 5
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChapterInfo();
+            setupSmoothScroll();
+        });
+
+        function loadChapterInfo() {
+            const courseId = localStorage.getItem('currentCourse');
+            const chapterId = localStorage.getItem('currentChapter');
+            
+            if (!courseId || !chapterId) {
+                localStorage.setItem('currentCourse', 'yapay-zeka');
+                localStorage.setItem('currentChapter', 'chapter-5');
+                updateChapterInfo('yapay-zeka', 'chapter-5');
+                return;
+            }
+            
+            updateChapterInfo(courseId, chapterId);
+        }
+
+        function updateChapterInfo(courseId, chapterId) {
+            const course = coursesData.courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            const chapter = course.chapters.find(ch => ch.id === chapterId);
+            if (!chapter) return;
+            
+            const titleElement = document.getElementById('chapter-title');
+            const descElement = document.getElementById('chapter-description');
+            
+            if (titleElement) {
+                titleElement.textContent = `${course.icon} ${chapter.title}`;
+            }
+            
+            if (descElement) {
+                descElement.textContent = chapter.description || 'A* algoritması, bellek sınırlı arama, yerel arama';
+            }
+        }
+
+        function setupSmoothScroll() {
+            const links = document.querySelectorAll('.table-of-contents a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğren - Yapay Zekâ Tanımları ve Ajanlar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="chapters.html" class="back-btn">← Geri</a>
+                <h1 id="chapter-title">📖 Yapay Zekâ Tanımları ve Ajanlar</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">Yapay zekâ tanımları, yaklaşımlar, ajan kavramı ve çevresel özellikler</p>
+        </header>
+
+        <div class="learn-container">
+            <!-- İçindekiler -->
+            <div class="table-of-contents">
+                <h3>📑 İçindekiler</h3>
+                <ul>
+                    <li><a href="#definitions">1. Yapay Zekâ Tanımları</a></li>
+                    <li><a href="#approaches">2. Yapay Zekâ Yaklaşımları</a></li>
+                    <li><a href="#agents">3. Ajan Kavramı</a></li>
+                    <li><a href="#environment">4. Çevresel Özellikler</a></li>
+                    <li><a href="#concepts-map">5. Kavram Haritası</a></li>
+                    <li><a href="#formulas-section">6. Önemli Formüller</a></li>
+                    <li><a href="#success-categories">7. Yapay Zekâ Başarı Kategorileri</a></li>
+                </ul>
+            </div>
+
+            <!-- Bölüm 1: Tanımlar -->
+            <section id="definitions" class="learn-section">
+                <h2>1. Yapay Zekâ Tanımları</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Bellman (1978)</h3>
+                    <p><strong>Tanım:</strong> Yapay zekâ, insan düşüncesiyle ilişkilendirilen faaliyetlerin otomasyonu ile ilgilidir.</p>
+                    <div class="formula-box">
+                        <strong>Kapsam:</strong> Karar verme + Problem çözme + Öğrenme
+                    </div>
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Satranç oynayan bir sistem, karar verme (hamle seçimi), problem çözme (strateji geliştirme) ve öğrenme (geçmiş oyunlardan ders çıkarma) faaliyetlerini otomatikleştirir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Haugeland (1985)</h3>
+                    <p><strong>Tanım:</strong> Bilgisayarların gerçekten düşünmesini ve zihne sahip olmasını sağlama çabası.</p>
+                    <div class="note-box">
+                        <strong>Not:</strong> Bu tanım sadece davranışı taklit etmekle kalmaz, gerçek zihinsel süreçlere odaklanır.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Winston (1992)</h3>
+                    <p><strong>Tanım:</strong> Algılamayı, akıl yürütmeyi ve hareketi mümkün kılan hesaplamaların incelenmesi.</p>
+                    <div class="formula-box">
+                        <strong>Üç Temel Bileşen:</strong><br>
+                        • Algılama (Perception)<br>
+                        • Akıl Yürütme (Reasoning)<br>
+                        • Hareket (Action)
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Rich & Knight (1991)</h3>
+                    <p><strong>Tanım:</strong> Bilgisayarların insanlar gibi düşünmesini ve davranmasını sağlama çalışması.</p>
+                </div>
+            </section>
+
+            <!-- Bölüm 2: Yaklaşımlar -->
+            <section id="approaches" class="learn-section">
+                <h2>2. Yapay Zekâ Yaklaşımları</h2>
+                
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Yaklaşım</th>
+                                <th>Odak</th>
+                                <th>Örnek</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Thinking Humanly</strong><br>(İnsan gibi düşünme)</td>
+                                <td>İnsan zihninin nasıl çalıştığını modellemek</td>
+                                <td>Bilişsel psikoloji, beyin görüntüleme</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Acting Humanly</strong><br>(İnsan gibi davranma)</td>
+                                <td>Dışarıdan gözlemlenen davranışı taklit etmek</td>
+                                <td>Turing Test, chatbot'lar</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thinking Rationally</strong><br>(Mantıklı düşünme)</td>
+                                <td>Mantık kurallarına dayalı akıl yürütme</td>
+                                <td>Formal mantık sistemleri</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Acting Rationally</strong><br>(Mantıklı davranma)</td>
+                                <td>Performansı maksimize etmek</td>
+                                <td>Optimal karar verme, A* algoritması</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🎯 Turing Test</h3>
+                    <p>Bir makinenin insan gibi davranıp davranamayacağını test eden yöntem.</p>
+                    <div class="formula-box">
+                        <strong>Test Senaryosu:</strong><br>
+                        1. Bir insan hakem, bilgisayar ve insan ile konuşur<br>
+                        2. Hakem hangisinin makine olduğunu ayırt edemezse → Test geçildi<br>
+                        3. Bu test <strong>"Acting Humanly"</strong> yaklaşımına aittir
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 3: Ajan Kavramı -->
+            <section id="agents" class="learn-section">
+                <h2>3. Ajan Kavramı</h2>
+                
+                <div class="concept-card">
+                    <h3>🤖 Ajan Nedir?</h3>
+                    <p>Çevresini algılayan ve çevresine etki eden herhangi bir şeydir.</p>
+                    <div class="formula-box">
+                        <strong>Temel Formül:</strong><br>
+                        <span class="formula">Ajan = Mimari + Program</span>
+                    </div>
+                    <ul class="concept-list">
+                        <li><strong>Mimari (Architecture):</strong> Donanım veya yazılım platformu (sensörler, aktüatörler, işlemci)</li>
+                        <li><strong>Program:</strong> Ajanın davranışını belirleyen yazılım</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📡 Sensörler (Sensors)</h3>
+                    <p>Çevreyi algılayan cihazlar.</p>
+                    <div class="example-box">
+                        <strong>Örnekler:</strong>
+                        <ul>
+                            <li>Kamera (görüntü algılama)</li>
+                            <li>Mikrofon (ses algılama)</li>
+                            <li>LIDAR (mesafe ölçümü)</li>
+                            <li>GPS (konum belirleme)</li>
+                            <li>Dokunmatik sensör</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>⚙️ Aktüatörler (Actuators)</h3>
+                    <p>Çevreye etki eden cihazlar.</p>
+                    <div class="example-box">
+                        <strong>Örnekler:</strong>
+                        <ul>
+                            <li>Motor (hareket)</li>
+                            <li>Hoparlör (ses çıkışı)</li>
+                            <li>Ekran (görsel çıkış)</li>
+                            <li>Robot kolu (manipülasyon)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔄 Ajan Fonksiyonu vs Ajan Programı</h3>
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Ajan Fonksiyonu:</strong><br>
+                            <span class="formula">f: P* → A</span><br>
+                            Tüm algı geçmişine göre eylem seçer (ideal/teorik)
+                        </div>
+                        <div>
+                            <strong>Ajan Programı:</strong><br>
+                            <span class="formula">f: P → A</span><br>
+                            Sadece mevcut algıya göre eylem seçer (gerçek uygulama)
+                        </div>
+                    </div>
+                    <div class="note-box">
+                        <strong>Fark:</strong> Ajan fonksiyonu matematiksel/teorik bir kavramdır. Ajan programı ise bu fonksiyonun belirli bir mimari (sensörler ve aktüatörler) üzerinde gerçekleştirilen pratik uygulamasıdır.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📊 Ajan Türleri</h3>
+                    
+                    <div class="agent-type-card">
+                        <h4>1. Table-based Agent (Tablolu Ajan)</h4>
+                        <p>Tüm durumlar için eylemleri tabloda saklar.</p>
+                        <div class="note-box warning">
+                            <strong>Dezavantaj:</strong> Çok fazla bellek kullanır, büyük problemler için pratik değildir.
+                        </div>
+                    </div>
+
+                    <div class="agent-type-card">
+                        <h4>2. Simple Reflex Agent (Basit Refleks Ajan)</h4>
+                        <p>Mevcut algıya göre doğrudan eylem seçer.</p>
+                        <div class="formula-box">
+                            <strong>Formül:</strong> <span class="formula">Eylem = f(Mevcut Algı)</span>
+                        </div>
+                        <div class="example-box">
+                            <strong>Örnek (Vacuum World):</strong><br>
+                            Eğer [Konum=A, Durum=Kirli] → Eylem: Temizle<br>
+                            Eğer [Konum=A, Durum=Temiz] → Eylem: Sağa Git
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🎯 Rasyonellik (Rationality)</h3>
+                    <p>Rasyonel bir ajan, <strong>beklenen performansı</strong> maksimize etmeye çalışır.</p>
+                    <div class="formula-box">
+                        <strong>Rasyonelliği Belirleyen 4 Faktör:</strong><br>
+                        1. <strong>Performans ölçütü</strong> - Neye göre başarı değerlendirilecek?<br>
+                        2. <strong>Önceki çevre bilgisi</strong> - Ajanın çevre hakkında sahip olduğu ön bilgiler<br>
+                        3. <strong>Algı dizisi (percept sequence)</strong> - Ajanın geçmişten bugüne topladığı tüm algılar<br>
+                        4. <strong>Eylemler</strong> - Ajanın seçebileceği eylem kümesi
+                    </div>
+                    <div class="note-box">
+                        <strong>Önemli Notlar:</strong>
+                        <ul>
+                            <li>Rasyonellik ≠ Her şeyi bilme</li>
+                            <li>Rasyonellik ≠ Mükemmellik</li>
+                            <li>Rasyonel ajan, sahip olduğu sınırlı bilgilere göre en iyi kararı verir</li>
+                            <li>Gerçek performansı bilemez, ama beklenen performansı maksimize eder</li>
+                        </ul>
+                    </div>
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Tam otomatik taksi ajanında performans ölçütü: Güvenlik + Varış süresi + Kâr + Konfor. Ajan bu faktörleri dengeli bir şekilde maksimize etmeye çalışır.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔍 Exploration (Keşif) vs Exploitation (Sömürme)</h3>
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Exploration (Keşif):</strong><br>
+                            Ajanın çevresini aktif olarak keşfederek bilgi toplaması. Amaç: Gelecekte daha başarılı eylemler gerçekleştirmek.
+                        </div>
+                        <div>
+                            <strong>Exploitation (Sömürme):</strong><br>
+                            Mevcut bilgiyi kullanarak en iyi sonucu elde etmek. Amaç: Şu anki performansı maksimize etmek.
+                        </div>
+                    </div>
+                    <div class="note-box">
+                        <strong>Denge:</strong> İyi bir ajan, exploration ve exploitation arasında denge kurmalıdır. Çok fazla exploration → performans düşer. Çok fazla exploitation → yeni fırsatlar kaçırılır.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🛡️ Autonomy (Özerklik)</h3>
+                    <p>Ajanın kendi bilgisine, algılarına ve deneyimlerine dayanarak bağımsız kararlar verebilmesi.</p>
+                    <div class="formula-box">
+                        <strong>Özerk Ajan Özellikleri:</strong><br>
+                        • Dışarıdan yönlendirme olmadan karar verebilir<br>
+                        • Kendi algılarına dayanarak hareket eder<br>
+                        • Deneyimlerinden öğrenir ve uygular
+                    </div>
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Tam otomatik bir taksi, trafik kurallarını öğrenmiş, sensörlerinden gelen bilgilere göre kendi başına karar verebilir ve dış müdahaleye ihtiyaç duymaz.
+                    </div>
+                    <div class="note-box">
+                        <strong>Not:</strong> Özerklik, ajanın hiçbir bilgiye ihtiyacı olmadığı anlamına gelmez. Aksine, ajan bilgiye ihtiyaç duyar ama bu bilgiyi kendi başına kullanır.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 4: Çevresel Özellikler -->
+            <section id="environment" class="learn-section">
+                <h2>4. Çevresel Özellikler</h2>
+                
+                <div class="concept-card">
+                    <h3>📋 Çevre Sınıflandırması</h3>
+                    
+                    <div class="env-property-card">
+                        <h4>1. Gözlenebilirlik</h4>
+                        <ul>
+                            <li><strong>Tam Gözlenebilir:</strong> Ajan her zaman tüm çevreyi görebilir (satranç)</li>
+                            <li><strong>Kısmi Gözlenebilir:</strong> Ajan çevrenin sadece bir kısmını görebilir (poker)</li>
+                        </ul>
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>2. Belirlilik (Determinism)</h4>
+                        <ul>
+                            <li><strong>Deterministik:</strong> Eylem sonucu kesin olarak bilinir (satranç)</li>
+                            <li><strong>Stokastik:</strong> Eylem sonucu olasılıksaldır (zar atma)</li>
+                            <li><strong>Stratejik:</strong> Diğer ajanların stratejileri önemlidir (poker)</li>
+                        </ul>
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>3. Zaman Yapısı</h4>
+                        <ul>
+                            <li><strong>Epizodik:</strong> Her bölüm bağımsızdır, önceki bölümlerden etkilenmez (çoktan seçmeli sınav)</li>
+                            <li><strong>Ardışık:</strong> Mevcut eylem geleceği etkiler (satranç, navigasyon)</li>
+                        </ul>
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>4. Değişkenlik</h4>
+                        <ul>
+                            <li><strong>Statik:</strong> Çevre ajan eylem yaparken değişmez (çapraz bulmaca)</li>
+                            <li><strong>Dinamik:</strong> Çevre ajan eylem yaparken değişir (trafik)</li>
+                            <li><strong>Yarı-dinamik:</strong> Çevre değişir ama ajanın performans ölçütü değişmez</li>
+                        </ul>
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>5. Süreklilik</h4>
+                        <ul>
+                            <li><strong>Kesikli:</strong> Sonlu sayıda durum ve eylem (satranç)</li>
+                            <li><strong>Sürekli:</strong> Sonsuz sayıda durum ve eylem (araba sürme)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🌍 Örnek Çevreler</h3>
+                    
+                    <div class="example-env-card">
+                        <h4>Vacuum World (Elektrikli Süpürge Dünyası)</h4>
+                        <ul>
+                            <li><strong>Algı Formatı:</strong> [Konum, İçerik]</li>
+                            <li><strong>Örnek:</strong> [A, Kirli] → A konumunda, kirli</li>
+                            <li><strong>Eylemler:</strong> Sol, Sağ, Temizle</li>
+                            <li><strong>Özellikler:</strong> Tam gözlenebilir, deterministik, epizodik, statik, kesikli</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-env-card">
+                        <h4>Tam Otomatik Taksi</h4>
+                        <ul>
+                            <li><strong>Özellikler:</strong> Kısmi gözlenebilir, stokastik, ardışık, dinamik, sürekli</li>
+                            <li><strong>Performans Ölçütü:</strong> Güvenlik, varış süresi, kâr, konfor</li>
+                            <li><strong>Zorluk:</strong> Çok karmaşık ve öngörülemez ortam. Henüz tam olarak başarılmamıştır (H: Henüz mümkün değil)</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-env-card">
+                        <h4>Satranç</h4>
+                        <ul>
+                            <li><strong>Özellikler:</strong> Tam gözlenebilir, deterministik, ardışık, statik, kesikli</li>
+                            <li><strong>Durum:</strong> E: Elde edilmiş (Erişilmiş) - Deep Blue 1997'de Garry Kasparov'u yendi</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 5: Kavram Haritası -->
+            <section id="concepts-map" class="learn-section">
+                <h2>5. Kavram Haritası</h2>
+                
+                <div class="concept-map">
+                    <div class="map-node central">
+                        <strong>Yapay Zekâ</strong>
+                    </div>
+                    
+                    <div class="map-branch">
+                        <div class="map-node">Tanımlar</div>
+                        <div class="map-children">
+                            <div class="map-node">Bellman</div>
+                            <div class="map-node">Haugeland</div>
+                            <div class="map-node">Winston</div>
+                            <div class="map-node">Rich & Knight</div>
+                        </div>
+                    </div>
+
+                    <div class="map-branch">
+                        <div class="map-node">Yaklaşımlar</div>
+                        <div class="map-children">
+                            <div class="map-node">Thinking Humanly</div>
+                            <div class="map-node">Acting Humanly</div>
+                            <div class="map-node">Thinking Rationally</div>
+                            <div class="map-node">Acting Rationally</div>
+                        </div>
+                    </div>
+
+                    <div class="map-branch">
+                        <div class="map-node">Ajan</div>
+                        <div class="map-children">
+                            <div class="map-node">Mimari + Program</div>
+                            <div class="map-node">Sensörler</div>
+                            <div class="map-node">Aktüatörler</div>
+                            <div class="map-node">Rasyonellik</div>
+                        </div>
+                    </div>
+
+                    <div class="map-branch">
+                        <div class="map-node">Çevre</div>
+                        <div class="map-children">
+                            <div class="map-node">Gözlenebilirlik</div>
+                            <div class="map-node">Belirlilik</div>
+                            <div class="map-node">Zaman Yapısı</div>
+                            <div class="map-node">Değişkenlik</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Önemli Formüller -->
+            <section id="formulas-section" class="learn-section formulas-section">
+                <h2>📐 Önemli Formüller ve Notasyonlar</h2>
+                <div class="formulas-grid">
+                    <div class="formula-card">
+                        <h3>Ajan Formülü</h3>
+                        <div class="formula">Ajan = Mimari + Program</div>
+                        <p>Mimari: Sensörler + Aktüatörler + Platform<br>Program: Davranış mantığı</p>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Ajan Fonksiyonu</h3>
+                        <div class="formula">f: P* → A</div>
+                        <p>P* = Tüm algı geçmişi<br>A = Eylem kümesi<br>(Teorik/İdeal)</p>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Ajan Programı</h3>
+                        <div class="formula">f: P → A</div>
+                        <p>P = Mevcut algı<br>A = Eylem kümesi<br>(Pratik uygulama)</p>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Vacuum World Algı Formatı</h3>
+                        <div class="formula">[Konum, İçerik]</div>
+                        <p>Örnek: [A, Kirli]<br>A konumunda, kirli durumda</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Yapay Zekâ Başarı Kategorileri -->
+            <section id="success-categories" class="learn-section">
+                <h2>7. Yapay Zekâ Başarı Kategorileri</h2>
+                
+                <div class="concept-card">
+                    <h3>📊 Kategoriler</h3>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Kategori</th>
+                                    <th>Açıklama</th>
+                                    <th>Örnek</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>E: Elde edilmiş</strong></td>
+                                    <td>Başarıyla gerçekleştirilmiş</td>
+                                    <td>Satrançta insana karşı kazanabilir (Deep Blue, 1997)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>S: Sınırlı mümkün</strong></td>
+                                    <td>Bazı durumlarda mümkün</td>
+                                    <td>Belirli ortamlarda otonom araç sürüşü</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>H: Henüz mümkün değil</strong></td>
+                                    <td>Henüz tam olarak başarılmamış</td>
+                                    <td>Üniversite Caddesi'nde tam güvenli araba sürmek</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sonraki Adım -->
+            <div class="next-step">
+                <h3>🎯 Hazır mısın?</h3>
+                <p>Artık kavramları öğrendin! Şimdi bilgini test etmeye hazırsın.</p>
+                <a href="quiz.html" class="btn-start">Sınava Başla →</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="courses-data.js"></script>
+    <script src="learn.js"></script>
+</body>
+</html>
+

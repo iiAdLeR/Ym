@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğren - Ajan Türleri ve Yapısı</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="chapters.html" class="back-btn">← Geri</a>
+                <h1 id="chapter-title">📖 Ajan Türleri ve Yapısı</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">Ajan türleri, mimari ve ajan programı, sensörler ve aktüatörler</p>
+        </header>
+
+        <div class="learn-container">
+            <!-- İçindekiler -->
+            <div class="table-of-contents">
+                <h3>📑 İçindekiler</h3>
+                <ul>
+                    <li><a href="#overview">1. Genel Bakış</a></li>
+                    <li><a href="#agent-types">2. Ajan Türleri (5 Tür)</a></li>
+                    <li><a href="#comparison">3. Karşılaştırma Tablosu</a></li>
+                    <li><a href="#architecture">4. Mimari ve Ajan Programı</a></li>
+                    <li><a href="#sensors-actuators">5. Sensörler ve Aktüatörler</a></li>
+                    <li><a href="#learning-agent">6. Öğrenmeye-Dayalı Ajan Yapısı</a></li>
+                    <li><a href="#quick-summary">7. Hızlı Özet (Ezber İçin)</a></li>
+                </ul>
+            </div>
+
+            <!-- Genel Bakış -->
+            <section id="overview" class="learn-section">
+                <h2>1. Genel Bakış</h2>
+                
+                <div class="concept-card">
+                    <h3>🎯 Temel Tanım</h3>
+                    <p><strong>Yapay Zekâ = Rasyonel Ajanların Çalışması</strong></p>
+                    <p>Yapay zekâ, rasyonel ajanların çalışması olarak tanımlanabilir. Bu tanım, yapay zekânın temel amacının rasyonel karar verme ve eylem seçimi olduğunu vurgular.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📊 Ajan Türleri Sınıflandırması</h3>
+                    <p>Ajan türleri, <strong>çevreyi kullanma becerisine göre</strong> artan karmaşıklık sırasına göre sınıflandırılır.</p>
+                    <div class="formula-box">
+                        <strong>Sıralama (En Basit → En Karmaşık):</strong><br>
+                        1️⃣ Basit Refleks Ajanı<br>
+                        2️⃣ Durumsal-Refleks (Model-Bazlı) Ajan<br>
+                        3️⃣ Hedefe-Dayalı Ajan<br>
+                        4️⃣ Fayda-Tabanlı Ajan<br>
+                        5️⃣ Öğrenmeye-Dayalı Ajan
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔑 Anahtar Kavram</h3>
+                    <div class="note-box">
+                        <strong>Önemli:</strong> Her ajan kendi eylemlerini algılayabilir, ancak her zaman bu eylemlerin etkilerini algılayamayabilir. Bu özellikle kısmi gözlenebilir ortamlarda kritiktir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ajan Türleri -->
+            <section id="agent-types" class="learn-section">
+                <h2>2. Ajan Türleri (Detaylı Açıklama)</h2>
+                
+                <!-- 1. Basit Refleks Ajanı -->
+                <div class="agent-type-card detailed">
+                    <h3>1️⃣ Basit Refleks Ajanı (Simple Reflex Agent)</h3>
+                    
+                    <div class="quick-summary-box">
+                        <strong>📝 Hızlı Özet:</strong> En basit ajan türü. Sadece mevcut algıya bakar, geçmişi kullanmaz.
+                    </div>
+
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Çalışma Prensibi:</strong><br>
+                            • 'If/else' kurallarıyla çalışır<br>
+                            • Sadece mevcut algıya bakar<br>
+                            • Geçmiş algıları görmezden gelir<br>
+                            • Koşul → Eylem kuralı uygular
+                        </div>
+                        <div>
+                            <strong>Formül:</strong><br>
+                            <span class="formula">Eylem = f(Mevcut Algı)</span><br>
+                            <span class="formula">Eylem ≠ f(Algı Geçmişi)</span>
+                        </div>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek (Vacuum World):</strong><br>
+                        <ul>
+                            <li>Eğer [Konum=A, Durum=Kirli] → Eylem: <strong>Temizle</strong></li>
+                            <li>Eğer [Konum=A, Durum=Temiz] → Eylem: <strong>Sağa Git</strong></li>
+                            <li>Eğer [Konum=B, Durum=Kirli] → Eylem: <strong>Temizle</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>✅ Başarılı Olduğu Ortam:</h4>
+                        <ul>
+                            <li><strong>Tam gözlenebilir ortam</strong> - Yalnızca bu durumda başarılı olabilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>❌ Sorunları:</h4>
+                        <ul>
+                            <li><strong>Kısmi gözlenebilir ortamda sonsuz döngüye girebilir</strong> - En önemli sorunu</li>
+                            <li>Görülmeyen durumlar hakkında bilgisi yok</li>
+                            <li>Geçmiş deneyimlerden öğrenemez</li>
+                        </ul>
+                    </div>
+
+                    <div class="note-box warning">
+                        <strong>⚠️ Önemli Not:</strong> Algı geçmişi = Ajanın bugüne kadar algıladığı her şey. Basit refleks ajan bunu <strong>kullanmaz</strong>, sadece mevcut algıya bakar.
+                    </div>
+                </div>
+
+                <!-- 2. Model-Bazlı Ajan -->
+                <div class="agent-type-card detailed">
+                    <h3>2️⃣ Durumsal-Refleks (Model-Bazlı) Ajan</h3>
+                    
+                    <div class="quick-summary-box">
+                        <strong>📝 Hızlı Özet:</strong> İç durum tutar, dünya modeli oluşturur. Kısmi gözlenebilir ortamlarda çalışabilir.
+                    </div>
+
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Çalışma Prensibi:</strong><br>
+                            • İç durum (internal state) tutar<br>
+                            • Dünya modeli oluşturur<br>
+                            • Her algı → iç durumu günceller<br>
+                            • Görülmeyen kısımlar hakkında tahmin yapar<br>
+                            • Geçmiş durumları hafızada tutar
+                        </div>
+                        <div>
+                            <strong>Gerekli Bilgiler:</strong><br>
+                            • Dünya ajan bağımsız nasıl değişiyor?<br>
+                            • Ajanın eylemleri dünyayı nasıl etkiliyor?
+                        </div>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek (Vacuum World):</strong><br>
+                        <ul>
+                            <li>Hangi alanların temizlendiğini <strong>hatırlar</strong></li>
+                            <li>Temizlenmeyen yerlere doğru <strong>plan yapar</strong></li>
+                            <li>Görmediği alanlar hakkında <strong>tahmin yapar</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>✅ Avantajları:</h4>
+                        <ul>
+                            <li>Kısmi gözlenebilir ortamlarda çalışabilir</li>
+                            <li>Geçmiş bilgileri kullanır</li>
+                            <li>Dünya modeli sayesinde daha akıllı kararlar verir</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Çalışma Akışı:</strong><br>
+                        Algı → İç Durum Güncelleme → Dünya Modeli → Tahmin → Eylem Seçimi
+                    </div>
+                </div>
+
+                <!-- 3. Hedefe-Dayalı Ajan -->
+                <div class="agent-type-card detailed">
+                    <h3>3️⃣ Hedefe-Dayalı Ajan (Goal-Based Agent)</h3>
+                    
+                    <div class="quick-summary-box">
+                        <strong>📝 Hızlı Özet:</strong> Hedefe ulaşmak için planlama yapar. Arama ve planlama gerektirir.
+                    </div>
+
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Karar Verme:</strong><br>
+                            • Hedefe olan uzaklıklarına göre karar verir<br>
+                            • Her eylemin hedefe mesafeyi azaltmasını hedefler<br>
+                            • Arama (search) ve planlama (planning) gerektirir
+                        </div>
+                        <div>
+                            <strong>Avantajları:</strong><br>
+                            • Kararlarını destekleyen bilgi açıkça temsil edilir<br>
+                            • Daha esnek<br>
+                            • Hedefler değiştirilebilir
+                        </div>
+                    </div>
+
+                    <div class="env-property-card">
+                        <h4>❌ Dezavantajları:</h4>
+                        <ul>
+                            <li><strong>Mantık yürütme zaman alır</strong> - Bu sırada ortam değişebilir</li>
+                            <li>Planlar geçersiz hale gelebilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Navigasyon sisteminde hedef "İstanbul'a gitmek" ise, ajan her eylemde İstanbul'a yaklaşan yolu seçer.
+                    </div>
+                </div>
+
+                <!-- 4. Fayda-Tabanlı Ajan -->
+                <div class="agent-type-card detailed">
+                    <h3>4️⃣ Fayda-Tabanlı Ajan (Utility-Based Agent)</h3>
+                    
+                    <div class="quick-summary-box">
+                        <strong>📝 Hızlı Özet:</strong> Her duruma fayda değeri atar. Beklenen faydayı maksimize eder.
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>💡 Neden Gerekli?</h4>
+                        <p>Hedefe ulaşmak çoğu zaman yeterli değildir. <strong>Daha hızlı, daha güvenli, daha ucuz</strong> bir seçenek daha değerlidir.</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Fayda Fonksiyonu:</strong><br>
+                        <span class="formula">f(durum) → değer</span><br>
+                        Her durumu gerçek bir sayıya eşler (mutluluk/memnuniyet derecesi)
+                    </div>
+
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Karar Verme:</strong><br>
+                            • Belirsiz ortamda <strong>beklenen faydayı maksimize eden</strong> eylemi seçer<br>
+                            • Alternatifler arasında en iyisini bulur
+                        </div>
+                        <div>
+                            <strong>Özellikle Değerli Olduğu Durumlar:</strong><br>
+                            • Rekabetçi hedeflerde<br>
+                            • Birden fazla hedef olduğunda<br>
+                            • Kalite ve verimlilik önemli olduğunda
+                        </div>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek:</strong> İki yol var: Biri 2 saat (güvenli), diğeri 1 saat (tehlikeli). Fayda-tabanlı ajan güvenli yolu seçer çünkü fayda değeri daha yüksektir.
+                    </div>
+                </div>
+
+                <!-- 5. Öğrenmeye-Dayalı Ajan -->
+                <div class="agent-type-card detailed">
+                    <h3>5️⃣ Öğrenmeye-Dayalı Ajan (Learning Agent)</h3>
+                    
+                    <div class="quick-summary-box">
+                        <strong>📝 Hızlı Özet:</strong> En karmaşık ajan. Temel bilgilerle başlar, deneyimlerle kendini geliştirir.
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>🚀 Nasıl Başlar?</h4>
+                        <p><strong>Temel bilgilerle başlar</strong> ve <strong>deneyimlerle kendini geliştirir</strong>. Otonom olarak uyum sağlar ve zaman içinde daha 'akıllı' hale gelir.</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>4 Bileşeni:</strong><br>
+                        1. Öğrenme Elemanı<br>
+                        2. Kritik (Eleştirmen)<br>
+                        3. Performans Elemanı<br>
+                        4. Problem Üretici
+                    </div>
+
+                    <div class="comparison-box">
+                        <div>
+                            <strong>1. Öğrenme Elemanı:</strong><br>
+                            • Çevreden öğrenir<br>
+                            • Performansı artırır<br>
+                            • Deneyimlerden bilgi çıkarır
+                        </div>
+                        <div>
+                            <strong>2. Kritik (Eleştirmen):</strong><br>
+                            • Performansı değerlendirir<br>
+                            • Öğrenme elemanına geri bildirim sağlar
+                        </div>
+                    </div>
+
+                    <div class="comparison-box">
+                        <div>
+                            <strong>3. Performans Elemanı:</strong><br>
+                            • Dış eylemleri seçer<br>
+                            • Öğrenme elemanından gelen bilgileri kullanır
+                        </div>
+                        <div>
+                            <strong>4. Problem Üretici:</strong><br>
+                            • Yeni ve bilgilendirici deneyimler oluşturacak eylemleri önerir<br>
+                            • Keşif yapmasını sağlar
+                        </div>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Satranç oynayan bir ajan, her oyundan öğrenir. İlk başta temel kurallarla başlar, zamanla daha iyi stratejiler geliştirir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Karşılaştırma Tablosu -->
+            <section id="comparison" class="learn-section">
+                <h2>3. Karşılaştırma Tablosu</h2>
+                
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ajan Türü</th>
+                                <th>Karmaşıklık</th>
+                                <th>Geçmiş Kullanımı</th>
+                                <th>İç Durum</th>
+                                <th>Uygun Ortam</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Basit Refleks</strong></td>
+                                <td>En Basit</td>
+                                <td>❌ Kullanmaz</td>
+                                <td>❌ Yok</td>
+                                <td>Tam gözlenebilir</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Model-Bazlı</strong></td>
+                                <td>Orta</td>
+                                <td>✅ Kullanır</td>
+                                <td>✅ Var</td>
+                                <td>Kısmi gözlenebilir</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hedefe-Dayalı</strong></td>
+                                <td>Yüksek</td>
+                                <td>✅ Kullanır</td>
+                                <td>✅ Var</td>
+                                <td>Planlama gerektiren</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fayda-Tabanlı</strong></td>
+                                <td>Çok Yüksek</td>
+                                <td>✅ Kullanır</td>
+                                <td>✅ Var</td>
+                                <td>Rekabetçi hedefler</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Öğrenmeye-Dayalı</strong></td>
+                                <td>En Karmaşık</td>
+                                <td>✅ Kullanır</td>
+                                <td>✅ Var</td>
+                                <td>Dinamik ve değişken</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="comparison-table" style="margin-top: 30px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ajan Türü</th>
+                                <th>Avantajları</th>
+                                <th>Dezavantajları</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Basit Refleks</strong></td>
+                                <td>• Hızlı<br>• Az bellek<br>• Basit</td>
+                                <td>• Kısmi gözlenebilir ortamda sonsuz döngü<br>• Geçmiş kullanmaz</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Model-Bazlı</strong></td>
+                                <td>• Kısmi gözlenebilir ortamda çalışır<br>• Geçmiş kullanır<br>• Dünya modeli</td>
+                                <td>• Daha fazla bellek<br>• Daha karmaşık</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hedefe-Dayalı</strong></td>
+                                <td>• Esnek<br>• Hedefler değiştirilebilir<br>• Planlama yapar</td>
+                                <td>• Mantık yürütme zaman alır<br>• Planlar geçersiz olabilir</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fayda-Tabanlı</strong></td>
+                                <td>• Kalite ve verimlilik odaklı<br>• Rekabetçi hedeflerde etkili<br>• En iyi seçeneği bulur</td>
+                                <td>• Fayda fonksiyonu tasarımı zor<br>• Hesaplama maliyeti yüksek</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Öğrenmeye-Dayalı</strong></td>
+                                <td>• Kendini geliştirir<br>• Otonom uyum<br>• En akıllı</td>
+                                <td>• En karmaşık<br>• Öğrenme süreci zaman alır</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Mimari ve Ajan Programı -->
+            <section id="architecture" class="learn-section">
+                <h2>4. Mimari ve Ajan Programı</h2>
+                
+                <div class="concept-card">
+                    <h3>🏗️ Ajan Formülü</h3>
+                    <div class="formula-box">
+                        <strong>Temel Formül:</strong><br>
+                        <span class="formula">Ajan = Mimari + Ajan Programı</span>
+                    </div>
+                </div>
+
+                <div class="comparison-box">
+                    <div>
+                        <h4>🏛️ Mimari (Architecture)</h4>
+                        <p><strong>Ajanın üzerinde çalıştığı makine</strong></p>
+                        <ul>
+                            <li>Sensörler</li>
+                            <li>Aktüatörler</li>
+                            <li>Çalışma ortamı</li>
+                        </ul>
+                        <div class="example-box">
+                            <strong>Örnekler:</strong> Robotik araba, kamera, PC, telefon
+                        </div>
+                    </div>
+                    <div>
+                        <h4>💻 Ajan Programı</h4>
+                        <p><strong>Bir ajan fonksiyonunun uygulanmış hâli</strong></p>
+                        <ul>
+                            <li>Davranış mantığı</li>
+                            <li>Karar verme algoritmaları</li>
+                            <li>Eylem seçimi kuralları</li>
+                        </ul>
+                        <div class="note-box">
+                            <strong>Not:</strong> Ajan fonksiyonu = Percept sequence'i action'a eşleyen fonksiyon
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔄 Ajan Fonksiyonu</h3>
+                    <div class="formula-box">
+                        <strong>Eşleme:</strong><br>
+                        <span class="formula">f: P* → A</span><br>
+                        P* = Percept sequence (ajının bugüne kadar algıladığı her şeyin geçmişi)<br>
+                        A = Action (eylem)
+                    </div>
+                    <div class="note-box">
+                        <strong>Önemli:</strong> Ajan fonksiyonu tüm algı geçmişini kullanır, sadece mevcut algıyı değil.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sensörler ve Aktüatörler -->
+            <section id="sensors-actuators" class="learn-section">
+                <h2>5. Sensörler ve Aktüatörler</h2>
+                
+                <div class="comparison-box">
+                    <div>
+                        <h3>📡 Sensörler (Sensors)</h3>
+                        <p><strong>Çevreyi algılayan cihazlar</strong></p>
+                        <div class="example-box">
+                            <strong>Örnekler:</strong>
+                            <ul>
+                                <li>Kamera (görüntü algılama)</li>
+                                <li>Mikrofon (ses algılama)</li>
+                                <li>Dosya sistemi sensörü</li>
+                                <li>Web sensörü</li>
+                                <li>Kullanıcı girdi sensörü</li>
+                                <li>Kızılötesi sensör</li>
+                                <li>Sıcaklık sensörü</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <strong>İnsan Ajanında:</strong> Göz, kulak
+                        </div>
+                    </div>
+                    <div>
+                        <h3>⚙️ Aktüatörler (Actuators)</h3>
+                        <p><strong>Çevreye etki eden cihazlar</strong></p>
+                        <div class="example-box">
+                            <strong>Örnekler:</strong>
+                            <ul>
+                                <li>Motor (hareket)</li>
+                                <li>Hoparlör (ses çıkışı)</li>
+                                <li>Ekran (görsel çıkış)</li>
+                                <li>Veritabanı güncelleme</li>
+                                <li>E-posta gönderme</li>
+                                <li>Işık açma/kapatma</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <strong>İnsan Ajanında:</strong> El, bacak, ağız<br>
+                            <strong>Robotik Ajan:</strong> Motorlar
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-box warning">
+                    <strong>⚠️ Önemli Fark:</strong> Sensörler çevreyi <strong>algılar</strong>, aktüatörler çevre üzerinde <strong>eylem yapar</strong>.
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔍 Algılama Yetenekleri</h3>
+                    <div class="formula-box">
+                        <strong>Her ajan:</strong><br>
+                        ✅ Kendi eylemlerini algılayabilir<br>
+                        ⚠️ Ancak her zaman eylemlerinin etkilerini algılayamayabilir
+                    </div>
+                    <div class="note-box">
+                        <strong>Kritik Durum:</strong> Bu özellikle <strong>kısmi gözlenebilir ortamda</strong> daha kritiktir. Bu durumda model-bazlı veya daha gelişmiş ajan türleri gereklidir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Öğrenmeye-Dayalı Ajan Yapısı -->
+            <section id="learning-agent" class="learn-section">
+                <h2>6. Öğrenmeye-Dayalı Ajan Yapısı (Detaylı)</h2>
+                
+                <div class="concept-card">
+                    <h3>🏗️ 4 Bileşen Yapısı</h3>
+                    <div class="formulas-grid">
+                        <div class="formula-card">
+                            <h3>1. Öğrenme Elemanı</h3>
+                            <div class="formula">Çevreden Öğrenir</div>
+                            <p>• Deneyimlerden bilgi çıkarır<br>• Performansı artırır<br>• Ajanın davranışını iyileştirir</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>2. Kritik (Eleştirmen)</h3>
+                            <div class="formula">Performansı Değerlendirir</div>
+                            <p>• Geri bildirim sağlar<br>• Öğrenme sürecini yönlendirir<br>• Hata tespiti yapar</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>3. Performans Elemanı</h3>
+                            <div class="formula">Eylemleri Seçer</div>
+                            <p>• Dış eylemleri belirler<br>• Öğrenme elemanından bilgi kullanır<br>• En uygun eylemi uygular</p>
+                        </div>
+                        <div class="formula-card">
+                            <h3>4. Problem Üretici</h3>
+                            <div class="formula">Keşif Yapar</div>
+                            <p>• Yeni deneyimler önerir<br>• Bilgilendirici eylemler üretir<br>• Exploration yapar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔄 Çalışma Döngüsü</h3>
+                    <div class="formula-box">
+                        <strong>Akış:</strong><br>
+                        1. Performans Elemanı → Eylem seçer<br>
+                        2. Çevre → Geri bildirim verir<br>
+                        3. Kritik → Performansı değerlendirir<br>
+                        4. Öğrenme Elemanı → Öğrenir ve iyileştirir<br>
+                        5. Problem Üretici → Yeni deneyimler önerir<br>
+                        (Döngü tekrar eder)
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hızlı Özet (Ezber İçin) -->
+            <section id="quick-summary" class="learn-section">
+                <h2>7. Hızlı Özet (Ezber İçin) 📚</h2>
+                
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.15) 0%, rgba(75, 0, 130, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>🎯 5 Ajan Türü (Sıralama)</h3>
+                    <ol style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>Basit Refleks</strong> - Sadece mevcut algı, if/else kuralları</li>
+                        <li><strong>Model-Bazlı</strong> - İç durum tutar, dünya modeli</li>
+                        <li><strong>Hedefe-Dayalı</strong> - Planlama yapar, hedefe ulaşır</li>
+                        <li><strong>Fayda-Tabanlı</strong> - Fayda maksimize eder, rekabetçi hedefler</li>
+                        <li><strong>Öğrenmeye-Dayalı</strong> - Öğrenir, kendini geliştirir, 4 bileşen</li>
+                    </ol>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>🔑 Anahtar Formüller</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>Ajan = Mimari + Ajan Programı</strong></li>
+                        <li><strong>Ajan Fonksiyonu:</strong> f: P* → A (tüm algı geçmişi → eylem)</li>
+                        <li><strong>Basit Refleks:</strong> Eylem = f(Mevcut Algı)</li>
+                        <li><strong>Fayda Fonksiyonu:</strong> f(durum) → değer</li>
+                    </ul>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(0, 191, 255, 0.15) 0%, rgba(0, 100, 200, 0.15) 100%); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>⚡ Hızlı Karşılaştırma</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);"><strong>En Basit:</strong></td>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);">Basit Refleks</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);"><strong>En Karmaşık:</strong></td>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);">Öğrenmeye-Dayalı</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);"><strong>Kısmi Gözlenebilir:</strong></td>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);">Model-Bazlı ve üstü</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);"><strong>Planlama Yapar:</strong></td>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);">Hedefe-Dayalı ve üstü</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);"><strong>Öğrenir:</strong></td>
+                            <td style="padding: 10px; border: 1px solid rgba(138, 43, 226, 0.3);">Sadece Öğrenmeye-Dayalı</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(255, 69, 0, 0.15) 0%, rgba(255, 140, 0, 0.15) 100%); padding: 30px; border-radius: 15px;">
+                    <h3>⚠️ Önemli Notlar</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li>Her ajan eylemlerini algılayabilir, ama etkilerini her zaman algılayamaz</li>
+                        <li>Basit refleks sadece tam gözlenebilir ortamda çalışır</li>
+                        <li>Model-bazlı iç durum tutar, bu yüzden kısmi gözlenebilir ortamda çalışabilir</li>
+                        <li>Hedefe-dayalı planlama zaman alır, ortam değişebilir</li>
+                        <li>Fayda-tabanlı rekabetçi hedeflerde değerlidir</li>
+                        <li>Öğrenmeye-dayalı 4 bileşene sahiptir</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Sonraki Adım -->
+            <div class="next-step">
+                <h3>🎯 Hazır mısın?</h3>
+                <p>Artık tüm ajan türlerini öğrendin! Şimdi bilgini test etmeye hazırsın.</p>
+                <a href="quiz.html" class="btn-start">Sınava Başla →</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="courses-data.js"></script>
+    <script>
+        // Learn Page JavaScript for Chapter 2
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChapterInfo();
+            setupSmoothScroll();
+        });
+
+        // Load chapter information from localStorage
+        function loadChapterInfo() {
+            const courseId = localStorage.getItem('currentCourse');
+            const chapterId = localStorage.getItem('currentChapter');
+            
+            if (!courseId || !chapterId) {
+                // Default to chapter 2
+                localStorage.setItem('currentCourse', 'yapay-zeka');
+                localStorage.setItem('currentChapter', 'chapter-2');
+                updateChapterInfo('yapay-zeka', 'chapter-2');
+                return;
+            }
+            
+            updateChapterInfo(courseId, chapterId);
+        }
+
+        // Update chapter title and description
+        function updateChapterInfo(courseId, chapterId) {
+            const course = coursesData.courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            const chapter = course.chapters.find(ch => ch.id === chapterId);
+            if (!chapter) return;
+            
+            const titleElement = document.getElementById('chapter-title');
+            const descElement = document.getElementById('chapter-description');
+            
+            if (titleElement) {
+                titleElement.textContent = `${course.icon} ${chapter.title}`;
+            }
+            
+            if (descElement) {
+                descElement.textContent = chapter.description || 'Ajan türleri, mimari ve ajan programı, sensörler ve aktüatörler';
+            }
+        }
+
+        // Setup smooth scroll for table of contents links
+        function setupSmoothScroll() {
+            const links = document.querySelectorAll('.table-of-contents a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+
