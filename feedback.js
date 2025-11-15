@@ -1,9 +1,117 @@
 // Firebase feedback functionality
+// Configuration constants
+const FEEDBACK_CONFIG = {
+    RETRY_ATTEMPTS: 3,
+    RETRY_DELAY: 1000, // milliseconds
+    TIMEOUT: 10000, // 10 seconds
+    RATE_LIMIT_DURATION: 60000, // 1 minute
+    MAX_SUBMISSIONS_PER_MINUTE: 3
+};
+
+// Rate limiting storage
+let submissionHistory = [];
+
 // Wait for DOM and Firebase to be ready
 document.addEventListener('DOMContentLoaded', function() {
     // Wait a bit for Firebase to initialize
     setTimeout(initFeedbackForm, 500);
 });
+
+// Rate limiting check
+function checkRateLimit() {
+    const now = Date.now();
+    // Remove old entries (older than RATE_LIMIT_DURATION)
+    submissionHistory = submissionHistory.filter(time => now - time < FEEDBACK_CONFIG.RATE_LIMIT_DURATION);
+    
+    // Check if exceeded limit
+    if (submissionHistory.length >= FEEDBACK_CONFIG.MAX_SUBMISSIONS_PER_MINUTE) {
+        const waitTime = Math.ceil((FEEDBACK_CONFIG.RATE_LIMIT_DURATION - (now - submissionHistory[0])) / 1000);
+        return {
+            allowed: false,
+            waitTime: waitTime
+        };
+    }
+    
+    return { allowed: true };
+}
+
+// Add submission to history
+function recordSubmission() {
+    submissionHistory.push(Date.now());
+}
+
+// Input validation and sanitization
+function validateAndSanitizeInput(name, message, rating) {
+    const errors = [];
+    const sanitized = {
+        name: '',
+        message: '',
+        rating: null
+    };
+    
+    // Validate rating
+    if (!rating) {
+        errors.push('Lütfen bir değerlendirme seçin!');
+    } else {
+        const ratingNum = parseInt(rating);
+        if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 5) {
+            errors.push('Geçersiz değerlendirme değeri!');
+        } else {
+            sanitized.rating = ratingNum;
+        }
+    }
+    
+    // Sanitize name (max 100 characters, remove HTML)
+    if (name && name.trim() !== '') {
+        const sanitizedName = name.trim().substring(0, 100)
+            .replace(/<[^>]*>/g, '') // Remove HTML tags
+            .replace(/[<>]/g, ''); // Remove remaining angle brackets
+        sanitized.name = sanitizedName || 'İsimsiz';
+    } else {
+        sanitized.name = 'İsimsiz';
+    }
+    
+    // Sanitize message (max 1000 characters, remove HTML)
+    if (message && message.trim() !== '') {
+        const sanitizedMessage = message.trim().substring(0, 1000)
+            .replace(/<[^>]*>/g, '') // Remove HTML tags
+            .replace(/[<>]/g, ''); // Remove remaining angle brackets
+        sanitized.message = sanitizedMessage;
+    }
+    
+    return {
+        valid: errors.length === 0,
+        errors: errors,
+        data: sanitized
+    };
+}
+
+// Retry function with exponential backoff
+async function submitWithRetry(db, feedbackData, attempts = 0) {
+    const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Timeout: Request took too long')), FEEDBACK_CONFIG.TIMEOUT);
+    });
+    
+    const firestorePromise = db.collection('feedbacks').add(feedbackData);
+    
+    try {
+        const docRef = await Promise.race([firestorePromise, timeoutPromise]);
+        return docRef;
+    } catch (error) {
+        // Retry on certain errors
+        const retryableErrors = ['unavailable', 'deadline-exceeded', 'resource-exhausted', 'aborted'];
+        const shouldRetry = retryableErrors.includes(error.code) && attempts < FEEDBACK_CONFIG.RETRY_ATTEMPTS;
+        
+        if (shouldRetry) {
+            const delay = FEEDBACK_CONFIG.RETRY_DELAY * Math.pow(2, attempts); // Exponential backoff
+            console.log(`Retrying submission (attempt ${attempts + 1}/${FEEDBACK_CONFIG.RETRY_ATTEMPTS}) after ${delay}ms...`);
+            await new Promise(resolve => setTimeout(resolve, delay));
+            return submitWithRetry(db, feedbackData, attempts + 1);
+        }
+        
+        throw error;
+    }
+}
 
 function initFeedbackForm() {
     const feedbackForm = document.getElementById('feedback-form');
@@ -32,6 +140,13 @@ function initFeedbackForm() {
     feedbackForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
+        // Rate limiting check
+        const rateLimitCheck = checkRateLimit();
+        if (!rateLimitCheck.allowed) {
+            showMessage(`Çok fazla gönderim yaptınız. Lütfen ${rateLimitCheck.waitTime} saniye sonra tekrar deneyin.`, 'error');
+            return;
+        }
+        
         // Disable submit button immediately
         submitBtn.disabled = true;
         const submitSpan = submitBtn.querySelector('span');
@@ -55,10 +170,11 @@ function initFeedbackForm() {
         
         console.log('Form values:', { name, rating, message });
         
-        // Validation - only rating is required
-        if (!rating) {
-            console.log('Validation failed: No rating selected');
-            showMessage('Lütfen bir değerlendirme seçin!', 'error');
+        // Validate and sanitize input
+        const validation = validateAndSanitizeInput(name, message, rating);
+        if (!validation.valid) {
+            console.log('Validation failed:', validation.errors);
+            showMessage(validation.errors[0], 'error');
             resetSubmitButton(submitBtn, submitSpan, originalText);
             return;
         }
@@ -66,20 +182,16 @@ function initFeedbackForm() {
         try {
             // Prepare feedback data
             const feedbackData = {
-                rating: parseInt(rating),
+                rating: validation.data.rating,
                 createdAt: new Date().toISOString()
             };
             
             // Add name
-            if (name && name.trim() !== '') {
-                feedbackData.name = name.trim();
-            } else {
-                feedbackData.name = 'İsimsiz';
-            }
+            feedbackData.name = validation.data.name;
             
             // Add message only if provided
-            if (message && message.trim() !== '') {
-                feedbackData.message = message.trim();
+            if (validation.data.message) {
+                feedbackData.message = validation.data.message;
             }
             
             // Add timestamp using serverTimestamp if available
@@ -94,9 +206,12 @@ function initFeedbackForm() {
             
             console.log('Sending feedback data:', feedbackData);
             
-            // Add feedback to Firestore
-            const docRef = await db.collection('feedbacks').add(feedbackData);
+            // Add feedback to Firestore with retry logic and timeout
+            const docRef = await submitWithRetry(db, feedbackData);
             console.log('Feedback added successfully with ID:', docRef.id);
+            
+            // Record successful submission for rate limiting
+            recordSubmission();
             
             // Success message
             showMessage('Değerlendirmeniz başarıyla gönderildi! Teşekkür ederiz. 🙏', 'success');
@@ -121,8 +236,10 @@ function initFeedbackForm() {
             // More specific error messages
             if (error.code === 'permission-denied') {
                 errorMessage = 'İzin hatası! Firebase kurallarını kontrol edin.';
-            } else if (error.code === 'unavailable') {
-                errorMessage = 'Bağlantı hatası. İnternet bağlantınızı kontrol edin.';
+            } else if (error.code === 'unavailable' || error.message === 'Timeout: Request took too long') {
+                errorMessage = 'Bağlantı hatası. İnternet bağlantınızı kontrol edin ve tekrar deneyin.';
+            } else if (error.message && error.message.includes('Timeout')) {
+                errorMessage = 'İstek zaman aşımına uğradı. Lütfen tekrar deneyin.';
             } else if (error.message) {
                 errorMessage = `Hata: ${error.message}`;
             }

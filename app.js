@@ -7,60 +7,222 @@ let stats = {
     wrong: 0
 };
 
+// Configuration constants
+const QUESTION_LOAD_CONFIG = {
+    TIMEOUT: 15000, // 15 seconds
+    RETRY_ATTEMPTS: 2,
+    RETRY_DELAY: 2000, // 2 seconds
+    CACHE_DURATION: 30 * 60 * 1000 // 30 minutes in milliseconds
+};
+
+// Questions cache
+const questionsCache = new Map();
+
 // Sayfa yüklendiğinde
 document.addEventListener('DOMContentLoaded', function() {
     loadQuestions();
 });
+
+// Get cached questions if available and not expired
+function getCachedQuestions(filePath) {
+    const cached = questionsCache.get(filePath);
+    if (!cached) return null;
+    
+    const now = Date.now();
+    if (now - cached.timestamp > QUESTION_LOAD_CONFIG.CACHE_DURATION) {
+        questionsCache.delete(filePath);
+        return null;
+    }
+    
+    return cached.questions;
+}
+
+// Cache questions
+function cacheQuestions(filePath, questions) {
+    questionsCache.set(filePath, {
+        questions: questions,
+        timestamp: Date.now()
+    });
+}
+
+// Load question file with timeout and retry
+function loadQuestionFileWithRetry(filePath, attempts = 0) {
+    return new Promise((resolve, reject) => {
+        // Check cache first
+        const cachedQuestions = getCachedQuestions(filePath);
+        if (cachedQuestions) {
+            console.log('Loading questions from cache:', filePath);
+            resolve(cachedQuestions);
+            return;
+        }
+        
+        // Remove any existing script with same src to prevent duplicates
+        const existingScript = document.querySelector(`script[src="${filePath}"]`);
+        if (existingScript) {
+            existingScript.remove();
+        }
+        
+        const script = document.createElement('script');
+        script.src = filePath;
+        
+        let resolved = false;
+        
+        // Timeout handling
+        const timeoutId = setTimeout(() => {
+            if (!resolved) {
+                resolved = true;
+                script.remove();
+                if (attempts < QUESTION_LOAD_CONFIG.RETRY_ATTEMPTS) {
+                    console.log(`Retrying question file load (attempt ${attempts + 1}/${QUESTION_LOAD_CONFIG.RETRY_ATTEMPTS}):`, filePath);
+                    setTimeout(() => {
+                        loadQuestionFileWithRetry(filePath, attempts + 1)
+                            .then(resolve)
+                            .catch(reject);
+                    }, QUESTION_LOAD_CONFIG.RETRY_DELAY);
+                } else {
+                    reject(new Error(`Timeout: Question file took too long to load (${filePath})`));
+                }
+            }
+        }, QUESTION_LOAD_CONFIG.TIMEOUT);
+        
+        script.onload = function() {
+            if (resolved) return;
+            clearTimeout(timeoutId);
+            
+            // Wait a small delay to ensure script execution is complete
+            setTimeout(() => {
+                if (resolved) return;
+                
+                // Check if questions variable is available (try both window.questions and global questions)
+                const loadedQuestions = window.questions || (typeof questions !== 'undefined' ? questions : null);
+                
+                if (!loadedQuestions || !Array.isArray(loadedQuestions) || loadedQuestions.length === 0) {
+                    script.remove();
+                    if (!resolved) {
+                        resolved = true;
+                        reject(new Error('Questions not found or empty in file: ' + filePath));
+                    }
+                    return;
+                }
+                
+                if (resolved) return;
+                resolved = true;
+                
+                // Cache the questions
+                cacheQuestions(filePath, loadedQuestions);
+                console.log('Questions loaded and cached:', filePath);
+                resolve(loadedQuestions);
+            }, 50); // Small delay to ensure script execution
+        };
+        
+        script.onerror = function() {
+            if (resolved) return;
+            resolved = true;
+            clearTimeout(timeoutId);
+            script.remove();
+            
+            if (attempts < QUESTION_LOAD_CONFIG.RETRY_ATTEMPTS) {
+                console.log(`Retrying question file load after error (attempt ${attempts + 1}/${QUESTION_LOAD_CONFIG.RETRY_ATTEMPTS}):`, filePath);
+                setTimeout(() => {
+                    loadQuestionFileWithRetry(filePath, attempts + 1)
+                        .then(resolve)
+                        .catch(reject);
+                }, QUESTION_LOAD_CONFIG.RETRY_DELAY);
+            } else {
+                reject(new Error('Failed to load question file: ' + filePath));
+            }
+        };
+        
+        document.head.appendChild(script);
+    });
+}
 
 // Soruları yükle
 function loadQuestions() {
     const courseId = localStorage.getItem('currentCourse');
     const chapterId = localStorage.getItem('currentChapter');
     
+    let questionFilePath = 'Kurslar/yapay zeka bölümleri/1bölümsorular.js';
+    
     if (!courseId || !chapterId) {
         // Eğer course/chapter bilgisi yoksa Chapter 1'e yönlendir
         localStorage.setItem('currentCourse', 'yapay-zeka');
         localStorage.setItem('currentChapter', 'chapter-1');
-        loadQuestionFile('Kurslar/yapay zeka bölümleri/1bölümsorular.js');
-        return;
+    } else {
+        // Course ve chapter bilgisini bul
+        const course = coursesData.courses.find(c => c.id === courseId);
+        if (course) {
+            const chapter = course.chapters.find(ch => ch.id === chapterId);
+            if (chapter && chapter.questionsFile) {
+                questionFilePath = chapter.questionsFile;
+                
+                // Başlık ve açıklamayı güncelle
+                const headerH1 = document.querySelector('header h1');
+                const subtitle = document.querySelector('.subtitle');
+                if (headerH1) {
+                    headerH1.textContent = `${course.icon} ${course.name} - ${chapter.title}`;
+                }
+                if (subtitle) {
+                    subtitle.textContent = chapter.description || 'Vize/Final Seviyesi Çoktan Seçmeli Sorular';
+                }
+            }
+        }
     }
-    
-    // Course ve chapter bilgisini bul
-    const course = coursesData.courses.find(c => c.id === courseId);
-    if (!course) {
-        loadQuestionFile('Kurslar/yapay zeka bölümleri/1bölümsorular.js');
-        return;
-    }
-    
-    const chapter = course.chapters.find(ch => ch.id === chapterId);
-    if (!chapter || !chapter.questionsFile) {
-        loadQuestionFile('Kurslar/yapay zeka bölümleri/1bölümsorular.js');
-        return;
-    }
-    
-    // Başlık ve açıklamayı güncelle
-    document.querySelector('header h1').textContent = `${course.icon} ${course.name} - ${chapter.title}`;
-    document.querySelector('.subtitle').textContent = chapter.description || 'Vize/Final Seviyesi Çoktan Seçmeli Sorular';
     
     // Soru dosyasını yükle
-    loadQuestionFile(chapter.questionsFile);
+    loadQuestionFile(questionFilePath);
 }
 
 // Soru dosyasını dinamik olarak yükle
-function loadQuestionFile(filePath) {
-    const script = document.createElement('script');
-    script.src = filePath;
-    script.onload = function() {
+async function loadQuestionFile(filePath) {
+    try {
+        // Show loading indicator if exists
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'block';
+        }
+        
+        // Load questions with retry and caching
+        const loadedQuestions = await loadQuestionFileWithRetry(filePath);
+        
+        // Set global questions variable (for backward compatibility)
+        window.questions = loadedQuestions;
+        questions = loadedQuestions;
+        
+        // Initialize app
         initializeApp();
         setupEventListeners();
         displayQuestion(0);
         updateStats();
-    };
-    script.onerror = function() {
-        console.error('Soru dosyası yüklenemedi:', filePath);
-        alert('Soru dosyası yüklenemedi. Lütfen tekrar deneyin.');
-    };
-    document.head.appendChild(script);
+        
+        // Hide loading indicator
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Error loading questions:', error);
+        
+        // Hide loading indicator
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
+        
+        // Show user-friendly error message
+        const errorMessage = error.message.includes('Timeout') 
+            ? 'Soru dosyası yüklenirken zaman aşımı oluştu. Lütfen sayfayı yenileyin.'
+            : 'Soru dosyası yüklenemedi. Lütfen sayfayı yenileyin veya daha sonra tekrar deneyin.';
+        
+        alert(errorMessage);
+        
+        // Try to load default questions as fallback
+        if (filePath !== 'Kurslar/yapay zeka bölümleri/1bölümsorular.js') {
+            console.log('Attempting to load default questions as fallback...');
+            setTimeout(() => {
+                loadQuestionFile('Kurslar/yapay zeka bölümleri/1bölümsorular.js');
+            }, 1000);
+        }
+    }
 }
 
 // Uygulamayı başlat
