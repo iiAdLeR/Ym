@@ -88,6 +88,8 @@ function startLearn(courseId, chapterId) {
         learnPage = 'learn-chapter5.html';
     } else if (chapterId === 'chapter-6') {
         learnPage = 'learn-chapter6.html';
+    } else if (chapterId === 'vize-onemli-sorular') {
+        learnPage = 'learn-vize-onemli.html';
     }
     // Diğer bölümler için ileride eklenebilir
     

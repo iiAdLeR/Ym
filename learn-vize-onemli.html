@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğren - Vize için Önemli Konular</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="chapters.html" class="back-btn">← Geri</a>
+                <h1 id="chapter-title">📖 Vize için Önemli Konular</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">Vize sınavı için kritik konular: Algoritma hesaplamaları, ortam özellikleri, ajan türleri, DFS/BFS Tree-Graph</p>
+        </header>
+
+        <div class="learn-container">
+            <!-- İçindekiler -->
+            <div class="table-of-contents">
+                <h3>📑 İçindekiler</h3>
+                <ul>
+                    <li><a href="#algorithms">1. Algoritma Hesaplamaları</a></li>
+                    <li><a href="#environment">2. Ortam Özellikleri</a></li>
+                    <li><a href="#agent-types">3. Ajan Türleri</a></li>
+                    <li><a href="#tree-graph">4. Tree Search vs Graph Search</a></li>
+                    <li><a href="#complexity">5. Karmaşıklık Analizi</a></li>
+                    <li><a href="#practical-tips">6. Pratik İpuçları</a></li>
+                </ul>
+            </div>
+
+            <!-- Bölüm 1: Algoritma Hesaplamaları -->
+            <section id="algorithms" class="learn-section">
+                <h2>1. Algoritma Hesaplamaları</h2>
+                
+                <div class="concept-card">
+                    <h3>🔍 BFS (Breadth-First Search) Hesaplamaları</h3>
+                    <div class="formula-box">
+                        <strong>Zaman Karmaşıklığı:</strong> O(b^d)<br>
+                        <strong>Alan Karmaşıklığı:</strong> O(b^d)<br>
+                        <strong>Notasyon:</strong><br>
+                        • b = dallanma faktörü (branching factor)<br>
+                        • d = çözüm derinliği (solution depth)
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek Hesaplama:</strong><br>
+                        b = 3, d = 4 ise:<br>
+                        • Zaman: O(3^4) = O(81) düğüm genişletilir<br>
+                        • Alan: O(3^4) = O(81) düğüm bellekte tutulur
+                    </div>
+
+                    <div class="note-box">
+                        <strong>⚠️ Önemli:</strong> BFS, çözüm derinliği (d) kullanır, maksimum derinlik (m) değil! Çözüm bulunduğunda durur.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📊 BFS Pratik Örnek: Grafik Arama Problemi</h3>
+                    <div class="example-box">
+                        <strong>Problem:</strong> Aşağıdaki grafikte S'den G'ye BFS ile hangi yol bulunur?<br>
+                        <strong>Kural:</strong> Eşitlik durumunda alfabetik sıralama kullanılır.
+                    </div>
+                    
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="Kurslar/yapay zeka bölümleri/46f09be5-379c-46c4-be6e-4cabea6157c8.jpg" 
+                             alt="BFS Grafik Arama Problemi" 
+                             style="max-width: 100%; height: auto; border: 2px solid #667eea; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    </div>
+
+                    <div class="agent-type-card detailed">
+                        <h4>🔍 BFS Adım Adım Çözüm:</h4>
+                        <div class="formula-box">
+                            <strong>Grafik Yapısı:</strong><br>
+                            • S → A (maliyet: 1), S → G (maliyet: 12)<br>
+                            • A → B (maliyet: 3), A → C (maliyet: 1)<br>
+                            • B → D (maliyet: 3)<br>
+                            • C → D (maliyet: 1), C → G (maliyet: 2)<br>
+                            • D → G (maliyet: 2)
+                        </div>
+
+                        <div class="comparison-box">
+                            <div>
+                                <strong>Seviye 0:</strong><br>
+                                • S genişletilir<br>
+                                → A, G kuyruğa eklenir<br>
+                                (Alfabetik: A önce gelir)
+                            </div>
+                            <div>
+                                <strong>Seviye 1:</strong><br>
+                                • A genişletilir (A önce gelir)<br>
+                                → B, C kuyruğa eklenir<br>
+                                • G kontrol edilir (hedef mi?)<br>
+                                → G hedef değil, devam edilir
+                            </div>
+                        </div>
+
+                        <div class="comparison-box">
+                            <div>
+                                <strong>Seviye 2:</strong><br>
+                                • B genişletilir (B önce gelir)<br>
+                                → D kuyruğa eklenir<br>
+                                • C genişletilir<br>
+                                → D (zaten var), G kuyruğa eklenir
+                            </div>
+                            <div>
+                                <strong>Seviye 3:</strong><br>
+                                • D genişletilir<br>
+                                → G kuyruğa eklenir<br>
+                                • G kontrol edilir → HEDEF BULUNDU!
+                            </div>
+                        </div>
+
+                        <div class="formula-box" style="background: #e8f5e9; border-left: 4px solid #4caf50;">
+                            <strong>✅ BFS Bulduğu Yol:</strong><br>
+                            <strong style="font-size: 1.2em; color: #2e7d32;">S → A → C → G</strong><br><br>
+                            <strong>Maliyet:</strong> 1 + 1 + 2 = 4<br>
+                            <strong>Adım Sayısı:</strong> 3 adım<br><br>
+                            <strong>Not:</strong> BFS seviye seviye çalışır ve ilk bulduğu yolu döndürür. Bu yol optimal değildir (S→G direkt maliyet 12 ama bu daha uzun yol). BFS optimaldir sadece birim adım maliyetleri için.
+                        </div>
+                    </div>
+
+                    <div class="note-box">
+                        <strong>💡 Önemli Notlar:</strong>
+                        <ul>
+                            <li>BFS, G'yi Seviye 1'de görür (S→G direkt kenar var) ama A'yı önce genişletir çünkü alfabetik sıralama</li>
+                            <li>BFS, Seviye 2'de C'den G'ye ulaşır (S→A→C→G, maliyet: 4)</li>
+                            <li>BFS optimal değildir bu durumda çünkü adım maliyetleri farklı (1, 1, 2 vs 12)</li>
+                            <li>Eğer tüm adımlar eşit maliyetli olsaydı, BFS optimal olurdu</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🌳 DFS (Depth-First Search) Hesaplamaları</h3>
+                    <div class="formula-box">
+                        <strong>Zaman Karmaşıklığı:</strong> O(b^m)<br>
+                        <strong>Alan Karmaşıklığı:</strong> O(bm)<br>
+                        <strong>Notasyon:</strong><br>
+                        • b = dallanma faktörü<br>
+                        • m = maksimum derinlik
+                    </div>
+                    
+                    <div class="comparison-box">
+                        <div>
+                            <strong>DFS Avantajları:</strong><br>
+                            • Çok az bellek kullanır<br>
+                            • Derin çözümler için iyi<br>
+                            • Uygulanması basit
+                        </div>
+                        <div>
+                            <strong>DFS Dezavantajları:</strong><br>
+                            • Optimal değil<br>
+                            • Sonsuz döngü riski<br>
+                            • Zaman karmaşıklığı yüksek
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>⭐ A* Algoritması Hesaplamaları</h3>
+                    <div class="formula-box">
+                        <strong>F(n) = g(n) + h(n)</strong><br>
+                        • <strong>g(n):</strong> Başlangıçtan n'ye gerçek maliyet<br>
+                        • <strong>h(n):</strong> n'den hedefe tahmini maliyet (heuristik)<br>
+                        • <strong>f(n):</strong> Toplam tahmini maliyet
+                    </div>
+
+                    <div class="agent-type-card detailed">
+                        <h4>Admissible Heuristik</h4>
+                        <p>h(n) ≤ h*(n) koşulu sağlanmalı (h*(n) = gerçek optimal maliyet)</p>
+                        <div class="note-box">
+                            <strong>Sonuç:</strong> Admissible heuristik ile A* optimal çözüm bulur.
+                        </div>
+                    </div>
+
+                    <div class="agent-type-card detailed">
+                        <h4>Non-Admissible Heuristik</h4>
+                        <p>h(n) > h*(n) olduğunda:</p>
+                        <ul>
+                            <li>❌ Optimal garanti edilemez</li>
+                            <li>✅ Tam kalır (complete) - çözüm varsa bulur</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>💰 UCS (Uniform Cost Search) Hesaplamaları</h3>
+                    <div class="formula-box">
+                        <strong>UCS sadece maliyeti optimize eder, adım sayısını değil!</strong><br><br>
+                        <strong>Örnek:</strong><br>
+                        • Yol 1: 5 adım, maliyet 10<br>
+                        • Yol 2: 4 adım, maliyet 8<br>
+                        • Yol 3: 6 adım, maliyet 7<br><br>
+                        UCS → Yol 3'ü seçer (maliyet 7 en düşük)
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 2: Ortam Özellikleri -->
+            <section id="environment" class="learn-section">
+                <h2>2. Ortam Özellikleri</h2>
+                
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Özellik</th>
+                                <th>Açıklama</th>
+                                <th>Örnek</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Observable / Partially Observable</strong></td>
+                                <td>Ajan ortamı tamamen algılayabilir mi?</td>
+                                <td>Satranç (observable), Araba sürme (partially observable)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Deterministic / Stochastic</strong></td>
+                                <td>Eylem sonuçları belirli mi yoksa rastlantısal mı?</td>
+                                <td>Labirent (deterministic), Zar atma (stochastic)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Episodic / Sequential</strong></td>
+                                <td>Deneyim bağımsız bölümlere ayrılabilir mi?</td>
+                                <td>Oyun oynama (episodic), Robot kontrolü (sequential)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Static / Dynamic / Semi-Static</strong></td>
+                                <td>Ortam ajan eylem beklerken değişir mi?</td>
+                                <td>Labirent (static), Trafik (semi-static)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Discrete / Continuous</strong></td>
+                                <td>Durumlar ve eylemler ayrık mı yoksa sürekli mi?</td>
+                                <td>Satranç (discrete), Robot kol (continuous)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Single Agent / Multi-Agent</strong></td>
+                                <td>Kaç ajan ortamda var?</td>
+                                <td>Labirent çözme (single), Satranç (multi-agent)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔍 Observable vs Partially Observable</h3>
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Fully Observable:</strong><br>
+                            • Ajan tüm ortamı algılayabilir<br>
+                            • Durum bilgisi tamdır<br>
+                            • Planlama kolaydır<br>
+                            <strong>Örnek:</strong> Satranç tahtası
+                        </div>
+                        <div>
+                            <strong>Partially Observable:</strong><br>
+                            • Ajan ortamın bir kısmını algılar<br>
+                            • Durum belirsizdir<br>
+                            • Model tutmak gerekir<br>
+                            <strong>Örnek:</strong> Araba sürme (sadece ön görüş)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📊 Deterministic vs Stochastic</h3>
+                    <div class="agent-type-card detailed">
+                        <h4>Deterministic Ortam</h4>
+                        <p>Eylem sonuçları önceden tahmin edilebilir ve belirlidir.</p>
+                        <div class="example-box">
+                            <strong>Örnek:</strong> Labirentte sağa git → sağa gider (her zaman aynı)
+                        </div>
+                    </div>
+
+                    <div class="agent-type-card detailed">
+                        <h4>Stochastic Ortam</h4>
+                        <p>Eylem sonuçları rastlantısal ve belirsizdir.</p>
+                        <div class="example-box">
+                            <strong>Örnek:</strong> Zar atma → 1-6 arası rastgele sayı
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📖 Episodic vs Sequential</h3>
+                    <div class="formula-box">
+                        <strong>Episodic (Bölümlü):</strong><br>
+                        • Deneyim bağımsız bölümlere ayrılır<br>
+                        • Her bölüm bir öncekinden bağımsızdır<br>
+                        • Geçmiş hatırlamaya gerek yoktur<br><br>
+                        <strong>Örnek:</strong> Oyun oynama, her oyun bir episode
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Sequential (Sıralı):</strong><br>
+                        • Önceki eylemler sonrakileri etkiler<br>
+                        • Geçmiş önemlidir<br>
+                        • Uzun dönem planlama gerekir<br><br>
+                        <strong>Örnek:</strong> Robot kontrolü, sürekli görev
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>⏸️ Static vs Semi-Static vs Dynamic</h3>
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Static:</strong><br>
+                            Ajan eylem beklerken ortam değişmez<br>
+                            <strong>Örnek:</strong> Labirent çözme
+                        </div>
+                        <div>
+                            <strong>Semi-Static:</strong><br>
+                            Ortam değişir ama yavaştır<br>
+                            Planlama yapılabilir<br>
+                            <strong>Örnek:</strong> Trafik simülasyonu
+                        </div>
+                        <div>
+                            <strong>Dynamic:</strong><br>
+                            Ortam sürekli değişir<br>
+                            Gerçek zamanlı karar gerekir<br>
+                            <strong>Örnek:</strong> Video oyunu
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔢 Discrete vs Continuous</h3>
+                    <div class="formula-box">
+                        <strong>Discrete (Ayrık):</strong><br>
+                        • Sonlu veya sayılabilir durum/eylem<br>
+                        • Tamsayılar, boolean değerler<br>
+                        <strong>Örnek:</strong> Satranç (64 kare), Labirent (grid)
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Continuous (Sürekli):</strong><br>
+                        • Sonsuz durum/eylem (gerçek sayılar)<br>
+                        • Ayrıklaştırma (discretization) gerekir<br>
+                        <strong>Örnek:</strong> Robot kol pozisyonu (x, y, z koordinatları)
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 3: Ajan Türleri -->
+            <section id="agent-types" class="learn-section">
+                <h2>3. Ajan Türleri</h2>
+                
+                <div class="concept-card">
+                    <h3>🔄 Model-Bazlı Refleks Ajanı</h3>
+                    <div class="formula-box">
+                        <strong>Özellik:</strong><br>
+                        • Ortam modeli tutar<br>
+                        • Mevcut ve geçmiş durumları içerir<br>
+                        • Eylem sonuçlarını tahmin eder<br>
+                        • Kısmen gözlemlenebilir ortamlar için uygundur
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Satranç oyununda hamle sonrası tüm tahtayı göremeyen ama geçmiş hamleleri hatırlayan ve sonuçları tahmin edebilen ajan.
+                    </div>
+                </div>
+
+                <div class="agent-type-card detailed">
+                    <h3>Ajan Türleri Karşılaştırması</h3>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ajan Türü</th>
+                                    <th>Özellik</th>
+                                    <th>Model Tutar mı?</th>
+                                    <th>Geçmiş Kullanır mı?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Basit Refleks</td>
+                                    <td>Sadece mevcut algıya tepki</td>
+                                    <td>❌</td>
+                                    <td>❌</td>
+                                </tr>
+                                <tr>
+                                    <td>Model-Bazlı Refleks</td>
+                                    <td>Model tutar, geçmiş kullanır</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                </tr>
+                                <tr>
+                                    <td>Hedefe-Dayalı</td>
+                                    <td>Hedefe ulaşmak için plan yapar</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                </tr>
+                                <tr>
+                                    <td>Fayda-Tabanlı</td>
+                                    <td>Fayda fonksiyonu optimize eder</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                </tr>
+                                <tr>
+                                    <td>Öğrenmeye-Dayalı</td>
+                                    <td>Deneyimden öğrenir</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 4: Tree Search vs Graph Search -->
+            <section id="tree-graph" class="learn-section">
+                <h2>4. Tree Search vs Graph Search</h2>
+                
+                <div class="concept-card">
+                    <h3>🌳 Tree Search</h3>
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • Visited set (ziyaret edilen düğümler listesi) yoktur<br>
+                        • Durumlar tekrar ziyaret edilebilir<br>
+                        • Döngü oluşturabilir<br>
+                        • Sonsuz döngü riski vardır<br>
+                        • Daha basit implementasyon
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek Problem:</strong><br>
+                        Grafik: A→B, B→D, D→A (döngü)<br>
+                        Tree Search: A→B→D→A→B→D... (sonsuz döngü!)
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📊 Graph Search</h3>
+                    <div class="formula-box">
+                        <strong>Özellikler:</strong><br>
+                        • Visited set tutar<br>
+                        • Ziyaret edilen düğümler kaydedilir<br>
+                        • Tekrar ziyaret engellenir<br>
+                        • Döngü önlenir<br>
+                        • Daha verimli (duplicate state kontrolü)
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Örnek Problem:</strong><br>
+                        Grafik: A→B, B→D, D→A (döngü)<br>
+                        Graph Search: A→B→D (A zaten ziyaret edildi, tekrar işlenmez)
+                    </div>
+                </div>
+
+                <div class="comparison-box">
+                    <div>
+                        <strong>🌳 Tree Search Kullanım:</strong><br>
+                        • Durum uzayı ağaç yapısındaysa<br>
+                        • Duplicate state yoksa<br>
+                        • Basit implementasyon istendiğinde
+                    </div>
+                    <div>
+                        <strong>📊 Graph Search Kullanım:</strong><br>
+                        • Döngülü grafiklerde<br>
+                        • Duplicate state olabileceğinde<br>
+                        • Verimlilik önemliyse
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔍 DFS Tree vs DFS Graph</h3>
+                    <div class="agent-type-card detailed">
+                        <h4>DFS Tree Search Problemi</h4>
+                        <p>Visited set olmadığı için:</p>
+                        <ul>
+                            <li>Döngülü grafiklerde sonsuz döngü oluşur</li>
+                            <li>E stack'te kalır ama asla işlenemez</li>
+                            <li>Örnek: A→B→D→A döngüsü sürekli tekrarlanır</li>
+                        </ul>
+                    </div>
+
+                    <div class="agent-type-card detailed">
+                        <h4>DFS Graph Search Çözümü</h4>
+                        <p>Visited set ile:</p>
+                        <ul>
+                            <li>Ziyaret edilen düğümler kaydedilir</li>
+                            <li>A tekrar işlenmez</li>
+                            <li>Döngü önlenir</li>
+                            <li>Çözüm bulunur</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>📈 BFS Tree vs BFS Graph</h3>
+                    <div class="note-box">
+                        <strong>Not:</strong> BFS'te tree search ve graph search arasındaki fark genellikle daha az belirgindir çünkü BFS seviye seviye ilerler ve duplicate state kontrolü yapılabilir. Ancak graph search daha verimlidir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 5: Karmaşıklık Analizi -->
+            <section id="complexity" class="learn-section">
+                <h2>5. Karmaşıklık Analizi</h2>
+                
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Algoritma</th>
+                                <th>Zaman Karmaşıklığı</th>
+                                <th>Alan Karmaşıklığı</th>
+                                <th>Optimal</th>
+                                <th>Tam</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>BFS</strong></td>
+                                <td>O(b^d)</td>
+                                <td>O(b^d)</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DFS</strong></td>
+                                <td>O(b^m)</td>
+                                <td>O(bm)</td>
+                                <td>❌</td>
+                                <td>❌*</td>
+                            </tr>
+                            <tr>
+                                <td><strong>UCS</strong></td>
+                                <td>O(b^(C*/ε))</td>
+                                <td>O(b^(C*/ε))</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                            </tr>
+                            <tr>
+                                <td><strong>IDS</strong></td>
+                                <td>O(b^d)</td>
+                                <td>O(bd)</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                            </tr>
+                            <tr>
+                                <td><strong>A*</strong></td>
+                                <td>O(b^d)</td>
+                                <td>O(b^d)</td>
+                                <td>✅**</td>
+                                <td>✅</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="note-box">
+                        <strong>Notlar:</strong><br>
+                        * DFS, tree search'te tamdır ama graph search'te sonsuz döngü olabilir<br>
+                        ** A* optimaldir ancak admissible heuristik kullanıldığında<br>
+                        b = dallanma faktörü, d = çözüm derinliği, m = maksimum derinlik
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>⚠️ BFS Alan Karmaşıklığı Problemi</h3>
+                    <div class="formula-box">
+                        <strong>Pratik Anlam:</strong><br>
+                        b=10, d=5 → 10^5 = 100,000 düğüm bellekte!<br>
+                        b=3, d=10 → 3^10 = 59,049 düğüm bellekte!<br><br>
+                        <strong>Çözüm:</strong> IDS (Iterative Deepening Search) kullan<br>
+                        • BFS kadar optimal<br>
+                        • DFS kadar az bellek (O(bd))
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 6: Pratik İpuçları -->
+            <section id="practical-tips" class="learn-section">
+                <h2>6. Pratik İpuçları (Sınav İçin)</h2>
+                
+                <div class="concept-card">
+                    <h3>📝 Soru Çözme Stratejileri</h3>
+                    <div class="formulas-grid">
+                        <div class="formula-card">
+                            <h3>1️⃣ BFS/DFS Hesaplamaları</h3>
+                            <div class="formula">• BFS: O(b^d) - d = çözüm derinliği<br>• DFS: O(b^m) - m = maks derinlik<br>• Seviye seviye say</div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>2️⃣ Ortam Özellikleri</h3>
+                            <div class="formula">• Observable? Deterministic?<br>• Episodic? Static? Discrete?<br>• Her özelliği ayrı değerlendir</div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>3️⃣ Tree vs Graph</h3>
+                            <div class="formula">• Tree: Visited set yok<br>• Graph: Visited set var<br>• Döngü var mı kontrol et</div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>4️⃣ A* Algoritması</h3>
+                            <div class="formula">• f(n) = g(n) + h(n)<br>• Admissible heuristik?<br>• Optimal olmayabilir!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-type-card detailed">
+                    <h3>🎯 Yaygın Hatalar</h3>
+                    <div class="comparison-box">
+                        <div>
+                            <strong>❌ Yanlış:</strong><br>
+                            • BFS zaman karmaşıklığı O(b^m)<br>
+                            • DFS optimal çözüm bulur<br>
+                            • Tree search döngü önler<br>
+                            • UCS adım sayısını optimize eder
+                        </div>
+                        <div>
+                            <strong>✅ Doğru:</strong><br>
+                            • BFS zaman karmaşıklığı O(b^d)<br>
+                            • DFS optimal değildir<br>
+                            • Graph search döngü önler<br>
+                            • UCS maliyeti optimize eder
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>💡 Ezber İçin Formüller</h3>
+                    <div class="formula-box">
+                        <strong>BFS:</strong> Zaman = Alan = O(b^d)<br>
+                        <strong>DFS:</strong> Zaman = O(b^m), Alan = O(bm)<br>
+                        <strong>A*:</strong> f(n) = g(n) + h(n)<br>
+                        <strong>UCS:</strong> Sadece maliyet önemli<br>
+                        <strong>IDS:</strong> BFS kadar optimal, DFS kadar az bellek
+                    </div>
+                </div>
+
+                <div class="quick-summary-box">
+                    <strong>🎓 Son Sınav İpuçları:</strong>
+                    <ol>
+                        <li>BFS/DFS hesaplamalarında d (çözüm derinliği) vs m (maks derinlik) farkını unutma!</li>
+                        <li>Ortam özelliklerini kombinasyon halinde düşün (örn: Partially Observable + Deterministic)</li>
+                        <li>Tree search'te visited set olmadığını, graph search'te olduğunu hatırla!</li>
+                        <li>A* admissible olmayan heuristik ile optimal değildir ama tamdır!</li>
+                        <li>UCS maliyeti optimize eder, adım sayısını değil!</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Link to Quiz -->
+            <div class="action-buttons" style="margin-top: 40px; text-align: center;">
+                <a href="quiz.html" class="btn-primary" style="display: inline-block; padding: 15px 30px; font-size: 1.1em;">
+                    📝 Sorulara Başla →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="courses-data.js"></script>
+    <script src="learn.js"></script>
+</body>
+</html>
+

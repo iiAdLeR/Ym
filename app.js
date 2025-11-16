@@ -267,7 +267,30 @@ function displayQuestion(index) {
     // Soru başlığı ve numarası
     document.getElementById('question-number').textContent = `Soru ${index + 1}`;
     document.getElementById('question-counter').textContent = `Soru ${index + 1} / ${q.length}`;
-    document.getElementById('question-text').textContent = question.question;
+    
+    // Soru metnini göster (HTML desteği ile)
+    const questionTextElement = document.getElementById('question-text');
+    if (question.graphImage) {
+        // Eğer grafik resmi varsa, metin ve resmi birlikte göster
+        questionTextElement.innerHTML = `
+            <div style="margin-bottom: 15px;">${question.question.replace(/\n/g, '<br>')}</div>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="${question.graphImage}" alt="Grafik Diyagramı" 
+                     style="max-width: 100%; height: auto; border: 2px solid #667eea; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); background: white; padding: 10px;">
+            </div>
+        `;
+    } else if (question.diagram) {
+        // Eğer SVG diyagram varsa, göster
+        questionTextElement.innerHTML = `
+            <div style="margin-bottom: 15px;">${question.question.replace(/\n/g, '<br>')}</div>
+            <div style="text-align: center; margin: 20px 0;">
+                ${question.diagram}
+            </div>
+        `;
+    } else {
+        // Normal metin (HTML desteği ile)
+        questionTextElement.innerHTML = question.question.replace(/\n/g, '<br>');
+    }
     
     // Şıkları oluştur
     const optionsContainer = document.getElementById('options-container');

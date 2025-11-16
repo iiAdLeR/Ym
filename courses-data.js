@@ -48,6 +48,14 @@ const coursesData = {
                     description: "Genetik algoritmaların tanımları, kodlama türleri, seçim, çaprazlama, mutasyon, biyolojik prensipler, SGA, klasik optimizasyon yöntemlerinden farkları",
                     quizFile: "quiz.html",
                     questionsFile: "Kurslar/yapay zeka bölümleri/6bölümsorular.js"
+                },
+                {
+                    id: "vize-onemli-sorular",
+                    title: "Vize için Önemli Sorular",
+                    description: "Vize sınavı için kritik konuları kapsayan zor sorular: Algoritma hesaplamaları, ortam özellikleri, ajan türleri, DFS/BFS Tree-Graph",
+                    quizFile: "quiz.html",
+                    questionsFile: "Kurslar/yapay zeka bölümleri/vize-onemli-sorular.js",
+                    learnFile: "learn-vize-onemli.html"
                 }
                 // İleride eklenebilecek diğer bölümler:
                 // {
