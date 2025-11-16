@@ -7,6 +7,13 @@ let stats = {
     wrong: 0
 };
 
+// Global questions getter (question files define questions as const, so we can't reassign)
+// This getter ensures we always access the current questions array
+function getQuestions() {
+    // Try window.questions first (set by us), then global questions (from loaded files)
+    return window.questions || (typeof questions !== 'undefined' ? questions : []);
+}
+
 // Configuration constants
 const QUESTION_LOAD_CONFIG = {
     TIMEOUT: 15000, // 15 seconds
@@ -186,8 +193,8 @@ async function loadQuestionFile(filePath) {
         const loadedQuestions = await loadQuestionFileWithRetry(filePath);
         
         // Set global questions variable (for backward compatibility)
+        // Note: question files define questions as const, so we use window.questions
         window.questions = loadedQuestions;
-        questions = loadedQuestions;
         
         // Initialize app
         initializeApp();
@@ -227,7 +234,8 @@ async function loadQuestionFile(filePath) {
 
 // Uygulamayı başlat
 function initializeApp() {
-    if (typeof questions === 'undefined' || !questions || questions.length === 0) {
+    const q = getQuestions();
+    if (!q || q.length === 0) {
         console.error('Sorular yüklenemedi');
         return;
     }
@@ -245,7 +253,8 @@ function setupEventListeners() {
 
 // Soruyu göster
 function displayQuestion(index) {
-    if (index < 0 || index >= questions.length) {
+    const q = getQuestions();
+    if (index < 0 || index >= q.length) {
         return;
     }
     
@@ -253,11 +262,11 @@ function displayQuestion(index) {
     selectedAnswer = null;
     answerRevealed = false;
     
-    const question = questions[index];
+    const question = q[index];
     
     // Soru başlığı ve numarası
     document.getElementById('question-number').textContent = `Soru ${index + 1}`;
-    document.getElementById('question-counter').textContent = `Soru ${index + 1} / ${questions.length}`;
+    document.getElementById('question-counter').textContent = `Soru ${index + 1} / ${q.length}`;
     document.getElementById('question-text').textContent = question.question;
     
     // Şıkları oluştur
@@ -289,7 +298,7 @@ function displayQuestion(index) {
     
     // Navigation butonlarını güncelle
     document.getElementById('prev-btn').disabled = (index === 0);
-    document.getElementById('next-btn').disabled = (index === questions.length - 1);
+    document.getElementById('next-btn').disabled = (index === q.length - 1);
 }
 
 // Şık seç
@@ -312,7 +321,8 @@ function showAnswer() {
     if (answerRevealed) return;
     
     answerRevealed = true;
-    const question = questions[currentQuestionIndex];
+    const q = getQuestions();
+    const question = q[currentQuestionIndex];
     const correctAnswer = question.correctAnswer;
     
     // Cevap bölümünü göster
@@ -383,7 +393,8 @@ function resetQuestion() {
 
 // Sonraki soru
 function nextQuestion() {
-    if (currentQuestionIndex < questions.length - 1) {
+    const q = getQuestions();
+    if (currentQuestionIndex < q.length - 1) {
         displayQuestion(currentQuestionIndex + 1);
     }
 }
@@ -397,17 +408,19 @@ function previousQuestion() {
 
 // Rastgele soru
 function randomQuestion() {
+    const q = getQuestions();
     let randomIndex;
     do {
-        randomIndex = Math.floor(Math.random() * questions.length);
-    } while (randomIndex === currentQuestionIndex && questions.length > 1);
+        randomIndex = Math.floor(Math.random() * q.length);
+    } while (randomIndex === currentQuestionIndex && q.length > 1);
     
     displayQuestion(randomIndex);
 }
 
 // Toplam soru sayısını güncelle
 function updateTotalQuestions() {
-    document.getElementById('total-questions').textContent = questions.length;
+    const q = getQuestions();
+    document.getElementById('total-questions').textContent = q.length;
 }
 
 // İstatistikleri güncelle
