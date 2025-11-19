@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğren - Yazılım Standartları</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../glassmorphism.css">
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <!-- Glass Mode Toggle -->
+    <div class="glass-toggle-container">
+        <button id="glassToggle" class="glass-toggle-btn" title="Glass Mode">
+            <svg class="glass-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/>
+                <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor"/>
+            </svg>
+            <span class="glass-toggle-text">Glass</span>
+        </button>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="../../chapters.html" class="back-btn">← Geri</a>
+                <h1 id="chapter-title">📖 Yazılım Standartları</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">Yazılım standartları, ürün ve süreç standartları, standartların önemi ve yönetimi</p>
+        </header>
+
+        <div class="learn-container">
+            <!-- İçindekiler -->
+            <div class="table-of-contents">
+                <h3>📑 İçindekiler</h3>
+                <ul>
+                    <li><a href="#standart-nedir">1. Yazılım Standartları Nedir?</a></li>
+                    <li><a href="#rol">2. Standartların Rolü</a></li>
+                    <li><a href="#onem">3. Standartların Önemi (3 Neden)</a></li>
+                    <li><a href="#turler">4. İki Temel Standart Türü</a></li>
+                    <li><a href="#urun-standartlari">5. Ürün Standartları</a></li>
+                    <li><a href="#surec-standartlari">6. Süreç Standartları</a></li>
+                    <li><a href="#maliyet-etkin">7. Etkili ve Maliyet-Etkin Standartlar</a></li>
+                    <li><a href="#ulusal-uluslararasi">8. Ulusal ve Uluslararası Standartlar</a></li>
+                    <li><a href="#mühendis-endiseleri">9. Mühendislerin Endişeleri ve Çözümler</a></li>
+                    <li><a href="#esneklik">10. Standartların Esnekliği</a></li>
+                    <li><a href="#erken-planlama">11. Erken Kalite Planlaması</a></li>
+                    <li><a href="#ozet">12. Önemli Noktalar</a></li>
+                </ul>
+            </div>
+
+            <!-- Bölüm 1: Standart Nedir? -->
+            <section id="standart-nedir" class="learn-section">
+                <h2>1. Yazılım Standartları Nedir? 📋</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Tanım</h3>
+                    <p><strong>Yazılım standartları</strong>, yazılım geliştirme süreci veya yazılım ürünü için uygulanacak kurallar, yöntemler ve en iyi uygulamalardır.</p>
+                    
+                    <div class="formula-box">
+                        <strong>Standartların Süreçteki Yeri:</strong><br>
+                        1️⃣ <strong>Tanımlama/Seçim:</strong> Hangi standartlar kullanılacak?<br>
+                        2️⃣ <strong>Araç ve Yöntemler:</strong> Standartları destekleyecek araçlar<br>
+                        3️⃣ <strong>İzleme ve Doğrulama:</strong> Standartlara uyum kontrolü
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek:</strong> Bir banka, müşteri verilerini korumak için güvenlik standartları belirler. Bu standartlar geçmiş hatalardan öğrenilerek oluşturulur ve tüm projelerde uygulanır.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 2: Rol -->
+            <section id="rol" class="learn-section">
+                <h2>2. Yazılım Kalite Yönetiminde Standartların Rolü 🎯</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Standartlar Neden Hayati Öneme Sahip?</h3>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ Standartların Sağladıkları:</h4>
+                        <ul>
+                            <li><strong>Yol Göstericilik:</strong> Hem süreç hem de ürün kalitesine rehberlik eder</li>
+                            <li><strong>Destekleyici Araçlar:</strong> Standartları uygulamayı kolaylaştıran araçlar belirlenir</li>
+                            <li><strong>Uyum Kontrolü:</strong> Projeye özgü süreçlerle standartlara uyum izlenir</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="note-box info">
+                        <strong>💡 Hatırlatma:</strong> Standartlar sadece kurallar değil, aynı zamanda organizasyonun bilgeliğini ve deneyimlerini içeren değerli kaynaklardır.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 3: Önemi -->
+            <section id="onem" class="learn-section">
+                <h2>3. Yazılım Standartlarının Önemi (3 Temel Neden) ⭐</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 1. Değerli Bilginin Kazanılması (Wisdom Capture)</h3>
+                    <p>Standartlar, organizasyonun en iyi uygulamalarını ve deneyimlerini kaydeder.</p>
+                    
+                    <div class="formula-box">
+                        <strong>Nasıl Çalışır?</strong><br>
+                        • Çok sayıda deneme-yanılma sonunda kazanılan bilgi<br>
+                        • Bu bilgi standartlara dahil edilir<br>
+                        • Şirket bu tecrübeyi tekrar kullanır<br>
+                        • Geçmişteki hatalardan kaçınır
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek:</strong> Bir şirket, geçmişte yaşanan veri ihlallerinden ders çıkararak güvenlik standartları oluşturur. Bu standartlar sayesinde aynı hatalar tekrarlanmaz.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 2. Kalitenin Tanımlanması (Quality Definition)</h3>
+                    <p>Standartlar, kalite kavramını tanımlamak için bir çerçeve sunar.</p>
+                    
+                    <div class="formula-box">
+                        <strong>Neden Önemli?</strong><br>
+                        • Yazılım kalitesi öznel bir kavramdır<br>
+                        • Standartlar, kalite seviyesinin ulaşılıp ulaşılmadığını değerlendirmek için temel oluşturur<br>
+                        • Güvenilirlik, kullanılabilirlik, performans gibi beklentileri yansıtır
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Önemli:</strong> Standartlar, kullanıcı beklentilerini yansıtmalıdır. Aksi halde anlamsız olurlar.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 3. Sürekliliğin Sağlanması (Continuity)</h3>
+                    <p>Standartlar, bir kişinin işinin başka biri tarafından devralınmasını kolaylaştırır.</p>
+                    
+                    <div class="formula-box">
+                        <strong>Faydaları:</strong><br>
+                        • Tüm mühendisler aynı uygulamaları benimser<br>
+                        • Yeni işe başlarken öğrenme süreci azalır<br>
+                        • Proje sürekliliği sağlanır<br>
+                        • İş devri sorunsuz olur
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek:</strong> Bir geliştirici projeden ayrıldığında, standartlar sayesinde yeni geliştirici işi kolayca devralabilir ve aynı kalitede devam ettirebilir.
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <h3>📝 Özet: Standartların 3 Önemi</h3>
+                    <ol>
+                        <li><strong>Bilgi Kazanımı:</strong> En iyi uygulamalar ve deneyimler kaydedilir</li>
+                        <li><strong>Kalite Tanımı:</strong> Kaliteyi ölçmek için çerçeve sağlar</li>
+                        <li><strong>Süreklilik:</strong> İş devri ve tutarlılık sağlar</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Bölüm 4: Türler -->
+            <section id="turler" class="learn-section">
+                <h2>4. İki Temel Standart Türü 🔀</h2>
+                
+                <div class="comparison-box">
+                    <div>
+                        <h3>📦 Ürün Standartları</h3>
+                        <p><strong>Ne İle İlgilidir?</strong> Yazılım ürününün kendisi</p>
+                        <ul>
+                            <li>Doküman yapısı</li>
+                            <li>Kodlama kuralları</li>
+                            <li>Dokümantasyon standartları</li>
+                            <li>Yorum başlıkları</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>⚙️ Süreç Standartları</h3>
+                        <p><strong>Ne İle İlgilidir?</strong> Geliştirme süreçleri</p>
+                        <ul>
+                            <li>Gereksinim belirleme</li>
+                            <li>Tasarım süreçleri</li>
+                            <li>Doğrulama süreçleri</li>
+                            <li>Test prosedürleri</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 5: Ürün Standartları -->
+            <section id="urun-standartlari" class="learn-section">
+                <h2>5. Ürün Standartları 📦</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Tanım ve Kapsam</h3>
+                    <p><strong>Ürün standartları</strong>, geliştirilen yazılım ürünü için geçerlidir.</p>
+                    
+                    <div class="env-property-card">
+                        <h4>Ürün Standartları Türleri:</h4>
+                        <ul>
+                            <li><strong>Doküman Standartları:</strong> Gereksinim dokümanlarının yapısını belirler</li>
+                            <li><strong>Dokümantasyon Standartları:</strong> Örn: Nesne sınıfı tanımı için standart yorum başlığı</li>
+                            <li><strong>Kodlama Standartları:</strong> Programlama dilinin nasıl kullanılacağını tanımlar</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek - Mobil Uygulama:</strong><br>
+                        Bir mobil uygulama şirketi ürün standartları uygular:
+                        <ul>
+                            <li>✅ Tüm geliştiriciler kodlama standardına uyar (isimlendirme, format)</li>
+                            <li>✅ Gereksinim dokümanları için standart şablon kullanılır</li>
+                            <li>✅ Her sınıf tanımında aynı yorum başlığı eklenir</li>
+                        </ul>
+                        <strong>Sonuç:</strong> Net, okunabilir kod ve tutarlı dokümantasyon → Bakım ve güncelleme kolaylaşır.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 6: Süreç Standartları -->
+            <section id="surec-standartlari" class="learn-section">
+                <h2>6. Süreç Standartları ⚙️</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Tanım ve Kapsam</h3>
+                    <p><strong>Süreç standartları</strong>, yazılım geliştirme sırasında izlenmesi gereken süreçleri tanımlar.</p>
+                    
+                    <div class="env-property-card">
+                        <h4>Süreç Standartları İçerir:</h4>
+                        <ul>
+                            <li><strong>Süreç Tanımları:</strong> Gereksinim belirleme, tasarım, doğrulama süreçleri</li>
+                            <li><strong>Destek Araçları:</strong> Süreç destek araçları</li>
+                            <li><strong>Doküman Açıklamaları:</strong> Süreçler sırasında hazırlanması gereken dokümanlar</li>
+                            <li><strong>En İyi Uygulamalar:</strong> İyi geliştirme uygulamaları</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek - Yazılım Şirketi:</strong><br>
+                        Bir şirket süreç standartları benimser:
+                        <ul>
+                            <li>✅ Gereksinim belirleme, tasarım, test için net adımlar</li>
+                            <li>✅ Zorunlu incelemeler ve onay noktaları</li>
+                            <li>✅ İlerleme takibi için belirli araçlar</li>
+                            <li>✅ Her aşamada standart dokümanlar</li>
+                        </ul>
+                        <strong>Sonuç:</strong> En iyi uygulamalar takip edilir, hatalar azalır, süreç öngörülebilir ve verimli olur.
+                    </div>
+                    
+                    <div class="note-box info">
+                        <strong>💡 Fark:</strong><br>
+                        <strong>Ürün Standartları:</strong> "Yazılım nasıl görünmeli?" (örn: Butonlar kolay okunmalı)<br>
+                        <strong>Süreç Standartları:</strong> "Yazılım nasıl inşa edilmeli?" (örn: Her değişiklikten sonra test edilmeli)
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 7: Maliyet-Etkin -->
+            <section id="maliyet-etkin" class="learn-section">
+                <h2>7. Etkili ve Maliyet-Etkin Standartlar 💰</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Standartların Değer Yaratması Gerekir</h3>
+                    
+                    <div class="formula-box">
+                        <strong>Etkili Standartların Özellikleri:</strong><br>
+                        ✅ <strong>Değer Yaratır:</strong> Ürün kalitesini artırır<br>
+                        ❌ <strong>Aşırı Maliyetli Değildir:</strong> Sınırlı kalite iyileştirmesi için aşırı çaba gerektirmez<br>
+                        ✅ <strong>Uygulanabilir:</strong> Kolayca uygulanabilir ve denetlenebilir<br>
+                        ✅ <strong>Doğrulanabilir:</strong> Süreç standartları, ürün standartlarına uyumu kontrol eder
+                    </div>
+                    
+                    <div class="env-property-card">
+                        <h4>❌ Kötü Standart Örneği:</h4>
+                        <ul>
+                            <li>Çok zaman ve çaba gerektirir</li>
+                            <li>Sadece sınırlı kalite iyileştirmesi sağlar</li>
+                            <li>Uygulanması zor</li>
+                            <li>Denetlenmesi zor</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ İyi Standart Örneği:</h4>
+                        <ul>
+                            <li>Anlamlı kalite artışı sağlar</li>
+                            <li>Maliyet-etkin</li>
+                            <li>Pratik ve uygulanabilir</li>
+                            <li>Kolayca denetlenebilir</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 8: Ulusal ve Uluslararası -->
+            <section id="ulusal-uluslararasi" class="learn-section">
+                <h2>8. Ulusal ve Uluslararası Standartlar 🌍</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Şirket Standartları Genellikle Uyarlanır</h3>
+                    <p>Şirketler, genellikle daha geniş kapsamlı standartlardan (IEEE, ISO) kendi ihtiyaçlarına göre uyarlama yapar.</p>
+                    
+                    <div class="env-property-card">
+                        <h4>Ulusal/Uluslararası Standartlar Kapsar:</h4>
+                        <ul>
+                            <li><strong>Terminoloji:</strong> Yazılım mühendisliği terimleri</li>
+                            <li><strong>Programlama Dilleri:</strong> Java, C++ gibi diller</li>
+                            <li><strong>Gösterimler:</strong> Akış diyagramı sembolleri</li>
+                            <li><strong>Kalite Güvencesi:</strong> QA süreçleri</li>
+                            <li><strong>Doğrulama ve Geçerlilik:</strong> Test süreçleri</li>
+                            <li><strong>Güvenlik ve Emniyet:</strong> Kritik sistemler için özel standartlar</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek - ISO/IEC 12207:</strong><br>
+                        <strong>Kapsamı:</strong>
+                        <ul>
+                            <li>Yazılım yaşam döngüsü süreçleri (geliştirme, bakım, test)</li>
+                            <li>Standartlaşmış ve sistematik süreç yönetimi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek - IEEE Kalite Güvencesi:</strong><br>
+                        <strong>Kapsamı:</strong>
+                        <ul>
+                            <li>Yazılım testi ve denetimleri için standartlar</li>
+                            <li>Ürün ve süreç kalite kontrolü</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek - Tıbbi Yazılım:</strong><br>
+                        Bir teknoloji şirketi, emniyet kritik tıbbi yazılımlar geliştirirken:
+                        <ul>
+                            <li>✅ ISO/IEC 12207 uygular (yaşam döngüsü)</li>
+                            <li>✅ IEEE standartlarını uygular (kalite güvencesi)</li>
+                            <li>✅ Küresel standartları kendi projelerine uyarlar</li>
+                        </ul>
+                        <strong>Sonuç:</strong> Sektör düzenlemelerine uyum, yüksek güvenlik, denetim kolaylığı.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 9: Mühendis Endişeleri -->
+            <section id="mühendis-endiseleri" class="learn-section">
+                <h2>9. Mühendislerin Endişeleri ve Çözümler 👨‍💻</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Sorun: Mühendisler Standartları Fazla Katı Bulabilir</h3>
+                    
+                    <div class="env-property-card">
+                        <h4>❌ Mühendislerin Endişeleri:</h4>
+                        <ul>
+                            <li>Standartlar fazla katı veya alakasız görünebilir</li>
+                            <li>Özellikle yoğun dokümantasyon gerektirdiğinde</li>
+                            <li>Kendi projeleri için her zaman uygun olmayabilir</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="concept-card">
+                        <h3>🔹 Çözüm 1: Mühendisleri Sürece Dahil Et</h3>
+                        <div class="formula-box">
+                            <strong>Nasıl?</strong><br>
+                            • Mühendisleri standart seçim sürecine dahil et<br>
+                            • Standartların nedenlerini açıkla<br>
+                            • Standart dokümanında sadece kurallar değil, nedenler de olsun
+                        </div>
+                        
+                        <div class="example-box">
+                            <strong>💡 Örnek:</strong> Kalite ekibi, mühendisleri standart seçim sürecine dahil etti ve her kuralın arkasındaki gerekçeleri açıkça paylaştı. Sonuç: Geliştiriciler sürece daha fazla dahil oldu.
+                        </div>
+                    </div>
+                    
+                    <div class="concept-card">
+                        <h3>🔹 Çözüm 2: Standartları Düzenli Güncelle</h3>
+                        <div class="formula-box">
+                            <strong>Neden?</strong><br>
+                            • Teknolojideki gelişmelere uyum sağlamak için<br>
+                            • Standartlar zamanla eskiyebilir<br>
+                            • Değişen koşulları yansıtmalı
+                        </div>
+                        
+                        <div class="note-box warning">
+                            <strong>⚠️ Dikkat:</strong> Standartları değiştirme konusunda isteksizlik olabilir (zaman ve tartışma gerektirir), ancak güncellenmeleri gerekir.
+                        </div>
+                    </div>
+                    
+                    <div class="concept-card">
+                        <h3>🔹 Çözüm 3: Araç Desteği Sağla</h3>
+                        <div class="formula-box">
+                            <strong>Neden Önemli?</strong><br>
+                            • Manuel uyum sıkıcı ve yük olarak görülebilir<br>
+                            • Otomatik araçlar uyumu kolaylaştırır<br>
+                            • Ekstra çaba gerektirmez
+                        </div>
+                        
+                        <div class="example-box">
+                            <strong>💡 Örnek:</strong> Program düzeni standartları, sözdizimi yönlendirmeli bir program düzenleme sistemi aracılığıyla otomatik olarak uygulanabilir.
+                        </div>
+                        
+                        <div class="example-box">
+                            <strong>💡 Örnek - Otomatik Araçlar:</strong><br>
+                            Bir şirket, uyumu kolaylaştırmak için:
+                            <ul>
+                                <li>✅ Kod biçimlendiriciler</li>
+                                <li>✅ Dokümantasyon üreticileri</li>
+                                <li>✅ Otomatik kontrol araçları</li>
+                            </ul>
+                            <strong>Sonuç:</strong> Standartlara ek çaba gerektirmeden tutarlı uyum sağlandı.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 10: Esneklik -->
+            <section id="esneklik" class="learn-section">
+                <h2>10. Standartların Esnekliği 🔄</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Farklı Projeler Farklı Süreçler Gerektirir</h3>
+                    
+                    <div class="formula-box">
+                        <strong>Esneklik Neden Gerekli?</strong><br>
+                        • Farklı yazılım türleri, farklı geliştirme süreçleri gerektirir<br>
+                        • Bir yöntem her proje için uygun olmayabilir<br>
+                        • Proje yöneticileri süreç standartlarını uyarlayabilmeli
+                    </div>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ Esnek Standartların Özellikleri:</h4>
+                        <ul>
+                            <li><strong>Uyarlanabilir:</strong> Proje ihtiyaçlarına göre değiştirilebilir</li>
+                            <li><strong>Yetki:</strong> Proje yöneticileri değiştirme yetkisine sahip</li>
+                            <li><strong>Kalite Korunur:</strong> Değişiklikler kalite kaybına yol açmamalı</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Önemli:</strong> Esneklik kalite kaybına yol açmamalıdır. Değişiklikler ürün kalitesini korumalı veya artırmalıdır.
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek - ISO/IEC 12207:</strong><br>
+                        <ul>
+                            <li>Katı kurallar değil, esnek bir çerçeve sunar</li>
+                            <li>Proje yöneticileri süreçleri ekiplerine uygun şekilde uyarlayabilir</li>
+                            <li>IEEE standartları değişikliklerin kaliteyi zedelememesini sağlar</li>
+                        </ul>
+                        <strong>Sonuç:</strong> Esneklik ile yüksek kalite arasında doğru denge kurulur.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 11: Erken Planlama -->
+            <section id="erken-planlama" class="learn-section">
+                <h2>11. Erken Kalite Planlaması 📅</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Proje Başında Karar Verilmeli</h3>
+                    
+                    <div class="formula-box">
+                        <strong>Erken Planlamada Karar Verilmesi Gerekenler:</strong><br>
+                        1️⃣ <strong>Korunacak Standartlar:</strong> Hangi standartlar olduğu gibi kullanılacak?<br>
+                        2️⃣ <strong>Değiştirilecek Standartlar:</strong> Hangi standartlar uyarlanacak?<br>
+                        3️⃣ <strong>Göz Ardı Edilecek Standartlar:</strong> Hangi standartlar atlanacak?<br>
+                        4️⃣ <strong>Yeni Standartlar:</strong> Proje ihtiyaçları için yeni standartlar oluşturulacak mı?
+                    </div>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ Erken Planlamanın Faydaları:</h4>
+                        <ul>
+                            <li>Uygunsuz standartlardan kaynaklanan sorunlar önlenir</li>
+                            <li>Proje hedeflerini destekleyen standartlar seçilir</li>
+                            <li>Gereksiz yük getirmesi engellenir</li>
+                            <li>Kalite düşüşü önlenir</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek - E-Ticaret Platformu:</strong><br>
+                        Proje başında kalite planlama oturumu:
+                        <ul>
+                            <li>✅ Kodlama standartları tam olarak uygulanacak</li>
+                            <li>✅ Dokümantasyon sadeleştirilecek (hız için)</li>
+                            <li>✅ Ödeme güvenliği için yeni resmi tanımlama standartları oluşturulacak</li>
+                        </ul>
+                        <strong>Sonuç:</strong> Kalite korunurken proje esnek ve verimli ilerler.
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek - Resmi Tanımlama:</strong><br>
+                        Önceki projelerde kullanılmamışsa, resmi tanımlamalar için özel standartlara ihtiyaç duyulabilir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 12: Özet -->
+            <section id="ozet" class="learn-section">
+                <h2>12. Önemli Noktalar - Genel Özet 📝</h2>
+                
+                <div class="summary-box">
+                    <h3>🎯 Yazılım Standartlarının Temel Özellikleri</h3>
+                    <ol>
+                        <li><strong>Vazgeçilmezdir:</strong> Yazılım kalitesini yönetmek ve geliştirmek için kritik</li>
+                        <li><strong>Bilgi Kaynağıdır:</strong> Organizasyonun en iyi uygulamalarını ve deneyimlerini kaydeder</li>
+                        <li><strong>Çerçeve Sağlar:</strong> Yazılım kalitesini tanımlamak ve ölçmek için net çerçeve</li>
+                        <li><strong>Tutarlılık:</strong> Yazılım geliştirmede tutarlılık ve süreklilik sağlar</li>
+                    </ol>
+                </div>
+                
+                <div class="summary-box">
+                    <h3>📦 İki Temel Tür</h3>
+                    <div class="comparison-box">
+                        <div>
+                            <h4>Ürün Standartları</h4>
+                            <ul>
+                                <li>Nihai yazılım ürününün kalite ve özelliklerine odaklanır</li>
+                                <li>Örnek: Kodlama stili, dokümantasyon</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Süreç Standartları</h4>
+                            <ul>
+                                <li>Yazılım geliştirme faaliyetlerinin nasıl yürütüleceğini yönlendirir</li>
+                                <li>Örnek: Geliştirme adımları, test prosedürleri</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary-box">
+                    <h3>✅ Etkili Standartların Özellikleri</h3>
+                    <ul>
+                        <li><strong>Pratik:</strong> Uygulanması ve denetlenmesi kolay</li>
+                        <li><strong>Maliyet-Etkin:</strong> Aşırı maliyetli değil</li>
+                        <li><strong>Uyarlanabilir:</strong> Şirketler IEEE ve ISO gibi standartları kendi ihtiyaçlarına göre uyarlar</li>
+                        <li><strong>Kabul Edilebilir:</strong> Mühendislerin seçimine ve güncellenmesine dahil edilmesi kabulü artırır</li>
+                        <li><strong>Araç Desteği:</strong> Araçlar uyumu kolaylaştırır</li>
+                        <li><strong>Esnek:</strong> Kalite kaybı olmadan farklı projelere uyarlanabilir</li>
+                        <li><strong>Planlanmış:</strong> Erken kalite planlaması ile hangi standartların kullanılacağına karar verilir</li>
+                    </ul>
+                </div>
+                
+                <div class="summary-box">
+                    <h3>🎓 Sınav İçin Önemli Noktalar</h3>
+                    <div class="exam-tips">
+                        <h4>1. Standartların 3 Önemi (Mutlaka Bil!)</h4>
+                        <ol>
+                            <li><strong>Değerli Bilginin Kazanılması:</strong> En iyi uygulamalar ve deneyimler kaydedilir</li>
+                            <li><strong>Kalitenin Tanımlanması:</strong> Kaliteyi ölçmek için çerçeve sağlar</li>
+                            <li><strong>Sürekliliğin Sağlanması:</strong> İş devri ve tutarlılık</li>
+                        </ol>
+                        
+                        <h4>2. İki Standart Türü</h4>
+                        <ul>
+                            <li><strong>Ürün Standartları:</strong> Yazılım ürünü (kod, dokümantasyon)</li>
+                            <li><strong>Süreç Standartları:</strong> Geliştirme süreçleri (test, tasarım)</li>
+                        </ul>
+                        
+                        <h4>3. Mühendis Endişelerinin Çözümleri</h4>
+                        <ol>
+                            <li>Mühendisleri sürece dahil et</li>
+                            <li>Standartları düzenli güncelle</li>
+                            <li>Araç desteği sağla</li>
+                        </ol>
+                        
+                        <h4>4. Esneklik</h4>
+                        <ul>
+                            <li>Farklı projeler farklı süreçler gerektirir</li>
+                            <li>Standartlar uyarlanabilir olmalı</li>
+                            <li>Ancak kalite kaybına yol açmamalı</li>
+                        </ul>
+                        
+                        <h4>5. Erken Planlama</h4>
+                        <ul>
+                            <li>Proje başında hangi standartların kullanılacağına karar verilir</li>
+                            <li>Korunacak, değiştirilecek, göz ardı edilecek standartlar belirlenir</li>
+                            <li>Yeni standartlar oluşturulabilir</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sonraki Adım -->
+            <div class="next-step">
+                <div class="next-step-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="9" stroke="#ef4444" stroke-width="2" fill="none"/>
+                        <circle cx="12" cy="12" r="5" stroke="#ef4444" stroke-width="2" fill="none"/>
+                        <path d="M12 7L12 12L15 15" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <path d="M12 2L12 4" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 20L12 22" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M2 12L4 12" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M20 12L22 12" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h3>🎯 Hazır mısın?</h3>
+                <p>Artık yazılım standartları kavramlarını öğrendin! Şimdi bilgini test etmeye hazırsın.</p>
+                <a href="../../quiz.html" class="btn-start" onclick="setChapter3Questions()">
+                    <span>Sınava Başla</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" class="back-to-top-btn" title="Yukarı Çık">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4L4 12H8V20H16V12H20L12 4Z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <script src="../../learn-template.js"></script>
+    <script>
+        // Set chapter 3 questions before navigating to quiz
+        function setChapter3Questions() {
+            localStorage.setItem('currentCourse', 'kalite-guvenilirlik');
+            localStorage.setItem('currentChapter', 'kalite-chapter-3');
+            localStorage.setItem('questionsFile', 'Kurslar/Kalite güvenilirlik bölümler/3bölümsorular.js');
+        }
+
+        // Back to Top Button Functionality
+        (function() {
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            
+            if (!backToTopBtn) return;
+            
+            // Show/hide button based on scroll position
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            // Smooth scroll to top when button is clicked
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        })();
+    </script>
+
+    <style>
+        .next-step {
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .next-step-icon {
+            margin: 0 auto 20px;
+            width: 64px;
+            height: 64px;
+            background: rgba(30, 30, 50, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .next-step h3 {
+            font-size: 28px;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .next-step p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-start {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+
+        .btn-start svg {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-start:hover svg {
+            transform: translateX(5px);
+        }
+
+        .back-to-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-start, #6366f1), var(--primary-end, #8b5cf6));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .back-to-top-btn.show {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top-btn:hover {
+            background: linear-gradient(135deg, var(--primary-end, #8b5cf6), var(--primary-start, #6366f1));
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .back-to-top-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.4);
+        }
+
+        .back-to-top-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .next-step {
+                padding: 30px 20px;
+            }
+
+            .next-step h3 {
+                font-size: 24px;
+            }
+
+            .next-step p {
+                font-size: 16px;
+            }
+
+            .back-to-top-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</body>
+</html>
+

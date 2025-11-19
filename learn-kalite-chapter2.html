@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğren - Yazılım Kalitesi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="glassmorphism.css">
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <!-- Glass Mode Toggle -->
+    <div class="glass-toggle-container">
+        <button id="glassToggle" class="glass-toggle-btn" title="Glass Mode">
+            <svg class="glass-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/>
+                <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor"/>
+            </svg>
+            <span class="glass-toggle-text">Glass</span>
+        </button>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="chapters.html" class="back-btn">← Geri</a>
+                <h1 id="chapter-title">📖 Yazılım Kalitesi</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">Yazılım kalitesi kavramı, üretim kalitesinden farkları, ölçüm zorlukları ve kalite kültürü</p>
+        </header>
+
+        <div class="learn-container">
+            <!-- İçindekiler -->
+            <div class="table-of-contents">
+                <h3>📑 İçindekiler</h3>
+                <ul>
+                    <li><a href="#yazilim-kalitesi">1. Yazılım Kalitesi Nedir?</a></li>
+                    <li><a href="#uretim-farki">2. Yazılım Kalitesi vs Üretim Kalitesi</a></li>
+                    <li><a href="#olcum-zorluklari">3. Yazılım Kalitesinin Ölçülmesi Neden Zordur?</a></li>
+                    <li><a href="#islevsellik-otesi">4. İşlevselliğin Ötesinde Kalite</a></li>
+                    <li><a href="#oncelikler">5. Kalite Planlamasında Öncelikler</a></li>
+                    <li><a href="#geleneksel-yonetim">6. Geleneksel Yazılım Kalite Yönetimi</a></li>
+                    <li><a href="#surec-tabanli">7. Süreç Tabanlı Kalite</a></li>
+                    <li><a href="#fark-nedenleri">8. Yazılım Kalitesinin Üretimden Farklı Olmasının Nedenleri</a></li>
+                    <li><a href="#kritik-ozellikler">9. Kritik Yazılım Kalite Özellikleri</a></li>
+                    <li><a href="#degerlendirme-zorluklari">10. Yazılım Kalitesini Değerlendirmenin Zorlukları</a></li>
+                    <li><a href="#kalite-kulturu">11. Kalite Kültürü ve Sürekli İyileştirme</a></li>
+                    <li><a href="#ornekler">12. Pratik Örnekler</a></li>
+                    <li><a href="#ozet">13. Önemli Noktalar</a></li>
+                </ul>
+            </div>
+
+            <!-- Bölüm 1: Yazılım Kalitesi Nedir? -->
+            <section id="yazilim-kalitesi" class="learn-section">
+                <h2>1. Yazılım Kalitesi Nedir?</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 İmalat Sektöründen Yazılıma</h3>
+                    <p>İmalat sektörü, daha iyi ürünler üretmek için kalite yönetiminin temellerini oluşturdu. Bu süreçte kaliteyi, bir ürünün detaylı teknik şartnamelere ne kadar uygun olduğuyla tanımladılar.</p>
+                    
+                    <div class="formula-box">
+                        <strong>İmalat Sektöründe Kalite:</strong><br>
+                        • Her ürünün tamamen tanımlanabilir ve kontrol edilebilir olduğu düşünülür<br>
+                        • Küçük farklılıklara izin verilir (tolerans)<br>
+                        • Ürün yeterince yakınsa, kaliteli kabul edilir
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Önemli:</strong> Hiçbir ürün şartnameye tamamen birebir uyamaz. Bu yüzden küçük farklılıklara izin verildi.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Yazılımda Kalite</h3>
+                    <p><strong>Yazılımda kalite</strong> sadece teknik şartnamelere uyum değil; ürünün ne kadar iyi çalıştığı ve kullanıcı ihtiyaçlarını ne ölçüde karşıladığı anlamına gelir.</p>
+                    
+                    <div class="comparison-box">
+                        <div>
+                            <strong>İmalat Kalitesi:</strong><br>
+                            • Teknik şartnamelere uyum<br>
+                            • Tolerans kavramı geçerli<br>
+                            • Objektif ölçüm mümkün
+                        </div>
+                        <div>
+                            <strong>Yazılım Kalitesi:</strong><br>
+                            • Teknik şartnamelere uyum + kullanıcı memnuniyeti<br>
+                            • Tolerans kavramı uygulanamaz<br>
+                            • Öznel değerlendirme gerekir
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Yazılım Kalitesinin Farklılığı</h3>
+                    <div class="formula-box">
+                        <strong>Yazılım kalitesi, doğrudan imalattaki kalite ile karşılaştırılamaz:</strong><br><br>
+                        • <strong>Tolerans kavramı:</strong> Analog sistemlerde geçerli olsa da yazılım için uygulanamaz<br>
+                        • <strong>Objektif sonuç:</strong> Bir yazılım sisteminin spesifikasyonlarına uyup uymadığı konusunda objektif bir sonuca varmak çoğu zaman imkansızdır<br>
+                        • <strong>Farklı yaklaşım:</strong> İmalatta küçük farklara (toleranslara) izin verilir, ancak bu yazılım için geçerli değildir
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 2: Yazılım Kalitesinin Ölçülmesi Neden Zordur? -->
+            <section id="olcum-zorluklari" class="learn-section">
+                <h2>2. Yazılım Kalitesinin Ölçülmesi Neden Zordur?</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Zorluk 1: Tam ve Net Gereksinimler Yazmak Zordur</h3>
+                    <div class="formula-box">
+                        <strong>Problem:</strong><br>
+                        • Geliştiriciler ve müşteriler gereksinimleri farklı şekillerde anlayabilir<br>
+                        • Bu da yazılımın gereksinimleri karşılayıp karşılamadığı konusunda anlaşmayı zorlaştırır<br>
+                        • Yazılım gereksinimlerini tam ve kesin şekilde yazmak zordur
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Sonuç:</strong> Yazılımın spesifikasyona uygun olup olmadığı konusunda anlaşmaya varmak imkansız olabilir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Zorluk 2: Farklı Kullanıcı Grupları ve Uzlaşmalar</h3>
+                    <div class="formula-box">
+                        <strong>Problem:</strong><br>
+                        • Gereksinimler, farklı kullanıcı gruplarından gelir<br>
+                        • Bu gereksinimler genellikle uzlaşmalar sonucu oluşur<br>
+                        • Herkesin memnuniyetini sağlamayabilir
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Bazı kullanıcılar, yazılımın belirlenen gereksinimleri karşılamasına rağmen kalitesiz olduğunu düşünebilir. Spesifikasyonlar genellikle birden fazla paydaş grubunun gereksinimlerini bir araya getirir. Bu gereksinimler kaçınılmaz olarak bir uzlaşma içerir ve tüm paydaş gruplarının ihtiyaçlarını tam olarak karşılamayabilir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Zorluk 3: Ölçülemeyen Kalite Özellikleri</h3>
+                    <div class="formula-box">
+                        <strong>Problem:</strong><br>
+                        • Bazı kalite özellikleri, örneğin yazılımın ne kadar kolay bakım yapılabilir olduğu, doğrudan ölçülemez<br>
+                        • Bu da onları net bir şekilde tanımlamayı zorlaştırır
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Sonuç:</strong> Belirli kalite özelliklerini (örneğin, bakım kolaylığı) doğrudan ölçmek mümkün olmadığından, bunlar kesin ve tartışmasız bir şekilde belirtilemez.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Genel Değerlendirme</h3>
+                    <div class="formula-box">
+                        <strong>Yazılım Kalitesi Değerlendirmesi:</strong><br><br>
+                        • Sadece spesifikasyonlara uyumla değil<br>
+                        • Kullanıcıları ne kadar tatmin ettiği<br>
+                        • Zaman içinde ne kadar iyi uyum sağladığıyla da ilgilidir
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Önemli:</strong> Belirsiz yazılım ihtiyaçları, farklı kişilerin farklı yorumları ve ölçülemeyen bazı kalite özellikleri gibi sorunlar nedeniyle, yazılım kalitesini değerlendirmek öznel bir süreçtir. Bu da farklı kişilerin yazılımın iyi olup olmadığı konusunda farklı görüşlere sahip olabileceği anlamına gelir.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Not:</strong> Teknik gereksinimlerin karşılanması her zaman kullanıcı memnuniyeti veya uzun vadeli başarıyı garanti etmez.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Kalite Yönetim Ekibinin Rolü</h3>
+                    <div class="formula-box">
+                        <strong>Kalite yönetim ekibi, kabul edilebilir bir kalite seviyesine ulaşılıp ulaşılmadığına karar vermek için kendi değerlendirmesini kullanır.</strong><br><br>
+                        Yazılımın amacına uygun olup olmadığına onlar karar verir. Bu karar, sistemin özellikleriyle ilgili bazı soruların yanıtlanmasını gerektirir:
+                    </div>
+                    
+                    <div class="env-property-card">
+                        <h4>📋 Değerlendirme Soruları:</h4>
+                        <ul>
+                            <li><strong>1. Test:</strong> Yazılım doğru şekilde test edildi mi ve tüm gereksinimlerin karşılandığı kanıtlandı mı?</li>
+                            <li><strong>2. Güvenilirlik:</strong> Yazılım, kullanıma sunulacak kadar güvenilir mi?</li>
+                            <li><strong>3. Performans:</strong> Yazılımın performansı normal kullanım için kabul edilebilir düzeyde mi?</li>
+                            <li><strong>4. Kullanılabilirlik:</strong> Yazılım kullanışlı mı?</li>
+                            <li><strong>5. Yapılandırma:</strong> Yazılım iyi yapılandırılmış ve anlaşılır mı?</li>
+                            <li><strong>6. Standartlar:</strong> Geliştirme sürecinde programlama ve dokümantasyon standartlarına uyuldu mu?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Test ve Kalite Yönetimi</h3>
+                    <div class="formula-box">
+                        <strong>Yazılım kalite yönetiminde genel olarak:</strong><br><br>
+                        • Sistemin gereksinimlere karşı test edileceği varsayılır<br>
+                        • Sistemin gerekli işlevselliği sağlayıp sağlamadığına dair değerlendirme, bu testlerin sonuçlarına dayanmalıdır<br>
+                        • Kalite yönetim (QM) ekibi geliştirilen testleri gözden geçirip, test kayıtlarını inceleyerek testlerin düzgün bir şekilde yapıldığını kontrol etmelidir
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Not:</strong> Bazı şirketlerde kalite yönetim grubu nihai sistem testini bizzat yaparken; bazılarında ise, özel bir sistem test ekibi sistem kalite yöneticisine rapor verir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 3: İşlevselliğin Ötesinde Kalite -->
+            <section id="islevsellik-otesi" class="learn-section">
+                <h2>3. İşlevselliğin Ötesinde Kalite</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Yazılım Kalitesi Sadece İşlevsellik Değildir</h3>
+                    <div class="formula-box">
+                        <strong>Yazılım kalitesi genellikle sadece temel işlevlerinin nasıl çalıştığına değil, aynı zamanda bu işlevlerin ötesindeki performansına göre değerlendirilir.</strong><br><br>
+                        Bu, gerçek kullanıcı deneyiminden kaynaklanır—eğer yazılım kullanıcıların tam olarak beklediği gibi çalışmazsa, kullanıcılar genellikle bunu aşmanın yollarını bulurlar.
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Kritik:</strong> Ama eğer yazılım güvenilir değilse veya çok yavaşsa, kullanıcılar hedeflerine kolayca ulaşamazlar.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Sonuç:</strong> Yazılım kalitesi sadece doğru özelliklere sahip olmakla değil, aynı zamanda güvenilirlik ve hız gibi önemli işlevsel olmayan (non-functional) yönlerle de ilgilidir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 1: Finans Şirketi - Alım-Satım Yazılımı</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir finans şirketi, tüm işlemleri doğru şekilde gerçekleştiren (işlevsel) yeni bir alım-satım yazılımı geliştirir. Ancak yazılım yavaş çalışmakta ve sık sık çökme sorunları yaşanmaktadır (işlevsel olmayan özellikler).
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>❌ Sonuç:</strong> Bu durum, alım-satım uzmanlarının kısa sürede yazılımdan memnuniyetsizlik duymasına ve manuel yöntemlere ya da alternatif araçlara yönelmesine neden olur.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Ders:</strong> Yazılım işlevsel olarak doğru çalışsa da; güvenilirlik, hız gibi işlevsel olmayan niteliklerin zayıf olması, yazılımın kalitesinin düşük algılanmasına ve iş başarısının olumsuz etkilenmesine yol açar.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 2: E-Ticaret Sitesi</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir e-ticaret sitesi, müşterilerin ihtiyaç duyduğu tüm işlevleri sunmaktadır—arama, filtreleme ve ödeme işlemleri gibi. Ancak site, özellikle yoğun saatlerde yavaş yüklenmekte ve sık sık çökmektedir.
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>❌ Sonuç:</strong> İşlevsellik tam olsa da, müşteriler yaşadıkları hayal kırıklığı nedeniyle siteyi terk etmektedir.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Ders:</strong> Bu durum, performans ve güvenilirlik gibi işlevsel olmayan niteliklerin, yazılım kalitesine dair algı ve iş sonuçları açısından ne kadar kritik olduğunu göstermektedir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 4: Kalite Planlamasında Öncelikler -->
+            <section id="oncelikler" class="learn-section">
+                <h2>4. Yazılım Kalite Planlamasında Önceliklerin Belirlenmesi</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Kalite Özellikleri ve Ödünleşmeler</h3>
+                    <div class="formula-box">
+                        <strong>Yazılım kalitesi yalnızca doğru işlevlere sahip olmakla sınırlı değildir; aynı zamanda güvenilirlik, kullanılabilirlik, verimlilik ve sürdürülebilirlik gibi işlevsel olmayan (non-functional) niteliklere de bağlıdır.</strong>
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Önemli:</strong> Ancak, hiçbir sistem bu alanların tamamında mükemmel olamaz. Örneğin, güvenliği artırmak performansı olumsuz etkileyebilir.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Çözüm:</strong> Bu nedenle, kalite planında hangi kalite özelliklerinin yazılım için en öncelikli olduğu açıkça belirlenmelidir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Kalite Planının İçeriği</h3>
+                    <div class="formula-box">
+                        <strong>Kalite planı, yazılım için hangi kalite özelliklerinin öncelikli olduğunu açıkça tanımlamalıdır.</strong><br><br>
+                        • Eğer verimlilik en öncelikli hedefse, bu amaca ulaşmak için diğer bazı niteliklerden ödün verilebilir<br>
+                        • Bu önceliklerin kalite planında net bir şekilde belirtilmesi, geliştirici ekibin ortak hedefler doğrultusunda uyum içinde çalışmasını sağlar<br>
+                        • Ayrıca plan, yazılım kalitesinin nasıl ölçüleceğini ve değerlendirileceğini de açıklamalıdır
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 1: Ödeme Uygulaması - Güvenlik Öncelikli</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir ödeme uygulaması geliştiren bir girişim, kalite planında güvenliği öncelikli olarak belirler ve bunun karşılığında daha yavaş işlem sürelerini kabul eder.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Uygulama:</strong> Güvenlik kritik bir unsur olduğu için mühendislik ekibi, şifreleme ve dolandırıcılık önleme mekanizmalarına odaklanır; bu durum performansı etkilese bile öncelik güvenliktir.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Ders:</strong> Bu örnek, yazılım geliştirme sürecinde temel kalite özelliklerinin önceden belirlenmesinin, teknik kararları nasıl yönlendirdiğini ve iş hedeflerine ulaşmak için işlevsel olmayan gereksinimler arasında nasıl denge kurulduğunu göstermektedir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 2: Envanter Yönetim Sistemi - Hız Öncelikli</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir envanter yönetim sistemi geliştiren bir şirket, kullanıcılarının gerçek zamanlı ve hızlı güncellemelere ihtiyaç duyması nedeniyle verimlilik ve hıza öncelik verir.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Uygulama:</strong> Bu hedefe ulaşmak için bazı güvenlik özelliklerini basitleştirerek veri koruma konusunda küçük bir risk almayı kabul ederler.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Ders:</strong> Bu kalite planı, ekip için en önemli unsurları önceliklendirmeye yardımcı olur ve işlevsel olmayan nitelikler arasında yapılan ödünleşmelerin yazılım geliştirme sürecini nasıl şekillendirdiğini gösterir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 5: Geleneksel Yazılım Kalite Yönetimi -->
+            <section id="geleneksel-yonetim" class="learn-section">
+                <h2>5. Geleneksel Yazılım Kalite Yönetimi</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Süreç Odaklı Yaklaşım</h3>
+                    <div class="formula-box">
+                        <strong>Geleneksel yazılım kalite yönetimi, iyi bir yazılımın iyi bir geliştirme sürecinden çıktığı varsayımına dayanır.</strong><br><br>
+                        Bu yaklaşım, ürün kalitesinin üretim sürecine bağlı olduğu imalat sanayisinden gelmektedir.
+                    </div>
+                    
+                    <div class="comparison-box">
+                        <div>
+                            <strong>İmalatta:</strong><br>
+                            • Makineler doğru şekilde ayarlanır ve çalıştırılır<br>
+                            • Kaliteli ürünler doğal olarak ortaya çıkar<br>
+                            • Ürünün kalitesi ölçülür<br>
+                            • İstenen kalite düzeyine ulaşılana kadar süreçte gerekli ayarlamalar yapılır
+                        </div>
+                        <div>
+                            <strong>Yazılımda:</strong><br>
+                            • İyi süreç → İyi yazılım<br>
+                            • Süreç kalitesi ürün kalitesini belirler<br>
+                            • Süreç iyileştirmeleri yapılır<br>
+                            • Kalite ölçülür ve değerlendirilir
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 1: ERP Sistemi</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Yeni bir Kurumsal Kaynak Planlama (ERP) sistemi geliştiren bir şirket, geleneksel kalite yönetimi yaklaşımını benimseyerek yazılım geliştirme sürecine yoğun şekilde odaklanır.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Uygulama:</strong> Yüksek süreç kalitesi sağlamak amacıyla:<br>
+                        • Katı kodlama standartları uygular<br>
+                        • Düzenli kod incelemeleri yapar<br>
+                        • Otomatik test sistemleri kullanır
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 İnanç:</strong> Tıpkı üretim sektöründe olduğu gibi, geliştirme sürecini iyileştirerek nihai yazılım kalitesinin artacağına, hata sayısının azalacağına ve müşteri beklentilerinin karşılanacağına inanırlar.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 2: Otomobil Üreticisi</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir otomobil üreticisinin yazılım ekibi, yazılım geliştirme sürecini bir üretim hattı gibi ele alır; tasarımdan test aşamasına kadar her adımı standartlaştırır.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Uygulama:</strong> Geliştirme sürecini dikkatle kontrol ederek ve sıkı kurallara uyarak, aracın yerleşik sistemleri için yüksek kaliteli yazılımlar üretmeyi hedeflerler.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 İnanç:</strong> İyi yönetilen bir sürecin, doğal olarak güvenilir bir nihai ürünle sonuçlanacağına inanırlar.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 6: Süreç Tabanlı Kalite -->
+            <section id="surec-tabanli" class="learn-section">
+                <h2>6. Süreç Tabanlı Kalite</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Süreç → Ürün Kalitesi</h3>
+                    <div class="formula-box">
+                        <strong>Aşağıdaki şekil, ürün kalitesine ulaşmak için kullanılan süreç tabanlı yaklaşımı göstermektedir:</strong><br><br>
+                        <strong>Süreç Kalitesi</strong> → <strong>Ürün Kalitesi</strong><br><br>
+                        • İyi tanımlanmış süreçler<br>
+                        • Standartlar ve prosedürler<br>
+                        • Sürekli iyileştirme<br>
+                        • Kalite kontrol noktaları
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 7: Yazılım Kalitesinin Üretimden Farklı Olmasının Nedenleri -->
+            <section id="fark-nedenleri" class="learn-section">
+                <h2>7. Yazılım Kalitesinin Üretimden Farklı Olmasının Nedenleri</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Temel Farklar</h3>
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Üretim Kalitesi:</strong><br>
+                            • Süreç kalitesi ile ürün kalitesi arasında güçlü bir bağ vardır<br>
+                            • Üretim süreci standartlaştırılabilir ve kolayca kontrol edilebilir<br>
+                            • Makineler bir kez doğru şekilde ayarlandığında, aynı kalitede ürünleri tekrar tekrar üretebilirler<br>
+                            • Fiziksel ürünler üretilir
+                        </div>
+                        <div>
+                            <strong>Yazılım Kalitesi:</strong><br>
+                            • Yazılım fiziksel ürünler gibi üretilmez; tasarlanır<br>
+                            • Süreç ile nihai kalite arasındaki ilişki daha karmaşıktır<br>
+                            • Yazılım tasarımı yaratıcı bir süreçtir<br>
+                            • Bireysel beceriler ve deneyim büyük önem taşır
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Dış Etkenler</h3>
+                    <div class="formula-box">
+                        <strong>Yeni uygulama türleri, pazara erken çıkma baskısı gibi dış etkenler, süreç ne kadar iyi olursa olsun yazılım kalitesini etkileyebilir.</strong>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Süreç Kalitesinin Etkisi</h3>
+                    <div class="formula-box">
+                        <strong>Geliştirme süreci yazılım kalitesini güçlü bir şekilde etkiler ve iyi süreçler genellikle daha iyi sonuçlar doğurur.</strong><br><br>
+                        • Sürecin iyileştirilmesi, yazılımdaki hataların azalmasına yardımcı olabilir<br>
+                        • Ancak, güvenilirlik ve sürdürülebilirlik gibi özellikler, yazılımın zaman içinde kullanılmasıyla ölçülebilir<br>
+                        • Bu yüzden sürecin bu uzun vadeli kalite özellikleri üzerindeki etkisi her zaman net değildir
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Önemli:</strong> Ayrıca, yazılım tasarımı yaratıcı bir iş olduğu için, süreci aşırı katı hale getirmek yaratıcılığı azaltabilir ve bu durum nihai ürün kalitesini düşürebilir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 1: Mobil Uygulama Startup</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Yenilikçi bir mobil uygulama geliştiren bir startup, sıkı teslim tarihlerine ve piyasa baskısına maruz kalır. İyi tanımlanmış bir geliştirme sürecini takip etmelerine rağmen, bireysel geliştiricilerin yaratıcılığı ve becerisi ile erken piyasaya sürme zorunluluğu, nihai ürün kalitesini etkiler.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Ders:</strong> Bu durum, standartlaştırılmış bir sürecin kaliteyi garanti ettiği üretimden farklı olarak, yazılım kalitesinin sürecin ötesinde pek çok faktöre bağlı olduğunu gösterir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 2: Yapay Zeka Öneri Sistemi</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir teknoloji şirketi, tamamen yeni bir yapay zeka tabanlı öneri sistemi geliştiriyor. Oturmuş bir yazılım geliştirme sürecini takip etmelerine rağmen, sistemin karmaşıklığı ve yeniliği, deneyimli mühendislerden yaratıcı problem çözme yetenekleri gerektiriyor.
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>❌ Sonuç:</strong> İyi bir sürece rağmen, erken sürümlerde öngörülemeyen zorluklar nedeniyle kalite sorunları ortaya çıkıyor.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Ders:</strong> Bu durum, yazılımda üretimden farklı olarak, ürün kalitesinin yalnızca süreç kalitesine değil, bireysel uzmanlığa ve dış baskılara da büyük ölçüde bağlı olduğunu göstermektedir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 3: Çevrimiçi Öğrenme Platformu</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir okul, çevrimiçi öğrenme platformu geliştirmesi için bir yazılım şirketiyle anlaşır. Şirket oldukça düzenli ve organize bir süreç izler, bu yüzden ilk sürümde çok az hata olur.
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>❌ Problem:</strong> Ancak birkaç ay sonra öğretmenler yeni özellikler ve güncellemeler ister. Süreç çok katı olduğu için geliştiriciler değişiklikleri hızlıca yapmakta zorlanır. Ayrıca, kodun bazı bölümleri bakım açısından zorluk çıkarır.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Ders:</strong> Bu durum, iyi bir süreç olsa bile uzun vadeli kalite faktörleri — esneklik ve güncellemelerin kolaylığı gibi — sorun yaratabileceğini ve fazla kuralların yaratıcı çözümleri sınırlayabileceğini gösterir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 8: Kritik Yazılım Kalite Özellikleri -->
+            <section id="kritik-ozellikler" class="learn-section">
+                <h2>8. Kritik Yazılım Kalite Özellikleri</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Temel Kalite Özellikleri</h3>
+                    <div class="formula-box">
+                        <strong>Güvenlik, kullanılabilirlik, taşınabilirlik, test edilebilirlik, performans, modülerlik, dayanıklılık, yeniden kullanılabilirlik ve sürdürülebilirlik gibi özellikler yazılım kalitesinde kritik öneme sahiptir.</strong>
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Önemli:</strong> Bu özellikler arasında ödünleşmeler yapmak kaçınılmazdır; örneğin, güvenliği artırmak performansı olumsuz etkileyebilir.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Çözüm:</strong> Bu nedenle kalite planında, yazılım için en önemli olan kalite özelliklerinin önceliklendirilmesi gerekir.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Dış Faktörlerin Etkisi</h3>
+                    <div class="formula-box">
+                        <strong>Bir uygulamanın yeniliği ya da ürünün erken piyasaya sürülmesi için uygulanan ticari baskı gibi dış faktörler, kullanılan süreçten bağımsız olarak ürün kalitesini etkiler.</strong>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Süreç Kalitesi ve Uzun Vadeli Özellikler</h3>
+                    <div class="formula-box">
+                        <strong>Süreç kalitesi yönetimi ve iyileştirmeleri, geliştirilen yazılımdaki hata sayısının azalmasına katkıda bulunur.</strong><br><br>
+                        Ancak güvenilirlik ve sürdürülebilirlik gibi yazılım kalite özelliklerini, yazılım uzun süre kullanılmadan değerlendirmek zordur.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Sonuç:</strong> Bu nedenle, süreç özelliklerinin bu kalite özellikleri üzerindeki etkisini belirlemek güçtür.
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Önemli:</strong> Ayrıca, yazılım sürecinde tasarım ve yaratıcılığın önemli rolü nedeniyle, sürecin aşırı standartlaştırılması yaratıcılığı kısıtlayabilir ve bu durum daha iyi yerine daha düşük kalitede yazılım ortaya çıkmasına yol açabilir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 9: Yazılım Kalitesini Değerlendirmenin Zorlukları -->
+            <section id="degerlendirme-zorluklari" class="learn-section">
+                <h2>9. Yazılım Kalitesini Değerlendirmenin Zorlukları</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Ana Zorluklar</h3>
+                    <div class="formula-box">
+                        <strong>Yazılım kalitesini değerlendirmenin zorlukları:</strong><br><br>
+                        • <strong>Gereksinimler:</strong> Birçok paydaş arasındaki uzlaşmaların sonucudur; herkesin ihtiyaçları tam olarak karşılanamaz<br>
+                        • <strong>Ölçüm:</strong> Bazı kalite özellikleri (örneğin, sürdürülebilirlik) doğrudan ölçülemez<br>
+                        • <strong>Değerlendirme:</strong> Kalite yönetim ekipleri, yazılımın amacına uygun olup olmadığına karar vermek için değerlendirme ve uzman yargısı kullanır
+                    </div>
+                    
+                    <div class="env-property-card">
+                        <h4>📋 Önemli Değerlendirme Soruları:</h4>
+                        <ul>
+                            <li>Yazılım test edildi mi?</li>
+                            <li>Güvenilir mi, kullanılabilir mi, performansı yeterli mi?</li>
+                            <li>İyi yapılandırılmış ve anlaşılır mı?</li>
+                            <li>Standartlara uyuldu mu?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Kalite Yönetimi ve Süreç Yaklaşımı</h3>
+                    <div class="comparison-box">
+                        <div>
+                            <strong>Üretim Kalitesi:</strong><br>
+                            • Standartlaştırılmış ve kontrol edilebilir süreçlere dayanır<br>
+                            • Süreç kalitesi → Ürün kalitesi (güçlü bağ)
+                        </div>
+                        <div>
+                            <strong>Yazılım Geliştirme:</strong><br>
+                            • Yaratıcı bir tasarım sürecidir<br>
+                            • Süreç kalitesi ile ürün kalitesi arasındaki ilişki daha karmaşıktır<br>
+                            • İyi süreçler hataları azaltırken yaratıcılığı kısıtlayabilir
+                        </div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Sonuç:</strong> Süreç disiplini ile yaratıcı tasarım arasında denge kurmak çok önemlidir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 10: Kalite Kültürü ve Sürekli İyileştirme -->
+            <section id="kalite-kulturu" class="learn-section">
+                <h2>10. Kalite Kültürü ve Sürekli İyileştirme</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Kalite Kültürü Oluşturmak</h3>
+                    <div class="formula-box">
+                        <strong>Standartların ötesinde, bir "kalite kültürü" ekip içinde kalite sorumluluğunu teşvik eder.</strong><br><br>
+                        • Soyut özellikler (zarafet, okunabilirlik) de değer verilmelidir<br>
+                        • Profesyonel davranış ve kalite iyileştirmede yenilikçilik önemlidir<br>
+                        • Sürekli süreç iyileştirmeleri ve kalite değerlendirmeleri, daha iyi yazılım kalitesi elde etmeye yardımcı olur
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Yazılım Geliştirmede Kalite Kültürü</h3>
+                    <div class="formula-box">
+                        <strong>Tanımlanmış süreçlere sahip olmak önemlidir, ancak kalite yöneticileri aynı zamanda herkesin yüksek kaliteli yazılım üretmeye özen gösterdiği bir "kalite kültürü" oluşturmalıdır.</strong>
+                    </div>
+                    
+                    <div class="env-property-card">
+                        <h4>📋 Kalite Kültürü Özellikleri:</h4>
+                        <ul>
+                            <li>Takımlar, yaptıkları işin sahibi olmaya ve kaliteyi artırmanın yeni yollarını bulmaya teşvik edilmelidir</li>
+                            <li>Standartlar ve kurallar faydalıdır, ancak her şey yazılı kurallarla ifade edilemez</li>
+                            <li>İyi kalite yöneticileri, bu değerlere önem veren takım üyelerini destekler ve ekip içinde profesyonel davranışı teşvik eder</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 1: Mesajlaşma Uygulaması</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir teknoloji şirketinde mesajlaşma uygulaması geliştiren kalite yöneticisi, sadece kuralları veya test kontrol listelerini uygulamaz. Bunun yerine, tüm ekipte "önce kalite" anlayışını teşvik eder.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Uygulama:</strong><br>
+                        • Geliştiriciler, resmi bir gereklilik olmasa bile, temiz ve okunabilir kod yazmaya ve yaptıkları işle gurur duymaya teşvik edilir<br>
+                        • Tasarımcılar ve test uzmanları, kullanıcı deneyimini ve uygulamanın genel hissini iyileştirmek için geliştiricilerle yakın çalışır
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Sonuç:</strong> Bu paylaşılan sorumluluk ve teknik ile soyut (örneğin kullanıcı dostu ve kullanılabilirlik vb.) unsurlara odaklanma, sadece süreçlerin sağlayabileceğinden daha yüksek kaliteli bir ürün ortaya çıkarır.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 2: Yapılacaklar Listesi Uygulaması</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir küçük girişim, yapılacaklar listesi uygulaması geliştirirken, sadece kurallara uymak değil, uygulamanın kalitesine herkesin—geliştiriciler, test uzmanları ve tasarımcılar—önem vermesini teşvik eder.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Uygulama:</strong> Yönetici, uygulamanın kolay kullanılmasını ve kullanıcı dostu ekranların görünmesini isteyen ekip üyelerini destekler.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 Sonuç:</strong> Tüm ekip sorumluluk aldığından ve iyi tasarım gibi detaylara önem verdiğinden, uygulama daha iyi ve daha popüler hale gelir. Bu da süreçler kadar kalite kültürünün de önemli olduğunu gösterir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 11: Pratik Örnekler -->
+            <section id="ornekler" class="learn-section">
+                <h2>11. Pratik Örnekler</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Örnek 1: E-Ticaret Web Sitesi</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir çevrimiçi alışveriş platformu, günlük olarak binlerce işlemi hızlı bir şekilde gerçekleştirmeli ve aynı zamanda da güvenli ödeme işlemleri sağlamalıdır.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Zorluk:</strong> Güvenlik ile performans arasında denge kurmak. Daha fazla güvenlik kontrolü eklemek, sitenin yavaşlamasına ve kullanıcıların rahatsız olmasına neden olabilir.
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Kalite Değerlendirmesi:</strong> Sistem ödemeleri güvenli şekilde işlese bile, web sitesi yavaşsa veya sık sık çökerse, kullanıcılar siteyi terk edebilir ve yazılımı düşük kaliteli olarak değerlendirebilir.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Sonuç:</strong> Yazılım kalitesi, yalnızca işlevselliğe (güvenli ödeme) değil, aynı zamanda performans ve kullanılabilirlik gibi işlevsel olmayan özelliklere de bağlıdır.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 İlgili Kalite Boyutu:</strong> Güvenlik ile Verimlilik/Performans arasındaki denge.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 2: Kurumsal Kaynak Planlama (ERP) Sistemi</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Bir şirket, farklı departmanların muhasebe, stok ve insan kaynakları süreçlerini entegre etmek için bir ERP sistemi uygular.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Zorluk:</strong> Finans, operasyon ve İK gibi farklı paydaşların çelişkili gereksinimleri olması, tek ve net bir spesifikasyon oluşturmayı zorlaştırır.
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Kalite Değerlendirmesi:</strong> Sistem belirlenen gereksinimleri karşılasa da, bazı kullanıcı grupları ihtiyaçlarının tam olarak karşılanmadığını düşünerek sistemi düşük kaliteli olarak değerlendirebilir.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Sonuç:</strong> Kalitede öznellik, farklı paydaş bakış açıları ve gereksinimlerde yapılan uzlaşmalar nedeniyle ortaya çıkar.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 İlgili Kalite Boyutu:</strong> Gereksinimlerde Öznellik ve Paydaş Memnuniyeti.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>🔹 Örnek 3: Otonom Araç Yazılımı</h3>
+                    <div class="example-box">
+                        <strong>Durum:</strong> Kendi kendine giden araçları kontrol eden yazılım, çeşitli öngörülemeyen koşullar altında son derece güvenilir ve güvenli olmalıdır.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Zorluk:</strong> Tüm olası gerçek dünya senaryolarını tam olarak belirlemek ve sistemi bunlara karşı kapsamlı şekilde test etmek zordur.
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Kalite Değerlendirmesi:</strong> Yoğun testlere rağmen mutlak güvenilirlik garanti edilemez; güvenlik ve dayanıklılığı değerlendirmek için uzun süreli kullanım gereklidir.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Sonuç:</strong> Yazılım kalitesi değerlendirmesi karmaşıktır ve hem testlere hem de sürekli izlemeye dayanır.
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>💡 İlgili Kalite Boyutu:</strong> Tam Spesifikasyon ve Güvenilirlik Ölçümündeki Zorluk.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 12: Önemli Noktalar -->
+            <section id="ozet" class="learn-section">
+                <h2>12. Önemli Noktalar</h2>
+                
+                <div class="quick-summary-box">
+                    <strong>🎯 Yazılım Kalitesi Temel Kavramları:</strong>
+                    <ol>
+                        <li><strong>Yazılım kalitesi</strong>, sadece teknik özelliklere uymak değil, yazılımın ne kadar iyi çalıştığı ve kullanıcıları ne kadar tatmin ettiği anlamına gelir.</li>
+                        <li><strong>Üretimin aksine</strong>, yazılımda tolerans yoktur — ya gereksinimleri karşılar ya karşılamaz.</li>
+                        <li><strong>Tam ve net yazılım gereksinimleri</strong> yazmak zordur ve çoğu zaman belirsizlik içerir.</li>
+                        <li><strong>Farklı kullanıcı gruplarının</strong> ihtiyaçları farklıdır, bu yüzden yazılım kalitesi bir uzlaşma ve öznel bir kavramdır.</li>
+                        <li><strong>Bakım kolaylığı</strong> gibi bazı kalite özellikleri ise doğrudan ölçülemez.</li>
+                        <li><strong>Kalite değerlendirmesi</strong> sadece teknik spesifikasyonlara değil, yargıya, teste ve kullanıcı deneyimine dayanır.</li>
+                        <li><strong>İşlevselliğin yanı sıra</strong> güvenilirlik, performans ve kullanılabilirlik gibi işlevsel olmayan özellikler de en az işlevsellik kadar önemlidir.</li>
+                        <li><strong>Kalite arasında ödünleşmeler</strong> vardır; örneğin, güvenliği artırmak hızdan ödün vermek anlamına gelebilir.</li>
+                        <li><strong>İyi geliştirme süreçleri</strong> yazılım kalitesini artırmaya yardımcı olur, ancak yaratıcılık ve yetenek de büyük rol oynar.</li>
+                        <li><strong>Herkesin kaliteye önem verdiği</strong> bir kalite kültürü oluşturmak, kurallar ve standartların ötesinde daha iyi sonuçlar getirir.</li>
+                    </ol>
+                </div>
+
+                <div class="quick-summary-box">
+                    <strong>🎯 Yazılım Kalitesi vs Üretim Kalitesi:</strong>
+                    <ol>
+                        <li><strong>Üretimde kalite</strong>, bir ürünün detaylı spesifikasyonlara ne kadar uyduğuyla ölçülür.</li>
+                        <li><strong>Yazılım kalitesi</strong> ise farklıdır çünkü yazılım ya gereksinimleri karşılar ya karşılamaz; tolerans yoktur.</li>
+                        <li><strong>Tam ve net yazılım gereksinimleri</strong> yazmak zordur ve genellikle belirsizlik içerir.</li>
+                        <li><strong>Farklı kullanıcıların</strong> ihtiyaçları farklı olduğu için yazılım kalitesi çoğunlukla öznel bir kavramdır.</li>
+                        <li><strong>Kullanılabilirlik, güvenilirlik ve bakım kolaylığı</strong> gibi işlevsel olmayan özellikler, yazılım kalitesinde çok önemlidir.</li>
+                        <li><strong>Teknik gereksinimlerin</strong> karşılanması, her zaman kullanıcı memnuniyetini veya uzun vadeli başarıyı garanti etmez.</li>
+                        <li><strong>Yazılım kalitesi değerlendirmesi</strong>, testler ve uzman yargısına dayanır.</li>
+                        <li><strong>Yazılım geliştirme</strong> yaratıcı bir süreçtir, bu nedenle süreç kalitesi ürün kalitesini etkiler ama tamamen belirlemez.</li>
+                        <li><strong>Yüksek kaliteli yazılım</strong> için süreç disiplini ile yaratıcılık arasında bir denge gerekir.</li>
+                        <li><strong>Kalite kültürü</strong> oluşturmak, ekipte herkesin kalite sorumluluğunu benimsemesini teşvik eder.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Link to Quiz -->
+            <div class="action-buttons" style="margin-top: 40px; text-align: center;">
+                <a href="quiz.html" class="btn-primary" style="display: inline-block; padding: 15px 30px; font-size: 1.1em;">
+                    📝 Sorulara Başla →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="courses-data.js"></script>
+    <script src="learn-template.js"></script>
+    <script>
+        // Set default course and chapter for this page
+        localStorage.setItem('currentCourse', 'kalite-guvenilirlik');
+        localStorage.setItem('currentChapter', 'kalite-chapter-2');
+        
+        // Initialize learn template
+        if (window.LearnTemplate) {
+            window.LearnTemplate.loadChapterInfo();
+            window.LearnTemplate.setupSmoothScroll();
+            window.LearnTemplate.initBackToTop();
+        }
+    </script>
+</body>
+</html>
+

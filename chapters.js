@@ -73,25 +73,41 @@ function startLearn(courseId, chapterId) {
     localStorage.setItem('currentCourse', courseId);
     localStorage.setItem('currentChapter', chapterId);
     
-    // Learn sayfasına yönlendir (farklı bölümler için farklı sayfalar)
-    let learnPage = 'learn.html'; // Default: Chapter 1
-    
-    if (chapterId === 'chapter-1') {
-        learnPage = 'learn.html';
-    } else if (chapterId === 'chapter-2') {
-        learnPage = 'learn-chapter2.html';
-    } else if (chapterId === 'chapter-3') {
-        learnPage = 'learn-chapter3.html';
-    } else if (chapterId === 'chapter-4') {
-        learnPage = 'learn-chapter4.html';
-    } else if (chapterId === 'chapter-5') {
-        learnPage = 'learn-chapter5.html';
-    } else if (chapterId === 'chapter-6') {
-        learnPage = 'learn-chapter6.html';
-    } else if (chapterId === 'vize-onemli-sorular') {
-        learnPage = 'learn-vize-onemli.html';
+    // Ders ve bölüm bilgisini bul
+    const course = coursesData.courses.find(c => c.id === courseId);
+    if (!course) {
+        window.location.href = 'learn.html';
+        return;
     }
-    // Diğer bölümler için ileride eklenebilir
+    
+    const chapter = course.chapters.find(ch => ch.id === chapterId);
+    
+    // Önce chapter'ın kendi learnFile'ını kontrol et
+    let learnPage = 'learn.html'; // Default
+    
+    if (chapter && chapter.learnFile) {
+        // Eğer chapter'da özel learnFile varsa onu kullan
+        learnPage = chapter.learnFile;
+    } else {
+        // Eski yöntem: chapterId'ye göre belirle (geriye dönük uyumluluk için)
+        if (chapterId === 'chapter-1') {
+            learnPage = 'learn.html';
+        } else if (chapterId === 'chapter-2') {
+            learnPage = 'learn-chapter2.html';
+        } else if (chapterId === 'chapter-3') {
+            learnPage = 'learn-chapter3.html';
+        } else if (chapterId === 'chapter-4') {
+            learnPage = 'learn-chapter4.html';
+        } else if (chapterId === 'chapter-5') {
+            learnPage = 'learn-chapter5.html';
+        } else if (chapterId === 'chapter-6') {
+            learnPage = 'learn-chapter6.html';
+        } else if (chapterId === 'vize-onemli-sorular') {
+            learnPage = 'learn-vize-onemli.html';
+        } else if (chapterId === 'kalite-chapter-1') {
+            learnPage = 'learn-kalite-chapter1.html';
+        }
+    }
     
     window.location.href = learnPage;
 }

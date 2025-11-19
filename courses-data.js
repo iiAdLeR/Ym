@@ -73,7 +73,30 @@ const coursesData = {
             description: "Yazılım kalitesi ve güvenilirlik analizi",
             icon: "🔒",
             chapters: [
-                // İleride eklenebilecek bölümler
+                {
+                    id: "kalite-chapter-1",
+                    title: "Yazılım Kalite Yönetimine Giriş",
+                    description: "Yazılım kalite yönetimi, QA, QC, kalite planlaması ve süreçleri",
+                    quizFile: "quiz.html",
+                    questionsFile: "Kurslar/Kalite güvenilirlik bölümler/1bölümsorular.js",
+                    learnFile: "learn-kalite-chapter1.html"
+                },
+                {
+                    id: "kalite-chapter-2",
+                    title: "Yazılım Kalitesi",
+                    description: "Yazılım kalitesi kavramı, üretim kalitesinden farkları, ölçüm zorlukları ve kalite kültürü",
+                    quizFile: "quiz.html",
+                    questionsFile: "Kurslar/Kalite güvenilirlik bölümler/2bölümsorular.js",
+                    learnFile: "learn-kalite-chapter2.html"
+                },
+                {
+                    id: "kalite-chapter-3",
+                    title: "Yazılım Standartları",
+                    description: "Yazılım standartları, ürün ve süreç standartları, standartların önemi ve yönetimi",
+                    quizFile: "quiz.html",
+                    questionsFile: "Kurslar/Kalite güvenilirlik bölümler/3bölümsorular.js",
+                    learnFile: "Kurslar/Kalite güvenilirlik bölümler/learn-kalite-chapter3.html"
+                }
             ]
         }
     ]

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğren - Yazılım Kalite Yönetimine Giriş</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="chapters.html" class="back-btn">← Geri</a>
+                <h1 id="chapter-title">📖 Yazılım Kalite Yönetimine Giriş</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">Yazılım kalite yönetimi, QA, QC, kalite planlaması ve süreçleri</p>
+        </header>
+
+        <div class="learn-container">
+            <!-- İçindekiler -->
+            <div class="table-of-contents">
+                <h3>📑 İçindekiler</h3>
+                <ul>
+                    <li><a href="#giris">1. Yazılım Kalite Yönetimine Giriş</a></li>
+                    <li><a href="#onem">2. Kalite Yönetiminin Önemi</a></li>
+                    <li><a href="#kurumsal">3. Kurumsal Düzeyde Kalite Yönetimi</a></li>
+                    <li><a href="#proje">4. Proje Düzeyinde Kalite Yönetimi</a></li>
+                    <li><a href="#qa">5. Kalite Güvencesi (QA)</a></li>
+                    <li><a href="#qc">6. Kalite Kontrolü (QC)</a></li>
+                    <li><a href="#qa-qc-fark">7. QA ve QC Arasındaki Fark</a></li>
+                    <li><a href="#faaliyetler">8. Kalite Yönetimi Faaliyetleri</a></li>
+                    <li><a href="#rol">9. Yazılım Geliştirmede Kalite Yönetiminin Rolü</a></li>
+                    <li><a href="#planlama">10. Kalite Planlaması</a></li>
+                    <li><a href="#agile">11. Agile ve Geleneksel Kalite Yönetimi Farkı</a></li>
+                    <li><a href="#ozet">12. Önemli Noktalar – Genel Özet</a></li>
+                </ul>
+            </div>
+
+            <!-- Bölüm 1: Giriş -->
+            <section id="giris" class="learn-section">
+                <h2>1. Yazılım Kalite Yönetimine Giriş</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Yazılım Kalite Yönetimi Nedir?</h3>
+                    <p><strong>Tanım:</strong> Yazılım kalite yönetimi, yazılımın amacına uygun, kullanıcı ihtiyaçlarını karşılayan, güvenilir, zamanında ve bütçe içinde teslim edilmesini sağlar.</p>
+                    
+                    <div class="formula-box">
+                        <strong>Gelişim:</strong><br>
+                        Son 20 yılda test araçları, yazılım geliştirme teknikleri ve kalite ölçüm yöntemleri gelişti → hata oranları azaldı, güvenilirlik arttı.
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Bankacılık uygulamaları otomatik testlerle kontrol edildiğinde daha az hata yapar.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 2: Önemi -->
+            <section id="onem" class="learn-section">
+                <h2>2. Kalite Yönetiminin Önemi</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Neden Kritik?</h3>
+                    <p>Büyük, uzun ömürlü, kritik sistemler için hayati önem taşır.</p>
+                    
+                    <div class="formula-box">
+                        <strong>Bu sistemlerde genellikle:</strong><br>
+                        • Plan odaklı süreçler<br>
+                        • Belgeli süreçler<br>
+                        • Resmi kalite süreçleri gerekir
+                    </div>
+                    
+                    <div class="env-property-card">
+                        <h4>❌ Kalite Yönetimi Olmadan:</h4>
+                        <ul>
+                            <li><strong>Tutarsızlık</strong> oluşabilir</li>
+                            <li><strong>Güvenlik açıkları</strong> ortaya çıkabilir</li>
+                            <li><strong>Hatalı teslimatlar</strong> yapılabilir</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Ulusal sağlık kayıt sistemi → güvenlik, doğruluk, düzenlemelere uyum şarttır.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 3: Kurumsal Düzey -->
+            <section id="kurumsal" class="learn-section">
+                <h2>3. Kurumsal Düzeyde Kalite Yönetimi (Organizational Level)</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Şirket Genelinde Standartlar</h3>
+                    <p>Kurumsal düzeyde kalite yönetimi, şirket genelinde şu standartları belirler:</p>
+                    
+                    <div class="formula-box">
+                        <strong>Standartlar:</strong><br>
+                        • Tasarım kuralları<br>
+                        • Kodlama kuralları<br>
+                        • Belgeleme standartları<br>
+                        • Test süreçleri
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Amaç:</strong><br>
+                        ➡ Tüm projelerde birlik, tutarlılık, ortak kalite seviyesi oluşturmak.
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Tüm projelerde aynı kodlama standardı → ekipler birbirini daha kolay anlar.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 4: Proje Düzeyi -->
+            <section id="proje" class="learn-section">
+                <h2>4. Proje Düzeyinde Kalite Yönetimi</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Proje Özelinde Plan</h3>
+                    <p>Her proje için ayrı bir kalite planı hazırlanır.</p>
+                    
+                    <div class="formula-box">
+                        <strong>Bu plan şunları belirler:</strong><br>
+                        • Hangi süreçler kullanılacak<br>
+                        • Hangi standartlara uyulacak<br>
+                        • Test adımları<br>
+                        • Hedefler
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek: Hava durumu uygulaması</strong><br>
+                        • Tasarım kuralları<br>
+                        • Performans hedefleri<br>
+                        • Test stratejisi belirlenir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 5: QA -->
+            <section id="qa" class="learn-section">
+                <h2>5. Kalite Güvencesi (Quality Assurance – QA)</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 QA Ne Yapar?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> "Nasıl kaliteli bir yazılım geliştirileceğini" belirler.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Görevleri:</strong><br>
+                        • Süreçleri, yöntemleri, kuralları tanımlar<br>
+                        • Problem çıkmadan önce kaliteyi garanti etmeyi hedefler
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnekler:</strong>
+                        <ul>
+                            <li>Kodlama standartlarını belirlemek</li>
+                            <li>Test stratejileri oluşturmak</li>
+                            <li>Kod inceleme (code review) kuralları oluşturmak</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 6: QC -->
+            <section id="qc" class="learn-section">
+                <h2>6. Kalite Kontrolü (Quality Control – QC)</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 QC Ne Yapar?</h3>
+                    <div class="quick-summary-box">
+                        <strong>📝 Özet:</strong> Ürünün geliştirildikten sonra hataları bulur ve düzeltir.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Görevleri:</strong><br>
+                        • Testlerle kaliteyi doğrular<br>
+                        • Hataları tespit eder ve düzeltir
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek: Yazılımı yayınlamadan önce:</strong>
+                        <ul>
+                            <li>Otomatik testler</li>
+                            <li>Manuel testler</li>
+                            <li>Hata düzeltmeleri</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 7: QA vs QC -->
+            <section id="qa-qc-fark" class="learn-section">
+                <h2>7. QA ve QC Arasındaki Fark</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Karşılaştırma</h3>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Özellik</th>
+                                    <th>QA (Kalite Güvencesi)</th>
+                                    <th>QC (Kalite Kontrolü)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Odak</strong></td>
+                                    <td>Süreç odaklıdır</td>
+                                    <td>Ürün odaklıdır</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Amaç</strong></td>
+                                    <td>Hataları önlemeyi amaçlar</td>
+                                    <td>Hataları bulup düzeltir</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Faaliyetler</strong></td>
+                                    <td>Kodlama standartları – süreç belirleme</td>
+                                    <td>Test – denetim – inceleme</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Yaklaşım</strong></td>
+                                    <td>Proaktif</td>
+                                    <td>Reaktif</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong><br>
+                        <strong>QA:</strong> Oyun kodlamadan önce kurallar belirlenir<br>
+                        <strong>QC:</strong> Oyun oynanıp hatalar bulunur
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 8: Faaliyetler -->
+            <section id="faaliyetler" class="learn-section">
+                <h2>8. Kalite Yönetimi Faaliyetleri</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Kalite Ekibinin Kontrol Ettiği Noktalar</h3>
+                    
+                    <div class="formula-box">
+                        <strong>Kontrol Soruları:</strong><br>
+                        • Yazılım doğru mu geliştiriliyor?<br>
+                        • Standartlara uyuluyor mu?<br>
+                        • Süreçler doğru uygulanıyor mu?<br>
+                        • Test kayıtları doğru tutuluyor mu?
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>Bağımsızlık:</strong> Kalite ekibi bağımsız olmalıdır → Geliştirme ekibinden ayrı olunca objektif rapor verebilir.
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Hesap makinesi uygulamasında butonların hepsinin doğru çalıştığını kontrol ederler.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 9: Rol -->
+            <section id="rol" class="learn-section">
+                <h2>9. Yazılım Geliştirmede Kalite Yönetiminin Rolü</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Kalite Yönetiminin Görevleri</h3>
+                    
+                    <div class="formula-box">
+                        <strong>Rol ve Sorumluluklar:</strong><br>
+                        • Süreci bağımsız olarak doğrular<br>
+                        • Standartlara uyumu kontrol eder<br>
+                        • Ekipler arası koordinasyonu analiz eder<br>
+                        • Atlanmış adımların önüne geçer<br>
+                        • Güvenlik, performans, doğruluk gibi kriterleri değerlendirir
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek:</strong> Banka yazılımında tüm güvenlik gereksinimlerinin doğrulandığını kontrol etmek.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 10: Planlama -->
+            <section id="planlama" class="learn-section">
+                <h2>10. Kalite Planlaması (Quality Planning)</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Kalite Planı İçeriği</h3>
+                    <p>Bir kalite planı şunları içerir:</p>
+                    
+                    <div class="agent-type-card">
+                        <h4>1) Ürün Tanımı</h4>
+                        <ul>
+                            <li>Ürün ne yapacak?</li>
+                            <li>Hangi kullanıcıya hitap ediyor?</li>
+                            <li>Kalite beklentisi nedir?</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="agent-type-card">
+                        <h4>2) Ürün Planları</h4>
+                        <ul>
+                            <li>Teslim tarihleri</li>
+                            <li>Sorumluluklar</li>
+                            <li>Destek süreçleri</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="agent-type-card">
+                        <h4>3) Süreç Açıklamaları</h4>
+                        <ul>
+                            <li>Geliştirme yöntemi (Agile, Waterfall vb.)</li>
+                            <li>Kod standartları</li>
+                            <li>Test yöntemleri</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="agent-type-card">
+                        <h4>4) Kalite Hedefleri</h4>
+                        <ul>
+                            <li>Güvenilirlik</li>
+                            <li>Performans</li>
+                            <li>Kullanıcı memnuniyeti</li>
+                            <li>Test kapsamı</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="agent-type-card">
+                        <h4>5) Riskler ve Yönetimi</h4>
+                        <ul>
+                            <li>Olası sorunlar → Çözüm stratejileri</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>Örnek Hedefler:</strong>
+                        <ul>
+                            <li>%100 doğruluk</li>
+                            <li>3 haftada ilk sürüm</li>
+                            <li>%90 test coverage</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 11: Agile -->
+            <section id="agile" class="learn-section">
+                <h2>11. Agile ve Geleneksel Kalite Yönetimi Farkı</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Yaklaşım Farkları</h3>
+                    
+                    <div class="comparison-box">
+                        <div>
+                            <h4>Geleneksel (Waterfall)</h4>
+                            <div class="formula-box">
+                                <strong>Özellikler:</strong><br>
+                                • Belgeler<br>
+                                • Detaylı süreçler<br>
+                                • Resmi kontroller
+                            </div>
+                        </div>
+                        <div>
+                            <h4>Agile</h4>
+                            <div class="formula-box">
+                                <strong>Özellikler:</strong><br>
+                                • Daha az belge<br>
+                                • Daha çok iletişim<br>
+                                • Hızlı iterasyonlar
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong>Önemli:</strong> Kalite yönetimi agile'da esnek şekilde uyarlanmalıdır.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 12: Özet -->
+            <section id="ozet" class="learn-section">
+                <h2>12. Önemli Noktalar – Genel Özet</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Temel Prensipler</h3>
+                    
+                    <div class="formula-box">
+                        <strong>Genel Özet:</strong><br>
+                        Yazılım kalite yönetimi; güvenilirlik, kullanıcı memnuniyeti ve zamanında teslim için kritik önemdedir.
+                    </div>
+                    
+                    <div class="quick-summary-box" style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.15) 0%, rgba(75, 0, 130, 0.15) 100%); padding: 30px; border-radius: 15px; margin: 20px 0;">
+                        <h3>🎯 Sınav için En Kritik 10 Bilgi (Kısa Özet)</h3>
+                        <ul style="font-size: 1.1em; line-height: 2;">
+                            <li><strong>QA = Süreç</strong> (Kalite Güvencesi süreç odaklıdır)</li>
+                            <li><strong>QC = Ürün</strong> (Kalite Kontrolü ürün odaklıdır)</li>
+                            <li><strong>QA önler, QC bulur/düzeltir</strong></li>
+                            <li><strong>Kalite planı:</strong> Ürün + plan + süreç + hedef + risk</li>
+                            <li><strong>Kurumsal kalite:</strong> şirket genelinde standart</li>
+                            <li><strong>Proje kalite:</strong> proje özelinde plan ve kontrol</li>
+                            <li><strong>Plan odaklı süreçlerde</strong> kalite yönetimi çok önemlidir</li>
+                            <li><strong>Bağımsız kalite ekibi</strong> → objektif kontrol</li>
+                            <li><strong>Test + inceleme</strong> = temel kalite faaliyetleri</li>
+                            <li><strong>Agile'da kalite yönetimi</strong> daha esnek uygulanır</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>Önemli Noktalar:</strong><br>
+                        • QA: süreç tanımlar, hataları önler<br>
+                        • QC: test eder, hataları bulur<br>
+                        • Kurumsal + Proje düzeyi kalite yönetimi birlikte çalışır<br>
+                        • Kalite planları kısa ve net olmalıdır<br>
+                        • Bağımsız kalite ekibi objektif değerlendirme sağlar<br>
+                        • Sürekli test + inceleme kaliteyi yükseltir<br>
+                        • Risk yönetimi kalite planlarının önemli parçasıdır
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sonraki Adım -->
+            <div class="next-step">
+                <h3>🎯 Hazır mısın?</h3>
+                <p>Artık yazılım kalite yönetimi kavramlarını öğrendin! Şimdi bilgini test etmeye hazırsın.</p>
+                <a href="quiz.html" class="btn-start">Sınava Başla →</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="courses-data.js"></script>
+    <script>
+        // Learn Page JavaScript for Kalite Chapter 1
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChapterInfo();
+            setupSmoothScroll();
+        });
+
+        function loadChapterInfo() {
+            const courseId = localStorage.getItem('currentCourse');
+            const chapterId = localStorage.getItem('currentChapter');
+            
+            if (!courseId || !chapterId) {
+                localStorage.setItem('currentCourse', 'kalite-guvenilirlik');
+                localStorage.setItem('currentChapter', 'kalite-chapter-1');
+                updateChapterInfo('kalite-guvenilirlik', 'kalite-chapter-1');
+                return;
+            }
+            
+            updateChapterInfo(courseId, chapterId);
+        }
+
+        function updateChapterInfo(courseId, chapterId) {
+            const course = coursesData.courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            const chapter = course.chapters.find(ch => ch.id === chapterId);
+            if (!chapter) return;
+            
+            const titleElement = document.getElementById('chapter-title');
+            const descElement = document.getElementById('chapter-description');
+            
+            if (titleElement) {
+                titleElement.textContent = `${course.icon} ${chapter.title}`;
+            }
+            
+            if (descElement) {
+                descElement.textContent = chapter.description || 'Yazılım kalite yönetimi, QA, QC, kalite planlaması';
+            }
+        }
+
+        function setupSmoothScroll() {
+            const links = document.querySelectorAll('.table-of-contents a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" class="back-to-top-btn" title="Yukarı Çık">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4L4 12H8V20H16V12H20L12 4Z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <style>
+        .back-to-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .back-to-top-btn.show {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top-btn:hover {
+            background: linear-gradient(135deg, var(--primary-end), var(--primary-start));
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .back-to-top-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.4);
+        }
+
+        .back-to-top-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .back-to-top-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+
+    <script>
+        // Back to Top Button Functionality
+        (function() {
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            
+            // Show/hide button based on scroll position
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            // Smooth scroll to top when button is clicked
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+

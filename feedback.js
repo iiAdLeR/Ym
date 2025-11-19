@@ -1,15 +1,8 @@
 // Firebase feedback functionality
-// Configuration constants
+// Using improved API service
 const FEEDBACK_CONFIG = {
-    RETRY_ATTEMPTS: 3,
-    RETRY_DELAY: 1000, // milliseconds
-    TIMEOUT: 10000, // 10 seconds
-    RATE_LIMIT_DURATION: 60000, // 1 minute
     MAX_SUBMISSIONS_PER_MINUTE: 3
 };
-
-// Rate limiting storage
-let submissionHistory = [];
 
 // Wait for DOM and Firebase to be ready
 document.addEventListener('DOMContentLoaded', function() {
@@ -17,27 +10,19 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(initFeedbackForm, 500);
 });
 
-// Rate limiting check
+// Rate limiting check (using API service)
 function checkRateLimit() {
-    const now = Date.now();
-    // Remove old entries (older than RATE_LIMIT_DURATION)
-    submissionHistory = submissionHistory.filter(time => now - time < FEEDBACK_CONFIG.RATE_LIMIT_DURATION);
-    
-    // Check if exceeded limit
-    if (submissionHistory.length >= FEEDBACK_CONFIG.MAX_SUBMISSIONS_PER_MINUTE) {
-        const waitTime = Math.ceil((FEEDBACK_CONFIG.RATE_LIMIT_DURATION - (now - submissionHistory[0])) / 1000);
-        return {
-            allowed: false,
-            waitTime: waitTime
-        };
+    if (window.apiService) {
+        return window.apiService.checkRateLimit();
     }
-    
     return { allowed: true };
 }
 
-// Add submission to history
+// Record submission (using API service)
 function recordSubmission() {
-    submissionHistory.push(Date.now());
+    if (window.apiService) {
+        window.apiService.recordRequest();
+    }
 }
 
 // Input validation and sanitization
@@ -86,31 +71,45 @@ function validateAndSanitizeInput(name, message, rating) {
     };
 }
 
-// Retry function with exponential backoff
-async function submitWithRetry(db, feedbackData, attempts = 0) {
-    const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error('Timeout: Request took too long')), FEEDBACK_CONFIG.TIMEOUT);
-    });
-    
-    const firestorePromise = db.collection('feedbacks').add(feedbackData);
-    
-    try {
-        const docRef = await Promise.race([firestorePromise, timeoutPromise]);
-        return docRef;
-    } catch (error) {
-        // Retry on certain errors
-        const retryableErrors = ['unavailable', 'deadline-exceeded', 'resource-exhausted', 'aborted'];
-        const shouldRetry = retryableErrors.includes(error.code) && attempts < FEEDBACK_CONFIG.RETRY_ATTEMPTS;
-        
-        if (shouldRetry) {
-            const delay = FEEDBACK_CONFIG.RETRY_DELAY * Math.pow(2, attempts); // Exponential backoff
-            console.log(`Retrying submission (attempt ${attempts + 1}/${FEEDBACK_CONFIG.RETRY_ATTEMPTS}) after ${delay}ms...`);
-            await new Promise(resolve => setTimeout(resolve, delay));
-            return submitWithRetry(db, feedbackData, attempts + 1);
-        }
-        
-        throw error;
+// Submit feedback using API service
+async function submitFeedback(feedbackData) {
+    if (!window.apiService) {
+        throw new Error('API service not available');
     }
+    
+    // Validation schema
+    const schema = {
+        rating: {
+            type: 'number',
+            required: true,
+            min: 1,
+            max: 5
+        },
+        name: {
+            type: 'string',
+            required: false,
+            maxLength: 100,
+            sanitize: true
+        },
+        message: {
+            type: 'string',
+            required: false,
+            maxLength: 1000,
+            sanitize: true
+        }
+    };
+    
+    // Validate input
+    const validation = window.apiService.validateInput(feedbackData, schema);
+    if (!validation.valid) {
+        throw new Error(validation.errors[0]);
+    }
+    
+    // Submit using API service
+    return await window.apiService.addDocument('feedbacks', validation.data, {
+        useCache: false,
+        timeout: 10000
+    });
 }
 
 function initFeedbackForm() {
@@ -122,15 +121,16 @@ function initFeedbackForm() {
         return;
     }
     
-    // Get Firebase db - try different methods
-    let db;
-    if (typeof firebase !== 'undefined' && firebase.firestore) {
-        db = firebase.firestore();
-        console.log('Firebase initialized successfully');
-    } else if (window.db) {
-        db = window.db;
-        console.log('Firebase initialized via window.db');
-    } else {
+    // Check if API service is available
+    if (!window.apiService) {
+        console.error('API service not initialized');
+        showMessage('API servisi başlatılamadı. Lütfen sayfayı yenileyin.', 'error');
+        submitBtn.disabled = true;
+        return;
+    }
+    
+    // Check if Firebase is available
+    if (!window.apiService.getFirestore()) {
         console.error('Firebase not initialized');
         showMessage('Firebase bağlantısı kurulamadı. Lütfen sayfayı yenileyin.', 'error');
         submitBtn.disabled = true;
@@ -183,31 +183,14 @@ function initFeedbackForm() {
             // Prepare feedback data
             const feedbackData = {
                 rating: validation.data.rating,
-                createdAt: new Date().toISOString()
+                name: validation.data.name || 'İsimsiz',
+                message: validation.data.message || ''
             };
-            
-            // Add name
-            feedbackData.name = validation.data.name;
-            
-            // Add message only if provided
-            if (validation.data.message) {
-                feedbackData.message = validation.data.message;
-            }
-            
-            // Add timestamp using serverTimestamp if available
-            try {
-                if (firebase && firebase.firestore && firebase.firestore.FieldValue) {
-                    feedbackData.timestamp = firebase.firestore.FieldValue.serverTimestamp();
-                }
-            } catch (timestampError) {
-                console.warn('Could not set serverTimestamp:', timestampError);
-                // Continue without serverTimestamp
-            }
             
             console.log('Sending feedback data:', feedbackData);
             
-            // Add feedback to Firestore with retry logic and timeout
-            const docRef = await submitWithRetry(db, feedbackData);
+            // Submit using improved API service
+            const docRef = await submitFeedback(feedbackData);
             console.log('Feedback added successfully with ID:', docRef.id);
             
             // Record successful submission for rate limiting
@@ -226,23 +209,9 @@ function initFeedbackForm() {
             
         } catch (error) {
             console.error('Error submitting feedback:', error);
-            console.error('Error details:', {
-                code: error.code,
-                message: error.message
-            });
             
-            let errorMessage = 'Bir hata oluştu. Lütfen tekrar deneyin.';
-            
-            // More specific error messages
-            if (error.code === 'permission-denied') {
-                errorMessage = 'İzin hatası! Firebase kurallarını kontrol edin.';
-            } else if (error.code === 'unavailable' || error.message === 'Timeout: Request took too long') {
-                errorMessage = 'Bağlantı hatası. İnternet bağlantınızı kontrol edin ve tekrar deneyin.';
-            } else if (error.message && error.message.includes('Timeout')) {
-                errorMessage = 'İstek zaman aşımına uğradı. Lütfen tekrar deneyin.';
-            } else if (error.message) {
-                errorMessage = `Hata: ${error.message}`;
-            }
+            // Use user-friendly error message from API service
+            const errorMessage = error.userMessage || error.message || 'Bir hata oluştu. Lütfen tekrar deneyin.';
             
             showMessage(errorMessage, 'error');
             resetSubmitButton(submitBtn, submitSpan, originalText);

@@ -1,0 +1,50 @@
+/* ============================================
+   Glassmorphism Design System
+   Futuristic Cosmic Theme
+   ============================================ */
+
+/* 
+   NOTE: Glass Mode is now the DEFAULT design
+   All styles have been merged into styles.css
+   This file is kept for reference only
+*/
+
+:root {
+    /* Cosmic Color Palette */
+    --cosmic-black: #0a0e1a;
+    --cosmic-dark: #1a1f35;
+    --cosmic-violet: #6b46c1;
+    --neon-cyan: #00d9ff;
+    --electric-purple: #a855f7;
+    --soft-magenta: #ec4899;
+    --cosmic-blue: #1e3a8a;
+    --nebula-pink: #f472b6;
+    --glow-white: #f0f9ff;
+    --cosmic-gray: #1e293b;
+    
+    /* Glass Effects */
+    --glass-bg: rgba(30, 41, 59, 0.4);
+    --glass-bg-light: rgba(30, 41, 59, 0.2);
+    --glass-bg-dark: rgba(10, 14, 26, 0.6);
+    --glass-border: rgba(107, 70, 193, 0.3);
+    --glass-border-bright: rgba(0, 217, 255, 0.4);
+    
+    /* Glow Effects */
+    --glow-cyan: 0 0 20px rgba(0, 217, 255, 0.5);
+    --glow-purple: 0 0 20px rgba(168, 85, 247, 0.5);
+    --glow-magenta: 0 0 20px rgba(236, 72, 153, 0.4);
+    --glow-violet: 0 0 30px rgba(107, 70, 193, 0.6);
+    
+    /* Text Colors */
+    --text-primary: #f0f9ff;
+    --text-secondary: #cbd5e1;
+    --text-accent: #00d9ff;
+    --text-glow: #a855f7;
+}
+
+/* Glass Mode Toggle - Hidden (Glass Mode is now default) */
+.glass-toggle-container {
+    display: none;
+}
+
+/* All Glass Mode styles are now in styles.css as default styles */
