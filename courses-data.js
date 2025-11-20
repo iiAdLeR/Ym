@@ -96,6 +96,14 @@ const coursesData = {
                     quizFile: "quiz.html",
                     questionsFile: "Kurslar/Kalite güvenilirlik bölümler/3bölümsorular.js",
                     learnFile: "Kurslar/Kalite güvenilirlik bölümler/learn-kalite-chapter3.html"
+                },
+                {
+                    id: "kalite-chapter-4",
+                    title: "Yazılımda Önemli ISO Standartları",
+                    description: "ISO standartları, kalite yönetimi ve yazılım geliştirme süreçleri",
+                    quizFile: "quiz.html",
+                    questionsFile: "Kurslar/Kalite güvenilirlik bölümler/4bölümsorular.js",
+                    learnFile: "Kurslar/Kalite güvenilirlik bölümler/learn-kalite-chapter4.html"
                 }
             ]
         }

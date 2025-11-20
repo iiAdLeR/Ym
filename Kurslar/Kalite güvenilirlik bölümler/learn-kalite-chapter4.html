@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğren - ISO Standartları</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../glassmorphism.css">
+</head>
+<body>
+    <!-- خلفية النجوم والكوكبات -->
+    <div class="stars-container">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="constellation constellation-1"></div>
+        <div class="constellation constellation-2"></div>
+        <div class="constellation constellation-3"></div>
+    </div>
+    
+    <!-- Glass Mode Toggle -->
+    <div class="glass-toggle-container">
+        <button id="glassToggle" class="glass-toggle-btn" title="Glass Mode">
+            <svg class="glass-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/>
+                <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor"/>
+            </svg>
+            <span class="glass-toggle-text">Glass</span>
+        </button>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="../../chapters.html" class="back-btn">← Geri</a>
+                <h1 id="chapter-title">📖 Yazılımda Önemli ISO Standartları</h1>
+            </div>
+            <p class="subtitle" id="chapter-description">ISO standartları, kalite yönetimi ve yazılım geliştirme süreçleri</p>
+        </header>
+
+        <div class="learn-container">
+            <!-- İçindekiler -->
+            <div class="table-of-contents">
+                <h3>📑 İçindekiler</h3>
+                <ul>
+                    <li><a href="#iso-overview">1. ISO Standartlarına Genel Bakış</a></li>
+                    <li><a href="#iso-12207">2. ISO/IEC 12207</a></li>
+                    <li><a href="#iso-15288">3. ISO/IEC 15288</a></li>
+                    <li><a href="#iso-15504">4. ISO/IEC 15504 (SPICE)</a></li>
+                    <li><a href="#iso-25010">5. ISO/IEC 25010</a></li>
+                    <li><a href="#iso-27001">6. ISO/IEC 27001</a></li>
+                    <li><a href="#iso-9000">7. ISO 9000 Ailesi</a></li>
+                    <li><a href="#iso-9001-detay">8. ISO 9001 Detaylı İnceleme</a></li>
+                    <li><a href="#cmmi">9. CMMI</a></li>
+                    <li><a href="#ozet">10. Önemli Noktalar</a></li>
+                </ul>
+            </div>
+
+            <!-- Bölüm 1: ISO Genel Bakış -->
+            <section id="iso-overview" class="learn-section">
+                <h2>1. ISO Standartlarına Genel Bakış 🌍</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 ISO Nedir?</h3>
+                    <p><strong>ISO (International Organization for Standardization)</strong> - Uluslararası Standartlar Örgütü, dünya çapında standartlar geliştiren bir kuruluştur.</p>
+                    
+                    <div class="formula-box">
+                        <strong>ISO Standartlarının Amacı:</strong><br>
+                        ✅ <strong>Tutarlılık:</strong> Tüm dünyada aynı kalite seviyesi<br>
+                        ✅ <strong>Güvenilirlik:</strong> Standartlara uygun ürünler güvenilirdir<br>
+                        ✅ <strong>Rekabet:</strong> Uluslararası pazarda rekabet avantajı<br>
+                        ✅ <strong>Kalite:</strong> Sürekli iyileştirme ve kalite yönetimi
+                    </div>
+                    
+                    <div class="note-box info">
+                        <strong>💡 Hatırlatma:</strong> ISO standartları zorunlu değildir, ancak birçok şirket ve müşteri bunları tercih eder.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 2: ISO/IEC 12207 -->
+            <section id="iso-12207" class="learn-section">
+                <h2>2. ISO/IEC 12207 - Yazılım Yaşam Döngüsü Süreçleri 🔄</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Ne İşe Yarar?</h3>
+                    <p><strong>ISO/IEC 12207</strong>, yazılım yaşam döngüsü süreçlerini standartlaştırır.</p>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ Kapsadığı Süreçler:</h4>
+                        <ul>
+                            <li><strong>Geliştirme:</strong> Planlama, tasarım, kodlama</li>
+                            <li><strong>Bakım:</strong> Yazılım güncellemeleri ve düzeltmeler</li>
+                            <li><strong>Destek:</strong> Teknik destek ve dokümantasyon</li>
+                            <li><strong>Proje Yönetimi:</strong> Planlama, izleme, kontrol</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek:</strong> Bir mobil uygulama geliştirme projesinde:<br>
+                        📱 <strong>Planlama</strong> → Tasarım → Kodlama → Test → Bakım<br>
+                        Tüm bu aşamalar ISO/IEC 12207'ye uygun yürütülür.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>🎯 Amaç:</strong> Yazılım projelerinde tutarlılık ve kalite sağlamak
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 3: ISO/IEC 15288 -->
+            <section id="iso-15288" class="learn-section">
+                <h2>3. ISO/IEC 15288 - Sistem Yaşam Döngüsü Süreçleri 🛠️</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Ne İşe Yarar?</h3>
+                    <p><strong>ISO/IEC 15288</strong>, sistem yaşam döngüsü süreçlerini tanımlar (yazılım + donanım).</p>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ Kapsadığı Alanlar:</h4>
+                        <ul>
+                            <li><strong>Sistem Entegrasyonu:</strong> Yazılım ve donanımın birlikte çalışması</li>
+                            <li><strong>Doğrulama:</strong> Sistemin gereksinimleri karşıladığını kontrol</li>
+                            <li><strong>Geçerlilik:</strong> Sistemin gerçek ihtiyaçları karşıladığını test</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek:</strong> Otonom araç geliştirme projesinde:<br>
+                        🚗 Sensör sistemleri + Yazılım + Donanım → Entegre test edilir
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>🎯 Amaç:</strong> Sistem ve yazılım mühendisliğini entegre bir şekilde yönetmek
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 4: ISO/IEC 15504 (SPICE) -->
+            <section id="iso-15504" class="learn-section">
+                <h2>4. ISO/IEC 15504 (SPICE) - Süreç Olgunluk Değerlendirmesi 📊</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Ne İşe Yarar?</h3>
+                    <p><strong>SPICE (Software Process Improvement and Capability dEtermination)</strong>, yazılım süreçlerinin olgunluğunu ve yeterliliğini ölçer.</p>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ Olgunluk Seviyeleri:</h4>
+                        <ul>
+                            <li><strong>Level 0 - Incomplete:</strong> Süreç uygulanmıyor</li>
+                            <li><strong>Level 1 - Performed:</strong> Süreç uygulanıyor ama belgelenmemiş</li>
+                            <li><strong>Level 2 - Managed:</strong> Süreç planlanıyor ve izleniyor</li>
+                            <li><strong>Level 3 - Defined:</strong> Süreç standartlaştırılmış</li>
+                            <li><strong>Level 4 - Quantitatively Managed:</strong> Süreç ölçülüyor ve iyileştiriliyor</li>
+                            <li><strong>Level 5 - Optimizing:</strong> Süreç sürekli optimize ediliyor</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek:</strong> Bir yazılım şirketi süreçlerini değerlendirir ve "Level 3 - Defined" seviyesine ulaştırmak için çalışır.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>🎯 Amaç:</strong> Süreç iyileştirme ve performans değerlendirmesi için çerçeve sağlamak
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 5: ISO/IEC 25010 -->
+            <section id="iso-25010" class="learn-section">
+                <h2>5. ISO/IEC 25010 - Yazılım Kalite Özellikleri ⭐</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Ne İşe Yarar?</h3>
+                    <p><strong>ISO/IEC 25010</strong>, yazılım ürünlerinin kalite özelliklerini tanımlar (ISO/IEC 9126'nın güncellenmiş versiyonu).</p>
+                    
+                    <div class="comparison-box">
+                        <h4>📋 Kalite Kriterleri (8 Ana Özellik):</h4>
+                        <div class="comparison-item">
+                            <strong>1. Fonksiyonellik:</strong> Yazılımın gereksinimleri karşılaması
+                        </div>
+                        <div class="comparison-item">
+                            <strong>2. Güvenilirlik:</strong> Hatalardan kurtulma ve çalışmaya devam etme
+                        </div>
+                        <div class="comparison-item">
+                            <strong>3. Kullanılabilirlik:</strong> Kullanıcı dostu arayüz ve kolay öğrenme
+                        </div>
+                        <div class="comparison-item">
+                            <strong>4. Verimlilik:</strong> Kaynak kullanımı (CPU, bellek, ağ)
+                        </div>
+                        <div class="comparison-item">
+                            <strong>5. Bakım Kolaylığı:</strong> Kod okunabilirliği ve güncellenebilirlik
+                        </div>
+                        <div class="comparison-item">
+                            <strong>6. Taşınabilirlik:</strong> Farklı platformlara uyum
+                        </div>
+                        <div class="comparison-item">
+                            <strong>7. Güvenlik:</strong> Veri koruma ve yetkilendirme
+                        </div>
+                        <div class="comparison-item">
+                            <strong>8. Uyumluluk:</strong> Standartlara ve yasalara uyum
+                        </div>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek:</strong> Bir e-ticaret sitesi:<br>
+                        ✅ Hızlı yüklenme (Verimlilik)<br>
+                        ✅ Kullanıcı dostu tasarım (Kullanılabilirlik)<br>
+                        ✅ Hatasız çalışma (Güvenilirlik)<br>
+                        → ISO/IEC 25010 kalite kriterlerine uygundur
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 6: ISO/IEC 27001 -->
+            <section id="iso-27001" class="learn-section">
+                <h2>6. ISO/IEC 27001 - Bilgi Güvenliği Yönetim Sistemi 🔐</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 Ne İşe Yarar?</h3>
+                    <p><strong>ISO/IEC 27001</strong>, bilgi güvenliği yönetim sistemi standardıdır.</p>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ Kapsadığı Alanlar:</h4>
+                        <ul>
+                            <li><strong>Risk Yönetimi:</strong> Güvenlik risklerini belirleme ve yönetme</li>
+                            <li><strong>Güvenlik Kontrolleri:</strong> Şifreleme, erişim kontrolü, güvenlik testleri</li>
+                            <li><strong>Güvenlik Politikaları:</strong> Organizasyonel güvenlik kuralları</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek:</strong> Bir bankanın internet bankacılığı yazılımında:<br>
+                        🔒 Kullanıcı verilerinin şifrelenmesi<br>
+                        🔒 Güvenlik testlerinin yapılması<br>
+                        🔒 Erişim kontrolü ve yetkilendirme
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>🎯 Amaç:</strong> Yazılım ve sistemlerde güvenliği sağlamak için temel standart
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 7: ISO 9000 Ailesi -->
+            <section id="iso-9000" class="learn-section">
+                <h2>7. ISO 9000 Ailesi - Kalite Yönetim Standartları 📚</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 ISO 9000 Ailesi Nedir?</h3>
+                    <p>ISO 9000 ailesi, kalite yönetimi için uluslararası standartlar setidir.</p>
+                    
+                    <div class="comparison-box">
+                        <h4>📋 ISO 9000 Ailesi Üyeleri:</h4>
+                        <div class="comparison-item">
+                            <strong>ISO 9000:</strong> Kalite yönetimi ve terminolojisi (genel çerçeve)
+                        </div>
+                        <div class="comparison-item">
+                            <strong>ISO 9001:</strong> Kalite yönetim sistemi gereksinimleri (sertifikasyon için kullanılır)
+                        </div>
+                        <div class="comparison-item">
+                            <strong>ISO 90003:</strong> ISO 9001'in yazılım mühendisliğine uyarlanmış hali
+                        </div>
+                    </div>
+                    
+                    <div class="note-box info">
+                        <strong>💡 Önemli:</strong> ISO 9001, 1987'de ilk kez geliştirilmiş ve düzenli olarak güncellenmektedir (2008, 2015, vb.).
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 8: ISO 9001 Detaylı -->
+            <section id="iso-9001-detay" class="learn-section">
+                <h2>8. ISO 9001 - Detaylı İnceleme 🎯</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 ISO 9001 Nedir?</h3>
+                    <p><strong>ISO 9001</strong>, uluslararası kalite yönetim standardıdır. Tüm sektörler için uygulanabilir.</p>
+                    
+                    <div class="formula-box">
+                        <strong>🎯 Temel İlkeler (7 İlke):</strong><br>
+                        1️⃣ <strong>Müşteri Odaklılık:</strong> Müşteri memnuniyeti öncelik<br>
+                        2️⃣ <strong>Liderlik:</strong> Güçlü liderlik ve yönetim desteği<br>
+                        3️⃣ <strong>Çalışan Katılımı:</strong> Tüm çalışanların sürece dahil olması<br>
+                        4️⃣ <strong>Süreç Yaklaşımı:</strong> Süreçlerin sistematik yönetimi<br>
+                        5️⃣ <strong>Sürekli İyileştirme:</strong> Her zaman daha iyisini hedefleme<br>
+                        6️⃣ <strong>Kanıta Dayalı Karar Verme:</strong> Veri ve analiz kullanımı<br>
+                        7️⃣ <strong>İlişki Yönetimi:</strong> Tedarikçi ve müşteri ilişkileri
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>🔄 PDCA Döngüsü:</strong><br>
+                        <strong>P</strong>lanla → Hedefler belirlenir, süreçler tanımlanır<br>
+                        <strong>D</strong>o (Uygula) → Planlar uygulanır<br>
+                        <strong>C</strong>heck (Kontrol Et) → Performans ölçülür, raporlanır<br>
+                        <strong>A</strong>ct (Önlem Al) → İyileştirme yapılır
+                    </div>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ ISO 9001 Gereklilikleri:</h4>
+                        <ul>
+                            <li><strong>Dokümantasyon:</strong> Kalite politikası, prosedürler, kayıtlar</li>
+                            <li><strong>Yönetim Sorumluluğu:</strong> Liderlik ve stratejik hedefler</li>
+                            <li><strong>Kaynak Yönetimi:</strong> İnsan, altyapı, çevresel kaynaklar</li>
+                            <li><strong>Ürün/Hizmet Gerçekleştirme:</strong> Planlama, üretim, test</li>
+                            <li><strong>Ölçme ve İyileştirme:</strong> İç denetimler, düzeltici faaliyetler</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek - Öğrenci Bilgi Sistemi:</strong><br>
+                        <strong>Planla:</strong> Gereksinimler belirlenir (öğrenci kayıtları, not girişleri)<br>
+                        <strong>Uygula:</strong> Yazılım geliştirilir, birim testler yapılır<br>
+                        <strong>Kontrol Et:</strong> Sistem testleri ve kullanıcı kabul testleri<br>
+                        <strong>Önlem Al:</strong> Hatalar düzeltilir, sistem optimize edilir
+                    </div>
+                </div>
+
+                <!-- ISO 9001 Avantajları -->
+                <div class="concept-card">
+                    <h3>🔹 ISO 9001'in Avantajları</h3>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ Genel Avantajlar:</h4>
+                        <ul>
+                            <li>Müşteri güvenini artırır</li>
+                            <li>İş süreçlerinde verimlilik ve standardizasyon</li>
+                            <li>Hataların ve israfın azalması</li>
+                            <li>Uluslararası pazarda rekabet avantajı</li>
+                            <li>Çalışanların sorumluluk ve motivasyonunu artırır</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ Yazılımda Özel Avantajlar:</h4>
+                        <ul>
+                            <li>Müşteri memnuniyetini artırır ve güven sağlar</li>
+                            <li>Hataların erken tespiti ile maliyetleri azaltır</li>
+                            <li>Yazılım süreçlerinde standardizasyon ve şeffaflık</li>
+                            <li>Sürekli iyileştirme ile proje performansını yükseltir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ISO 9001 Sertifikası -->
+                <div class="concept-card">
+                    <h3>🔹 ISO 9001 Sertifikası</h3>
+                    
+                    <div class="formula-box">
+                        <strong>📜 Sertifika Süreci:</strong><br>
+                        1️⃣ <strong>Hazırlık:</strong> Dokümantasyon hazırlama<br>
+                        2️⃣ <strong>İç Denetim:</strong> Şirket içi denetim ve iyileştirme<br>
+                        3️⃣ <strong>Belgelendirme Denetimi:</strong> Bağımsız kuruluş tarafından denetim<br>
+                        4️⃣ <strong>Sertifika:</strong> 3 yıl geçerlidir, yıllık gözetim denetimleri
+                    </div>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Önemli:</strong> ISO 9001 sertifikası:<br>
+                        ✅ Kalite yönetim süreçlerine uyumu gösterir<br>
+                        ❌ Kusursuz yazılım garantisi VERMEZ<br>
+                        ❌ Otomatik olarak daha iyi yazılım demek DEĞİLDİR
+                    </div>
+                </div>
+
+                <!-- ISO 9001 Sınırlamaları -->
+                <div class="concept-card">
+                    <h3>🔹 ISO 9001'in Sınırlamaları</h3>
+                    
+                    <div class="note-box warning">
+                        <strong>⚠️ Dikkat:</strong> ISO 9001:<br>
+                        • Yazılım kalitesini doğrudan garanti etmez<br>
+                        • Belirli kodlama standartları veya test teknikleri zorunlu tutmaz<br>
+                        • Süreç uyumuna odaklanır, teknik detaylara değil<br>
+                        • Sertifikalı şirketler hata içeren yazılım üretebilir
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek:</strong> Bir şirket, her fonksiyonun en az bir kez test edilmesi kuralına uyabilir. Ancak bu, uç durumların test edilmediği anlamına gelebilir. Şirket ISO 9001 sertifikası alabilir ama yazılım hatalı olabilir.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bölüm 9: CMMI -->
+            <section id="cmmi" class="learn-section">
+                <h2>9. CMMI (Capability Maturity Model Integration) 📈</h2>
+                
+                <div class="concept-card">
+                    <h3>🔹 CMMI Nedir?</h3>
+                    <p><strong>CMMI</strong>, süreç olgunluğunu ve iyileştirmeyi değerlendirmek için kullanılır.</p>
+                    
+                    <div class="env-property-card">
+                        <h4>✅ 5 Olgunluk Seviyesi:</h4>
+                        <ul>
+                            <li><strong>Level 1 - Initial:</strong> Kaotik, öngörülemez süreçler</li>
+                            <li><strong>Level 2 - Managed:</strong> Proje seviyesinde yönetim</li>
+                            <li><strong>Level 3 - Defined:</strong> Organizasyon seviyesinde standart süreçler</li>
+                            <li><strong>Level 4 - Quantitatively Managed:</strong> Ölçümlü ve istatistiksel yönetim</li>
+                            <li><strong>Level 5 - Optimizing:</strong> Sürekli iyileştirme ve yenilik</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <strong>💡 Örnek:</strong> Bir oyun geliştirme şirketi, yazılım test süreçlerini olgunlaştırarak "Level 4 - Managed" seviyesine çıkarır.
+                    </div>
+                    
+                    <div class="formula-box">
+                        <strong>🎯 Amaç:</strong> Yazılım ve sistem geliştirme süreçlerine uygulanır, süreç gelişimini takip eder
+                    </div>
+                </div>
+            </section>
+
+            <!-- Özet Bölümü -->
+            <section id="ozet" class="learn-section">
+                <h2>10. Önemli Noktalar - Sınav Hazırlığı 📝</h2>
+                
+                <div class="key-points-section">
+                    <h3>🔑 ISO Standartları Özeti</h3>
+                    
+                    <div class="exam-prep-section">
+                        <h4>📚 Standartlar ve Amaçları:</h4>
+                        <ul>
+                            <li><strong>ISO/IEC 12207:</strong> Yazılım yaşam döngüsü süreçleri (geliştirme, bakım, destek)</li>
+                            <li><strong>ISO/IEC 15288:</strong> Sistem yaşam döngüsü (yazılım + donanım entegrasyonu)</li>
+                            <li><strong>ISO/IEC 15504 (SPICE):</strong> Süreç olgunluk değerlendirmesi (6 seviye)</li>
+                            <li><strong>ISO/IEC 25010:</strong> Yazılım kalite özellikleri (8 kriter: fonksiyonellik, güvenilirlik, kullanılabilirlik, vb.)</li>
+                            <li><strong>ISO/IEC 27001:</strong> Bilgi güvenliği yönetim sistemi (risk yönetimi, güvenlik kontrolleri)</li>
+                            <li><strong>ISO 9000:</strong> Kalite yönetimi terminolojisi (genel çerçeve)</li>
+                            <li><strong>ISO 9001:</strong> Kalite yönetim sistemi gereksinimleri (sertifikasyon için)</li>
+                            <li><strong>ISO 90003:</strong> ISO 9001'in yazılım mühendisliğine uyarlanmış hali</li>
+                            <li><strong>CMMI:</strong> Süreç olgunluğu değerlendirmesi (5 seviye)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="exam-prep-section">
+                        <h4>🎯 ISO 9001 Temel Bilgiler:</h4>
+                        <ul>
+                            <li><strong>7 Temel İlke:</strong> Müşteri odaklılık, liderlik, çalışan katılımı, süreç yaklaşımı, sürekli iyileştirme, kanıta dayalı karar verme, ilişki yönetimi</li>
+                            <li><strong>PDCA Döngüsü:</strong> Planla → Uygula → Kontrol Et → Önlem Al</li>
+                            <li><strong>Sertifika:</strong> 3 yıl geçerlidir, yıllık gözetim denetimleri yapılır</li>
+                            <li><strong>Avantajlar:</strong> Müşteri güveni, verimlilik, standardizasyon, rekabet avantajı</li>
+                            <li><strong>Sınırlamalar:</strong> Kusursuz yazılım garantisi vermez, süreç uyumuna odaklanır</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="exam-prep-section">
+                        <h4>💡 Önemli Hatırlatmalar:</h4>
+                        <ul>
+                            <li>ISO standartları zorunlu değildir, ancak birçok şirket bunları tercih eder</li>
+                            <li>ISO 9001, kalite yönetim süreçlerine uyumu gösterir, ancak teknik detayları belirtmez</li>
+                            <li>Sertifikalı şirketler hata içeren yazılım üretebilir</li>
+                            <li>Gerçek yazılım kalitesi için iyi kodlama, etkili test ve kullanıcı odaklılık gerekir</li>
+                            <li>ISO 9001 esneklik sağlar - küçük ve büyük şirketler farklı şekillerde uygulayabilir</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sonraki Adım -->
+            <div class="next-step">
+                <h3>🎯 Hazır mısın?</h3>
+                <p>Artık ISO standartları kavramlarını öğrendin! Şimdi bilgini test etmeye hazırsın.</p>
+                <a href="../../quiz.html" class="btn-start" onclick="setChapter4Questions()">Sınava Başla →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" class="back-to-top-btn" title="Yukarı Çık">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4L4 12H8V20H16V12H20L12 4Z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <style>
+        .back-to-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .back-to-top-btn.show {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top-btn:hover {
+            background: linear-gradient(135deg, var(--primary-end), var(--primary-start));
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .back-to-top-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.4);
+        }
+
+        .back-to-top-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .back-to-top-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+
+    <script src="../../courses-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChapterInfo();
+            setupSmoothScroll();
+            setupBackToTopButton();
+        });
+
+        function loadChapterInfo() {
+            const courseId = localStorage.getItem('currentCourse');
+            const chapterId = localStorage.getItem('currentChapter');
+            
+            if (!courseId || !chapterId) {
+                localStorage.setItem('currentCourse', 'kalite-guvenilirlik');
+                localStorage.setItem('currentChapter', 'kalite-chapter-4');
+                updateChapterInfo('kalite-guvenilirlik', 'kalite-chapter-4');
+                return;
+            }
+            
+            updateChapterInfo(courseId, chapterId);
+        }
+
+        function updateChapterInfo(courseId, chapterId) {
+            const course = coursesData.courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            const chapter = course.chapters.find(ch => ch.id === chapterId);
+            if (!chapter) return;
+            
+            const titleElement = document.getElementById('chapter-title');
+            const descElement = document.getElementById('chapter-description');
+            
+            if (titleElement) {
+                titleElement.textContent = `📖 ${chapter.title}`;
+            }
+            
+            if (descElement) {
+                descElement.textContent = chapter.description || 'ISO standartları, kalite yönetimi ve yazılım geliştirme süreçleri';
+            }
+        }
+
+        function setupSmoothScroll() {
+            const links = document.querySelectorAll('.table-of-contents a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        function setupBackToTopButton() {
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        function setChapter4Questions() {
+            localStorage.setItem('currentCourse', 'kalite-guvenilirlik');
+            localStorage.setItem('currentChapter', 'kalite-chapter-4');
+        }
+    </script>
+</body>
+</html>
+
